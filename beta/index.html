@@ -21,7 +21,6 @@
       if (!response.ok) throw new Error('Could not load the current LeptoCOS page.');
       let html = await response.text();
 
-      // Identify this copy as the beta preview.
       html = html.replace(
         '<title>LeptoCOS · A core outcome set for leptomeningeal disease</title>',
         '<title>LeptoCOS Beta · A core outcome set for leptomeningeal disease</title>'
@@ -31,19 +30,15 @@
         '<span class="wm"><span class="a">Lepto</span><span class="b">COS</span></span><span class="chip">Beta preview</span>'
       );
 
-      // Fix the Sankey denominator: 6 RANO-LM based + 16 study-specific = 22.
       html = html.replace('const total=21,W=2440,H=1120', 'const total=22,W=2440,H=1120');
 
-      // Use more precise standards/reporting language.
       html = html.replace(
         'Registered as <b style="color:var(--ink)">COMET Initiative Study 3224</b> · conducted in accordance with COMET, COS-STAD and PRISMA.',
         'Registered as <b style="color:var(--ink)">COMET Initiative Study 3224</b> · developed in accordance with COMET and COS-STAD guidance; the systematic review was reported in accordance with PRISMA.'
       );
 
-      // Match the heading to the content actually presented.
       html = html.replace('<h2>Methods and limitations</h2>', '<h2>Methods and scope</h2>');
 
-      // Show a fixed update date rather than the visitor’s current date.
       html = html.replace(
         '<footer><b>LeptoCOS</b> · a core outcome set for leptomeningeal disease · generated <span id="gd"></span>.',
         '<footer><b>LeptoCOS</b> · a core outcome set for leptomeningeal disease · Last updated July 21, 2026.'
@@ -53,7 +48,6 @@
         ''
       );
 
-      // Remove obsolete clicks that pointed to the deleted dataset table.
       html = html.replace(
         "el.querySelectorAll('.tm').forEach(t=>t.addEventListener('click',()=>{setCore(t.getAttribute('data-k'));gotoTable();}));",
         ''
@@ -74,6 +68,57 @@
         "s+='</svg>';el.innerHTML=s;el.querySelectorAll('.bar').forEach(b=>b.addEventListener('click',()=>onClick(b.getAttribute('data-k'))));",
         "s+='</svg>';el.innerHTML=s;"
       );
+
+      const feedbackCss = `
+<style>
+.lc-feedback-tab{position:fixed;right:0;top:52%;z-index:9998;border:0;border-radius:14px 0 0 14px;padding:14px 10px;background:#193f69;color:#fff;font:700 13px/1 system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:.02em;box-shadow:0 8px 24px rgba(20,44,73,.22);cursor:pointer;writing-mode:vertical-rl;transform:translateY(-50%) rotate(180deg);transition:background .2s ease,transform .2s ease}.lc-feedback-tab:hover{background:#245987;transform:translateY(-50%) rotate(180deg) translateX(2px)}
+.lc-feedback-panel{position:fixed;right:22px;top:50%;z-index:9999;width:min(370px,calc(100vw - 32px));max-height:calc(100vh - 32px);overflow:auto;border:1px solid rgba(25,63,105,.14);border-radius:22px;background:rgba(255,255,255,.98);box-shadow:0 24px 70px rgba(20,44,73,.24);transform:translate(120%, -50%);opacity:0;pointer-events:none;transition:transform .28s ease,opacity .22s ease;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}.lc-feedback-panel.is-open{transform:translate(0,-50%);opacity:1;pointer-events:auto}.lc-feedback-hero{position:relative;min-height:126px;padding:24px 24px 18px;overflow:hidden;color:#fff;background:linear-gradient(135deg,#173b64,#276d8a)}.lc-feedback-hero h3{position:relative;z-index:2;margin:0 38px 7px 0;font-size:22px;line-height:1.2}.lc-feedback-hero p{position:relative;z-index:2;margin:0;max-width:265px;color:rgba(255,255,255,.86);font-size:13px;line-height:1.5}.lc-feedback-close{position:absolute;right:14px;top:13px;z-index:3;width:32px;height:32px;border:1px solid rgba(255,255,255,.3);border-radius:50%;background:rgba(255,255,255,.1);color:#fff;font-size:21px;line-height:28px;cursor:pointer}.lc-feedback-network{position:absolute;inset:0;width:100%;height:100%;opacity:.5}.lc-feedback-network line{stroke:rgba(255,255,255,.42);stroke-width:1}.lc-feedback-network circle{fill:#fff;transform-box:fill-box;transform-origin:center;animation:lcPulse 2.8s ease-in-out infinite}.lc-feedback-network circle:nth-of-type(2){animation-delay:.45s}.lc-feedback-network circle:nth-of-type(3){animation-delay:.9s}.lc-feedback-network circle:nth-of-type(4){animation-delay:1.35s}.lc-feedback-network circle:nth-of-type(5){animation-delay:1.8s}@keyframes lcPulse{0%,100%{transform:scale(.78);opacity:.55}50%{transform:scale(1.38);opacity:1}}
+.lc-feedback-body{padding:22px 24px 24px}.lc-feedback-body>p{margin:0 0 16px;color:#33465b;font-size:14px;line-height:1.65}.lc-feedback-list{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 18px;padding:0;list-style:none}.lc-feedback-list li{padding:9px 10px;border-radius:11px;background:#f1f6f8;color:#355269;font-size:12px;line-height:1.35}.lc-feedback-note{margin:0 0 17px!important;padding:12px 13px;border-left:3px solid #4b91a8;border-radius:0 9px 9px 0;background:#f7fafb;color:#516477!important;font-size:12px!important}.lc-feedback-email{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;box-sizing:border-box;padding:13px 16px;border-radius:12px;background:#193f69;color:#fff!important;text-decoration:none!important;font-weight:750;font-size:14px;transition:background .2s ease,transform .2s ease}.lc-feedback-email:hover{background:#245987;transform:translateY(-1px)}.lc-feedback-email svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.9}.lc-feedback-address{margin:11px 0 0!important;text-align:center;color:#748294!important;font-size:11px!important}@media(max-width:600px){.lc-feedback-tab{top:auto;bottom:18px;right:16px;writing-mode:horizontal-tb;transform:none;border-radius:999px;padding:12px 17px}.lc-feedback-tab:hover{transform:translateY(-1px)}.lc-feedback-panel{right:16px;top:auto;bottom:16px;transform:translateY(115%);max-height:calc(100vh - 32px)}.lc-feedback-panel.is-open{transform:translateY(0)}.lc-feedback-list{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.lc-feedback-tab,.lc-feedback-panel,.lc-feedback-email{transition:none}.lc-feedback-network circle{animation:none}}
+</style>`;
+
+      const feedbackMarkup = `
+<button class="lc-feedback-tab" id="lcFeedbackTab" type="button" aria-controls="lcFeedbackPanel" aria-expanded="false">Feedback</button>
+<aside class="lc-feedback-panel" id="lcFeedbackPanel" role="dialog" aria-modal="false" aria-labelledby="lcFeedbackTitle" aria-hidden="true">
+  <div class="lc-feedback-hero">
+    <svg class="lc-feedback-network" viewBox="0 0 370 126" aria-hidden="true" preserveAspectRatio="none">
+      <line x1="250" y1="18" x2="318" y2="49"/><line x1="318" y1="49" x2="284" y2="103"/><line x1="284" y1="103" x2="214" y2="75"/><line x1="214" y1="75" x2="250" y2="18"/><line x1="214" y1="75" x2="348" y2="89"/><line x1="318" y1="49" x2="348" y2="89"/>
+      <circle cx="250" cy="18" r="4"/><circle cx="318" cy="49" r="5"/><circle cx="284" cy="103" r="4"/><circle cx="214" cy="75" r="5"/><circle cx="348" cy="89" r="4"/>
+    </svg>
+    <button class="lc-feedback-close" id="lcFeedbackClose" type="button" aria-label="Close feedback panel">×</button>
+    <h3 id="lcFeedbackTitle">Help improve LeptoCOS</h3>
+    <p>Thoughtful feedback helps us make this resource clearer, more accurate, and more useful to the LMD community.</p>
+  </div>
+  <div class="lc-feedback-body">
+    <p>Thank you for taking the time to review LeptoCOS. We welcome comments from patients, caregivers, clinicians, researchers, advocates, and other stakeholders.</p>
+    <ul class="lc-feedback-list">
+      <li>Potential errors or omissions</li><li>Outcome definitions or terminology</li><li>Clarity and usability</li><li>Collaboration opportunities</li>
+    </ul>
+    <p class="lc-feedback-note">Please do not include private health information. This inbox is for project feedback and is not monitored for medical advice or urgent concerns.</p>
+    <a class="lc-feedback-email" href="mailto:siavash@msu.edu?subject=LeptoCOS%20website%20feedback&amp;body=Name%20(optional)%3A%0A%0ARole%20or%20affiliation%20(optional)%3A%0A%0AType%20of%20feedback%3A%0A%0AComments%3A%0A%0ARelevant%20page%20or%20section%20(optional)%3A%0A" aria-label="Email feedback to the LeptoCOS team">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 6.5h17v11h-17z"/><path d="m4 7 8 6 8-6"/></svg>
+      Email the LeptoCOS team
+    </a>
+    <p class="lc-feedback-address">siavash@msu.edu</p>
+  </div>
+</aside>`;
+
+      const feedbackScript = `
+<script>
+(function(){
+  const tab=document.getElementById('lcFeedbackTab');
+  const panel=document.getElementById('lcFeedbackPanel');
+  const close=document.getElementById('lcFeedbackClose');
+  if(!tab||!panel||!close)return;
+  function setOpen(open){panel.classList.toggle('is-open',open);panel.setAttribute('aria-hidden',String(!open));tab.setAttribute('aria-expanded',String(open));if(open)close.focus();}
+  tab.addEventListener('click',()=>setOpen(!panel.classList.contains('is-open')));
+  close.addEventListener('click',()=>{setOpen(false);tab.focus();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&panel.classList.contains('is-open')){setOpen(false);tab.focus();}});
+})();
+<\/script>`;
+
+      html = html.replace('</head>', feedbackCss + '</head>');
+      html = html.replace('</body>', feedbackMarkup + feedbackScript + '</body>');
 
       document.open();
       document.write(html);
