@@ -92,6 +92,18 @@
   .legend{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:12px;font-size:12.5px;color:var(--muted)}
   .legend .s{display:inline-flex;align-items:center;gap:6px}.legend .s i{width:11px;height:11px;border-radius:3px}
   .hint{font-size:12px;color:#6B7480;margin-top:10px}
+  .cmx-wrap{overflow-x:auto;margin:2px 0 0}
+  .cmx{border-collapse:collapse;width:100%;min-width:540px;font-size:13px}
+  .cmx thead th{font-weight:700;color:var(--ink);font-size:12px;padding:0 8px 9px;text-align:center;line-height:1.15}
+  .cmx thead th small{display:block;font-weight:500;color:var(--muted);font-size:10px;letter-spacing:.02em;margin-top:2px}
+  .cmx thead th.ncol{color:var(--muted)}
+  .cmx td{padding:10px 8px;text-align:center;border:2px solid #fff}
+  .cmx td.grp{writing-mode:vertical-rl;transform:rotate(180deg);text-transform:uppercase;letter-spacing:.12em;font-size:10px;font-weight:700;color:var(--muted);border:none;width:20px;padding:0 2px}
+  .cmx td.rl{text-align:right;color:var(--ink2);font-weight:600;white-space:nowrap;border:none;padding-right:14px;font-size:12.5px}
+  .cmx td.val{font-weight:700;font-variant-numeric:tabular-nums;border-radius:3px}
+  .cmx td.ncol{color:var(--muted);font-weight:600;border:none;font-variant-numeric:tabular-nums}
+  .cmx tfoot td{border:none;color:var(--muted);font-weight:600;font-size:12px;padding:11px 8px 0;font-variant-numeric:tabular-nums}
+  .cmx tfoot td.rl{padding-right:14px}
 
   /* flowchart */
   .flow{display:flex;align-items:stretch;margin-top:14px}
@@ -236,7 +248,7 @@
     <h2>Why leptomeningeal disease needs a core outcome set</h2>
     <p class="dek">Leptomeningeal disease is a late-stage complication of cancer. It carries a poor prognosis and is rising in incidence.
       Trials are small and scattered over three decades. When they do not share an outcome language, their results
-      cannot be pooled, compared, or graded for guidelines. A core outcome set is the agreed minimum set of outcomes
+      cannot readily be pooled, compared, or graded for guidelines. A core outcome set is the agreed minimum set of outcomes
       every trial should measure and report, not a limit on what else may be reported.</p>
     <div class="callouts">
       <div class="call"><h3>Fragmented reporting</h3><p>316 outcomes reduce to 55 standardised outcomes; only 3 are reported by at least half of the trials.</p></div>
@@ -306,11 +318,44 @@
   <section id="hetero">
     <p class="lbl">Finding 1 · inconsistent definitions</p>
     <h2>Leptomeningeal treatment response is defined inconsistently</h2>
-    <p class="dek">Agreeing that an outcome matters is not enough. The most-reported response outcome is defined in many
+    <p class="dek">Even the most-reported response outcome is defined in many
       different ways; survival is timed inconsistently; and most outcomes name no assessor.</p>
     <div class="card"><p class="cn" style="font-size:14.5px;line-height:1.5">Reported by <b style="color:#B23A48">22 of 41 trials</b>; only <b style="color:#1F2A36">6 used a RANO-LM-based standard</b> (5 RANO-LM, 1 modified); the other <b style="color:#B23A48">16 were study-specific</b>.</p>
       <div id="sankey"></div>
       <p class="hint">&middot; N = number of trials using that definition; definitions without a number were each used by one trial.</p></div>
+  </section>
+
+  <section id="compartment">
+    <p class="lbl">Finding 2 &middot; response by compartment</p>
+    <h2>Where each response outcome is measured</h2>
+    <p class="dek">Response and progression outcomes are reported for different anatomical compartments: leptomeningeal,
+      intracranial (brain parenchyma), extracranial, or overall. The matrix maps the 164 response and progression outcomes
+      by metric and by the compartment each assessment targets. Leptomeningeal is the most common compartment (71 of 164).</p>
+    <div class="card">
+      <p class="ct">Response and progression outcomes by compartment</p>
+      <p class="cn">Metric (rows) by the compartment each assessment targets (columns). Each cell counts outcomes; darker means more.</p>
+      <div class="cmx-wrap">
+        <table class="cmx">
+          <thead>
+            <tr><th></th><th></th><th>Leptomeningeal<small>LM</small></th><th>Intracranial<small>brain</small></th><th>Extracranial<small>systemic</small></th><th>Overall<small>IC + EC</small></th><th class="ncol">n</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="grp" rowspan="4">Response</td><td class="rl">Response</td><td class="val" style="background:#1A4A80;color:#FFFFFF">23</td><td class="val" style="background:#7594B7;color:#FFFFFF">10</td><td class="val" style="background:#6687AE;color:#FFFFFF">12</td><td class="val" style="background:#96AFCB;color:#12345E">6</td><td class="ncol">51</td></tr>
+            <tr><td class="rl">DCR</td><td class="val" style="background:#96AFCB;color:#12345E">6</td><td class="val" style="background:#B3C6DC;color:#12345E">3</td><td class="val" style="background:#A0B6D0;color:#12345E">5</td><td class="val" style="background:#A9BED6;color:#12345E">4</td><td class="ncol">18</td></tr>
+            <tr><td class="rl">CBR</td><td class="val" style="background:#CBDAEB;color:#12345E">1</td><td class="val" style="background:#B3C6DC;color:#12345E">3</td><td class="val" style="background:#BFD0E3;color:#12345E">2</td><td class="val" style="background:#BFD0E3;color:#12345E">2</td><td class="ncol">8</td></tr>
+            <tr><td class="rl">DoR</td><td class="val" style="background:#7D9ABC;color:#FFFFFF">9</td><td class="val" style="background:#A9BED6;color:#12345E">4</td><td class="val" style="background:#B3C6DC;color:#12345E">3</td><td class="val" style="background:#A0B6D0;color:#12345E">5</td><td class="ncol">21</td></tr>
+            <tr><td class="grp" rowspan="3">Progression</td><td class="rl">PFS</td><td class="val" style="background:#6687AE;color:#FFFFFF">12</td><td class="val" style="background:#96AFCB;color:#12345E">6</td><td class="val" style="background:#A0B6D0;color:#12345E">5</td><td class="val" style="background:#7594B7;color:#FFFFFF">10</td><td class="ncol">33</td></tr>
+            <tr><td class="rl">TTP</td><td class="val" style="background:#7D9ABC;color:#FFFFFF">9</td><td class="val" style="background:#BFD0E3;color:#12345E">2</td><td class="val" style="background:#CBDAEB;color:#12345E">1</td><td class="val" style="background:#CBDAEB;color:#12345E">1</td><td class="ncol">13</td></tr>
+            <tr><td class="rl">TTR</td><td class="val" style="background:#B3C6DC;color:#12345E">3</td><td class="val" style="background:#BFD0E3;color:#12345E">2</td><td class="val" style="background:#BFD0E3;color:#12345E">2</td><td class="val" style="background:#B3C6DC;color:#12345E">3</td><td class="ncol">10</td></tr>
+            <tr><td class="grp" rowspan="1">Other</td><td class="rl">Other</td><td class="val" style="background:#85A1C1;color:#FFFFFF">8</td><td class="val" style="background:#BFD0E3;color:#12345E">2</td><td class="val" style="background:#EEF0F3;color:#B9C0CB">0</td><td class="val" style="background:#EEF0F3;color:#B9C0CB">0</td><td class="ncol">10</td></tr>
+          </tbody>
+          <tfoot>
+            <tr><td></td><td class="rl">All compartments</td><td>71</td><td>32</td><td>30</td><td>31</td><td class="ncol">164</td></tr>
+          </tfoot>
+        </table>
+      </div>
+      <p class="hint">Intracranial = brain parenchyma. The 152 whole-patient outcomes (survival, toxicity, neurological function, biomarkers, quality of life) are not compartment-specific and are not shown.</p>
+    </div>
   </section>
 
   <section id="priority">
