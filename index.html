@@ -229,7 +229,6 @@
 
 <div class="wrap">
   <div class="kpis" id="kpis"></div>
-  <p class="hint">Every figure is computed live from the dataset embedded in this file. Percentages are of 312 outcomes unless noted.</p>
 
   <section id="why">
     <p class="lbl">Background</p>
@@ -295,10 +294,10 @@
   <section id="coverage">
     <p class="lbl">Coverage</p>
     <h2>Outcomes reported by each trial</h2>
-    <p class="dek">The coverage matrix: every standardised outcome (a row) against every trial (a column). A filled cell
+    <p class="dek">This grid shows every standardised outcome (a row) against every trial (a column). A filled cell
       means that trial reported that outcome. Outcomes are ordered most-reported at the top; the trials run left to right
       by year (1991 to 2025), so the shared few sit up top and you can see when each outcome came into use.</p>
-    <div class="card"><p class="ct">Outcome × trial coverage matrix</p><p class="cn">55 standardised outcomes (rows) × 41 trials (columns, left to right by year); a filled cell = reported, coloured by COMET core area; the number at right is trials reporting. Hover a cell for the trial and outcome.</p><div id="genome"></div></div>
+    <div class="card"><p class="ct">Which of the 41 trials reported each outcome</p><p class="cn">Rows are the 55 standardised outcomes; columns are the 41 trials, left to right by year. A filled cell means reported, coloured by COMET core area; the number at right is how many trials reported it. Hover a cell for details.</p><div id="genome"></div></div>
   </section>
 
 
@@ -311,11 +310,6 @@
     <div class="card"><p class="cn" style="font-size:14.5px;line-height:1.5">Reported by <b style="color:#B23A48">21 of 41 trials</b>; only <b style="color:#1F2A36">6 used a RANO-LM based standard</b> (5 RANO-LM, 1 modified); the other <b style="color:#B23A48">15 were study-specific</b>.</p>
       <div id="sankey"></div>
       <p class="hint">&middot; N = number of trials using that definition; definitions without a number were each used by one trial.</p></div>
-    <div class="stats" style="margin-top:16px">
-      <div class="stat"><div class="big">17</div><div class="t">definitions of LM response</div><p>across 20 trials; 6 RANO-LM, 14 study-specific.</p></div>
-      <div class="stat"><div class="big">37%</div><div class="t">of survival trials omit the index date</div><p>overall survival is timed from ~18 different index dates.</p></div>
-      <div class="stat"><div class="big">57%</div><div class="t">of outcomes name no assessor</div><p>blinded central review appears in only a few trials.</p></div>
-    </div>
   </section>
 
   <section id="priority">
@@ -372,7 +366,7 @@
       <p>LeptoCOS invites the Society for Neuro-Oncology to support the initiative and help disseminate the resulting core outcome set to its members. A two-round eDelphi across all stakeholder groups will prioritise this long list into the core set; this companion presents the evidence, it does not collect votes. SNO&#8217;s engagement brings a usable standard for a high-mortality, under-served disease, a hand in setting it with members and patients at the consensus table before the set is fixed, and continuity with COSMIC, the meningioma core outcome set built by the same COMET method.</p>
     </div>
     <footer><b>LeptoCOS</b> · a core outcome set for leptomeningeal disease · generated <span id="gd"></span>.
-      Pre-Delphi working document; figures computed live from the verified dataset. Please do not cite as a core outcome set.</footer>
+      Pre-Delphi working document; figures derived from the study dataset. Please do not cite as a core outcome set.</footer>
   </section>
 </div>
 
@@ -400,8 +394,7 @@ document.getElementById('gd').textContent=new Date().toLocaleDateString('en-US',
 const subDomOfTerm={};Object.entries(TERM_META).forEach(([t,m])=>subDomOfTerm[t]=m.sub);
 const coreOfSub={};DATA.forEach(d=>{if(d.sub&&!coreOfSub[d.sub])coreOfSub[d.sub]=d.core;});
 
-const kpis=[{n:N,l:'reported outcomes'},{n:studies.length,l:'included studies'},{n:terms.length,l:'standardised terms'},
-  {n:notStated+' ('+Math.round(notStated/N*100)+'%)',l:'no stated priority',f:1},{n:qol+'/'+studies.length,l:'report quality of life',f:1},{n:(coreStudies['Resource use']||0)+'/'+studies.length,l:'report resource use',f:1}];
+const kpis=[{n:N,l:'reported outcomes'},{n:studies.length,l:'included studies'},{n:terms.length,l:'standardised terms'}];
 document.getElementById('kpis').innerHTML=kpis.map(k=>`<div class="kpi ${k.f?'flag':''}"><div class="n">${k.n}</div><div class="l">${k.l}</div></div>`).join('');
 
 /* ---- matrix (Figure 2) ---- */
