@@ -76,22 +76,44 @@ function renderCoreGapLarge(){
         '<tr><th class="rl"></th><th>Leptomeningeal<small>LM</small></th><th>Intracranial<small>brain</small></th><th>Extracranial<small>systemic</small></th><th>Overall<small>IC + EC</small></th><th class="ncol">n</th></tr>',
         '<tr><th class="group-col"></th><th class="rl">Metric</th><th>Leptomeningeal<small>LM</small></th><th>Intracranial<small>brain</small></th><th>Extracranial<small>systemic</small></th><th>Overall<small>IC + EC</small></th><th class="ncol">n</th></tr>'
       );
-      html=html.replace('            <tr class="ghdr"><td colspan="6">Response</td></tr>\n            <tr><td class="rl">Response</td>','            <tr class="group-start"><td class="groupcell" rowspan="5">Response</td><td class="rl">Response</td>');
-      html=html.replace('            <tr class="ghdr"><td colspan="6">Progression</td></tr>\n            <tr><td class="rl">PFS</td>','            <tr class="group-start"><td class="groupcell" rowspan="2">Progression</td><td class="rl">PFS</td>');
-      html=html.replace('            <tr class="ghdr"><td colspan="6">Other</td></tr>\n            <tr><td class="rl">Other</td>','            <tr class="group-start"><td class="groupcell" rowspan="1">Other</td><td class="rl">Other</td>');
-      html=html.replace('<tr><td class="rl">All compartments</td><td>71</td><td>32</td><td>30</td><td>31</td><td class="ncol">164</td></tr>','<tr><td class="group-total"></td><td class="rl">All compartments</td><td>71</td><td>32</td><td>30</td><td>31</td><td class="ncol">164</td></tr>');
+      html=html.replace(
+        '            <tr class="ghdr"><td colspan="6">Response</td></tr>\n            <tr><td class="rl">Response</td>',
+        '            <tr class="group-start response-start"><td class="groupcell" rowspan="5"><span>Response</span></td><td class="rl">Response</td>'
+      );
+      html=html.replace(
+        '            <tr class="ghdr"><td colspan="6">Progression</td></tr>\n            <tr><td class="rl">PFS</td>',
+        '            <tr class="group-start section-start"><td class="groupcell" rowspan="2"><span>Progression</span></td><td class="rl">PFS</td>'
+      );
+      html=html.replace(
+        '            <tr class="ghdr"><td colspan="6">Other</td></tr>\n            <tr><td class="rl">Other</td>',
+        '            <tr class="group-start section-start"><td class="groupcell" rowspan="1"><span>Other</span></td><td class="rl">Other</td>'
+      );
+      html=html.replace(
+        '<tr><td class="rl">All compartments</td><td>71</td><td>32</td><td>30</td><td>31</td><td class="ncol">164</td></tr>',
+        '<tr><td class="group-total"></td><td class="rl">All compartments</td><td>71</td><td>32</td><td>30</td><td>31</td><td class="ncol">164</td></tr>'
+      );
 
       const layoutCss=`
 <style id="lc-layout-fixes">
 #landscape #chart-gap{margin-top:18px;padding:4px 0 8px}
 #landscape #chart-gap svg{display:block!important;width:100%!important;min-height:350px!important}
-#compartment .cmx{min-width:735px!important}
-#compartment .cmx th.group-col{width:112px!important;min-width:112px!important;padding:0!important;cursor:default!important}
+#compartment .cmx{min-width:760px!important;border-collapse:separate!important;border-spacing:0!important}
+#compartment .cmx th.group-col{width:104px!important;min-width:104px!important;padding:0!important;cursor:default!important;border-bottom:1px solid var(--line)!important}
 #compartment .cmx th.rl{text-align:left!important;padding-left:16px!important}
-#compartment .cmx td.groupcell{width:112px!important;min-width:112px!important;padding:12px 14px!important;vertical-align:middle!important;text-align:center!important;border:2px solid #fff!important;border-right:1px solid #DDE4EC!important;background:#F6F8FB!important;color:#5C6675!important;font-size:11px!important;font-weight:800!important;letter-spacing:.13em!important;text-transform:uppercase!important;line-height:1.35!important}
+#compartment .cmx td.groupcell{
+  width:104px!important;min-width:104px!important;padding:12px 12px 0 0!important;vertical-align:top!important;text-align:right!important;
+  border:0!important;border-right:1px solid #E5EAF0!important;background:transparent!important;color:#5C6675!important;
+}
+#compartment .cmx td.groupcell span{
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;padding:5px 9px!important;
+  border:1px solid #E1E7EE!important;border-radius:999px!important;background:#F7F9FB!important;color:#5C6675!important;
+  font-size:9.5px!important;font-weight:800!important;letter-spacing:.12em!important;text-transform:uppercase!important;line-height:1.2!important;
+}
 #compartment .cmx td.rl{padding-left:16px!important}
-#compartment .cmx tr.group-start td{border-top-width:8px!important}
-#compartment .cmx td.group-total{border:none!important;border-top:1px solid var(--line)!important;background:#fff!important}
+#compartment .cmx tr.section-start td:not(.groupcell){border-top:18px solid #fff!important}
+#compartment .cmx tr.section-start td.groupcell{padding-top:30px!important}
+#compartment .cmx tr.response-start td:not(.groupcell){border-top-width:2px!important}
+#compartment .cmx td.group-total{border:0!important;border-right:1px solid #E5EAF0!important;border-top:1px solid var(--line)!important;background:#fff!important}
 @media(max-width:860px){#landscape #chart-gap svg{min-height:310px!important}}
 </style>`;
 
@@ -107,9 +129,9 @@ function renderCoreGapLarge(){
 .lc-feedback-hero p{position:relative!important;z-index:2!important;margin:0!important;max-width:310px!important;color:rgba(255,255,255,.88)!important;font-size:13.5px!important;line-height:1.5!important}
 #lcFeedbackClose{position:absolute!important;right:15px!important;top:14px!important;z-index:3!important;width:34px!important;height:34px!important;margin:0!important;padding:0!important;border:1px solid rgba(255,255,255,.34)!important;border-radius:50%!important;background:rgba(255,255,255,.12)!important;color:#fff!important;font-size:22px!important;cursor:pointer!important}
 .lc-feedback-network{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;opacity:.5!important}.lc-feedback-network line{stroke:rgba(255,255,255,.42)!important;stroke-width:1!important}.lc-feedback-network circle{fill:#fff!important;transform-box:fill-box!important;transform-origin:center!important;animation:lcPulse 2.8s ease-in-out infinite!important}.lc-feedback-network circle:nth-of-type(2){animation-delay:.45s!important}.lc-feedback-network circle:nth-of-type(3){animation-delay:.9s!important}.lc-feedback-network circle:nth-of-type(4){animation-delay:1.35s!important}.lc-feedback-network circle:nth-of-type(5){animation-delay:1.8s!important}@keyframes lcPulse{0%,100%{transform:scale(.78);opacity:.55}50%{transform:scale(1.38);opacity:1}}
-.lc-feedback-body{padding:22px 24px 24px!important}.lc-feedback-intro{margin:0 0 15px!important;color:#33465b!important;font-size:13.5px!important;line-height:1.55!important}.lc-feedback-form{display:grid!important;gap:13px!important}.lc-field{display:grid!important;gap:6px!important}.lc-field-row{display:grid!important;grid-template-columns:1fr 1fr!important;gap:11px!important}.lc-field label{color:#294966!important;font-size:12px!important;font-weight:750!important}.lc-field input,.lc-field select,.lc-field textarea{display:block!important;width:100%!important;box-sizing:border-box!important;margin:0!important;border:1px solid #cbd8e2!important;border-radius:11px!important;background:#fff!important;color:#203247!important;font:13.5px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif!important;padding:11px 12px!important;outline:none!important}.lc-field textarea{min-height:118px!important;resize:vertical!important}.lc-field input:focus,.lc-field select:focus,.lc-field textarea:focus{border-color:#4b91a8!important;box-shadow:0 0 0 3px rgba(75,145,168,.14)!important}.lc-feedback-note{margin:1px 0 0!important;padding:11px 13px!important;border-left:3px solid #4b91a8!important;border-radius:0 9px 9px 0!important;background:#f7fafb!important;color:#586b7e!important;font-size:11.5px!important;line-height:1.45!important}.lc-feedback-submit{display:flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;width:100%!important;box-sizing:border-box!important;margin:0!important;border:0!important;padding:14px 17px!important;border-radius:12px!important;background:#193f69!important;color:#fff!important;font-weight:780!important;font-size:14.5px!important;cursor:pointer!important}.lc-feedback-status{min-height:18px!important;margin:0!important;text-align:center!important;color:#566c80!important;font-size:11.5px!important;line-height:1.4!important}.lc-honeypot{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;overflow:hidden!important}
+.lc-feedback-body{padding:22px 24px 24px!important}.lc-feedback-intro{margin:0 0 15px!important;color:#33465b!important;font-size:13.5px!important;line-height:1.55!important}.lc-feedback-form{display:grid!important;gap:13px!important}.lc-field{display:grid!important;gap:6px!important}.lc-field-row{display:grid!important;grid-template-columns:1fr 1fr!important;gap:11px!important}.lc-field label{color:#294966!important;font-size:12px!important;font-weight:750!important}.lc-field input,.lc-field select,.lc-field textarea{display:block!important;width:100%!important;box-sizing:border-box!important;margin:0!important;border:1px solid #cbd8e2!important;border-radius:11px!important;background:#fff!important;color:#203247!important;font:13.5px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif!important;padding:11px 12px!important;outline:none!important}.lc-field textarea{min-height:118px!important;resize:vertical!important}.lc-field input:focus,.lc-field select:focus,.lc-field textarea:focus{border-color:#4b91a8!important;box-shadow:0 0 0 3px rgba(75,145,168,.14)!important}.lc-feedback-note{margin:1px 0 0!important;padding:11px 13px!important;border-left:3px solid #4b91a8!important;border-radius:0 9px 9px 0!important;background:#f7fafb!important;color:#586b7e!important;font-size:11.5px!important;line-height:1.45!important}.lc-feedback-submit{display:flex!important;align-items:center!important;justify-content:center!important;width:100%!important;box-sizing:border-box!important;margin:0!important;border:0!important;padding:14px 17px!important;border-radius:12px!important;background:#193f69!important;color:#fff!important;font-weight:780!important;font-size:14.5px!important;cursor:pointer!important}.lc-feedback-status{min-height:18px!important;margin:0!important;text-align:center!important;color:#566c80!important;font-size:11.5px!important;line-height:1.4!important}
 @media(max-width:600px){#lcFeedbackTab{right:18px!important;bottom:18px!important;min-width:162px!important;min-height:56px!important;font-size:15px!important}#lcFeedbackPanel{right:18px!important;bottom:88px!important;width:calc(100vw - 36px)!important;max-height:calc(100vh - 112px)!important}.lc-field-row{grid-template-columns:1fr!important}}
-@media(prefers-reduced-motion:reduce){#lcFeedbackPanel{transition:none!important}.lc-feedback-network circle{animation:none!important}}
+@media(prefers-reduced-motion:reduce){#lcFeedbackTab,#lcFeedbackPanel{transition:none!important}.lc-feedback-network circle{animation:none!important}}
 </style>`;
 
       const feedbackMarkup=`
