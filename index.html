@@ -486,10 +486,10 @@ function sankey(){
 function allFreqChart(){
   const el=document.getElementById('chart-allfreq');if(!el)return;
   const items=Object.entries(studyPerTerm).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]));
-  const W=1100,padL=262,padR=46,rowH=22,top=10,H=top*2+items.length*rowH,mx=Math.max(...items.map(i=>i[1]),1),bw=W-padL-padR;
+  const W=1100,padL=300,padR=46,rowH=22,top=10,H=top*2+items.length*rowH,mx=Math.max(...items.map(i=>i[1]),1),bw=W-padL-padR;
   let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Data figure; described in the caption above.">`;
   items.forEach(([t,v],i)=>{const y=top+i*rowH,bh=15,w=Math.max(1,v/mx*bw),col=CORE_COL[(TERM_META[t]||{}).core]||'#8894A2';
-    s+=`<text x="${padL-9}" y="${y+bh/2+4}" text-anchor="end" font-size="12" fill="#2A303B">${esc(t.length>36?t.slice(0,35)+'…':t)}</text>`;
+    s+=`<text x="${padL-9}" y="${y+bh/2+4}" text-anchor="end" font-size="12" fill="#2A303B">${esc(t)}</text>`;
     s+=`<rect class="bar" x="${padL}" y="${y}" width="${w}" height="${bh}" rx="2" fill="${col}" data-k="${esc(t)}"><title>${esc(t)}: ${v} trial${v===1?'':'s'}</title></rect>`;
     s+=`<text x="${padL+w+6}" y="${y+bh/2+4}" font-size="11" fill="#5C6675">${v}</text>`;});
   s+='</svg>';el.innerHTML=s;
