@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>LeptoCOS Beta</title>
+  <style>
+    body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:#171B23;background:#fff}
+    .loading{max-width:720px;margin:80px auto;padding:0 24px;line-height:1.6}
+    .error{color:#9A431B}
+  </style>
+</head>
+<body>
+  <div class="loading" id="status">Loading the LeptoCOS beta preview…</div>
+  <script>
+  (async function () {
+    const status = document.getElementById('status');
+    try {
+      const response = await fetch('../index.html', { cache: 'no-store' });
+      if (!response.ok) throw new Error('Could not load the current LeptoCOS page.');
+      let html = await response.text();
+
+      // Identify this copy as the beta preview.
+      html = html.replace(
+        '<title>LeptoCOS · A core outcome set for leptomeningeal disease</title>',
+        '<title>LeptoCOS Beta · A core outcome set for leptomeningeal disease</title>'
+      );
+      html = html.replace(
+        '<span class="wm"><span class="a">Lepto</span><span class="b">COS</span></span>',
+        '<span class="wm"><span class="a">Lepto</span><span class="b">COS</span></span><span class="chip">Beta preview</span>'
+      );
+
+      // Fix the Sankey denominator: 6 RANO-LM based + 16 study-specific = 22.
+      html = html.replace('const total=21,W=2440,H=1120', 'const total=22,W=2440,H=1120');
+
+      // Use more precise standards/reporting language.
+      html = html.replace(
+        'Registered as <b style="color:var(--ink)">COMET Initiative Study 3224</b> · conducted in accordance with COMET, COS-STAD and PRISMA.',
+        'Registered as <b style="color:var(--ink)">COMET Initiative Study 3224</b> · developed in accordance with COMET and COS-STAD guidance; the systematic review was reported in accordance with PRISMA.'
+      );
+
+      // Match the heading to the content actually presented.
+      html = html.replace('<h2>Methods and limitations</h2>', '<h2>Methods and scope</h2>');
+
+      // Show a fixed update date rather than the visitor’s current date.
+      html = html.replace(
+        '<footer><b>LeptoCOS</b> · a core outcome set for leptomeningeal disease · generated <span id="gd"></span>.',
+        '<footer><b>LeptoCOS</b> · a core outcome set for leptomeningeal disease · Last updated July 21, 2026.'
+      );
+      html = html.replace(
+        "document.getElementById('gd').textContent=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});",
+        ''
+      );
+
+      // Remove obsolete clicks that pointed to the deleted dataset table.
+      html = html.replace(
+        "el.querySelectorAll('.tm').forEach(t=>t.addEventListener('click',()=>{setCore(t.getAttribute('data-k'));gotoTable();}));",
+        ''
+      );
+      html = html.replace(
+        "el.querySelectorAll('.bar').forEach(b=>b.addEventListener('click',()=>{state.search=b.getAttribute('data-k');document.getElementById('search').value=state.search;gotoTable();render();}));",
+        ''
+      );
+      html = html.replace(
+        "hbars(document.getElementById('chart-gap'),CORE_ORDER.map(c=>({label:c,key:c,value:coreStudies[c]||0,color:CORE_COL[c]})),{max:studies.length,onClick:c=>{setCore(c);gotoTable();}});",
+        "hbars(document.getElementById('chart-gap'),CORE_ORDER.map(c=>({label:c,key:c,value:coreStudies[c]||0,color:CORE_COL[c]})),{max:studies.length});"
+      );
+      html = html.replace(
+        "hbars(document.getElementById('chart-sub'),subTop.map(([s,v])=>({label:s,key:s,value:v,color:CORE_COL[coreOfSub[s]]||'#889'})),\n  {onClick:s=>{state.search=s;document.getElementById('search').value=s;gotoTable();render();}});",
+        "hbars(document.getElementById('chart-sub'),subTop.map(([s,v])=>({label:s,key:s,value:v,color:CORE_COL[coreOfSub[s]]||'#889'})),{});"
+      );
+      html = html.replace(
+        "s+='</svg>';el.innerHTML=s;el.querySelectorAll('.bar').forEach(b=>b.addEventListener('click',()=>onClick(b.getAttribute('data-k'))));",
+        "s+='</svg>';el.innerHTML=s;"
+      );
+
+      document.open();
+      document.write(html);
+      document.close();
+    } catch (error) {
+      status.className = 'loading error';
+      status.textContent = error.message;
+    }
+  })();
+  </script>
+</body>
+</html>
