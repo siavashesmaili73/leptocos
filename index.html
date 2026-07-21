@@ -92,18 +92,18 @@
   .legend{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:12px;font-size:12.5px;color:var(--muted)}
   .legend .s{display:inline-flex;align-items:center;gap:6px}.legend .s i{width:11px;height:11px;border-radius:3px}
   .hint{font-size:12px;color:#6B7480;margin-top:10px}
-  .cmx-wrap{overflow-x:auto;margin:2px 0 0}
-  .cmx{border-collapse:collapse;width:100%;min-width:540px;font-size:13px}
-  .cmx thead th{font-weight:700;color:var(--ink);font-size:12px;padding:0 8px 9px;text-align:center;line-height:1.15}
-  .cmx thead th small{display:block;font-weight:500;color:var(--muted);font-size:10px;letter-spacing:.02em;margin-top:2px}
+  .cmx-wrap{overflow-x:auto;margin:6px 0 0}
+  .cmx{border-collapse:collapse;width:100%;min-width:560px;font-size:13px}
+  .cmx thead th{font-weight:700;color:var(--ink);font-size:12px;padding:2px 8px 10px;text-align:center;line-height:1.2;vertical-align:bottom;border-bottom:1px solid var(--line)}
+  .cmx thead th small{display:block;font-weight:500;color:var(--muted);font-size:10px;margin-top:3px}
   .cmx thead th.ncol{color:var(--muted)}
-  .cmx td{padding:10px 8px;text-align:center;border:2px solid #fff}
-  .cmx td.grp{writing-mode:vertical-rl;transform:rotate(180deg);text-transform:uppercase;letter-spacing:.12em;font-size:10px;font-weight:700;color:var(--muted);border:none;width:20px;padding:0 2px}
-  .cmx td.rl{text-align:right;color:var(--ink2);font-weight:600;white-space:nowrap;border:none;padding-right:14px;font-size:12.5px}
-  .cmx td.val{font-weight:700;font-variant-numeric:tabular-nums;border-radius:3px}
-  .cmx td.ncol{color:var(--muted);font-weight:600;border:none;font-variant-numeric:tabular-nums}
-  .cmx tfoot td{border:none;color:var(--muted);font-weight:600;font-size:12px;padding:11px 8px 0;font-variant-numeric:tabular-nums}
-  .cmx tfoot td.rl{padding-right:14px}
+  .cmx td{padding:11px 8px;text-align:center;border:2px solid #fff}
+  .cmx td.rl{text-align:left;color:var(--ink2);font-weight:600;white-space:nowrap;border:none;padding-left:6px;width:1%}
+  .cmx td.val{font-weight:700;font-variant-numeric:tabular-nums;border-radius:2px;min-width:64px}
+  .cmx td.ncol{color:var(--muted);font-weight:600;border:none;font-variant-numeric:tabular-nums;width:1%;padding-left:16px}
+  .cmx tr.ghdr td{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.13em;color:var(--muted);font-weight:700;padding:14px 6px 5px;border:none}
+  .cmx tfoot td{border:none;color:var(--ink2);font-weight:700;font-size:12px;padding:12px 8px 2px;font-variant-numeric:tabular-nums;border-top:1px solid var(--line)}
+  .cmx tfoot td.rl{text-align:left;padding-left:6px;color:var(--muted);font-weight:600}
 
   /* flowchart */
   .flow{display:flex;align-items:stretch;margin-top:14px}
@@ -337,20 +337,23 @@
       <div class="cmx-wrap">
         <table class="cmx">
           <thead>
-            <tr><th></th><th></th><th>Leptomeningeal<small>LM</small></th><th>Intracranial<small>brain</small></th><th>Extracranial<small>systemic</small></th><th>Overall<small>IC + EC</small></th><th class="ncol">n</th></tr>
+            <tr><th class="rl"></th><th>Leptomeningeal<small>LM</small></th><th>Intracranial<small>brain</small></th><th>Extracranial<small>systemic</small></th><th>Overall<small>IC + EC</small></th><th class="ncol">n</th></tr>
           </thead>
           <tbody>
-            <tr><td class="grp" rowspan="4">Response</td><td class="rl">Response</td><td class="val" style="background:#1A4A80;color:#FFFFFF">23</td><td class="val" style="background:#7594B7;color:#FFFFFF">10</td><td class="val" style="background:#6687AE;color:#FFFFFF">12</td><td class="val" style="background:#96AFCB;color:#12345E">6</td><td class="ncol">51</td></tr>
+            <tr class="ghdr"><td colspan="6">Response</td></tr>
+            <tr><td class="rl">Response</td><td class="val" style="background:#1A4A80;color:#FFFFFF">23</td><td class="val" style="background:#7594B7;color:#FFFFFF">10</td><td class="val" style="background:#6687AE;color:#FFFFFF">12</td><td class="val" style="background:#96AFCB;color:#12345E">6</td><td class="ncol">51</td></tr>
             <tr><td class="rl">DCR</td><td class="val" style="background:#96AFCB;color:#12345E">6</td><td class="val" style="background:#B3C6DC;color:#12345E">3</td><td class="val" style="background:#A0B6D0;color:#12345E">5</td><td class="val" style="background:#A9BED6;color:#12345E">4</td><td class="ncol">18</td></tr>
             <tr><td class="rl">CBR</td><td class="val" style="background:#CBDAEB;color:#12345E">1</td><td class="val" style="background:#B3C6DC;color:#12345E">3</td><td class="val" style="background:#BFD0E3;color:#12345E">2</td><td class="val" style="background:#BFD0E3;color:#12345E">2</td><td class="ncol">8</td></tr>
             <tr><td class="rl">DoR</td><td class="val" style="background:#7D9ABC;color:#FFFFFF">9</td><td class="val" style="background:#A9BED6;color:#12345E">4</td><td class="val" style="background:#B3C6DC;color:#12345E">3</td><td class="val" style="background:#A0B6D0;color:#12345E">5</td><td class="ncol">21</td></tr>
-            <tr><td class="grp" rowspan="3">Progression</td><td class="rl">PFS</td><td class="val" style="background:#6687AE;color:#FFFFFF">12</td><td class="val" style="background:#96AFCB;color:#12345E">6</td><td class="val" style="background:#A0B6D0;color:#12345E">5</td><td class="val" style="background:#7594B7;color:#FFFFFF">10</td><td class="ncol">33</td></tr>
+            <tr class="ghdr"><td colspan="6">Progression</td></tr>
+            <tr><td class="rl">PFS</td><td class="val" style="background:#6687AE;color:#FFFFFF">12</td><td class="val" style="background:#96AFCB;color:#12345E">6</td><td class="val" style="background:#A0B6D0;color:#12345E">5</td><td class="val" style="background:#7594B7;color:#FFFFFF">10</td><td class="ncol">33</td></tr>
             <tr><td class="rl">TTP</td><td class="val" style="background:#7D9ABC;color:#FFFFFF">9</td><td class="val" style="background:#BFD0E3;color:#12345E">2</td><td class="val" style="background:#CBDAEB;color:#12345E">1</td><td class="val" style="background:#CBDAEB;color:#12345E">1</td><td class="ncol">13</td></tr>
             <tr><td class="rl">TTR</td><td class="val" style="background:#B3C6DC;color:#12345E">3</td><td class="val" style="background:#BFD0E3;color:#12345E">2</td><td class="val" style="background:#BFD0E3;color:#12345E">2</td><td class="val" style="background:#B3C6DC;color:#12345E">3</td><td class="ncol">10</td></tr>
-            <tr><td class="grp" rowspan="1">Other</td><td class="rl">Other</td><td class="val" style="background:#85A1C1;color:#FFFFFF">8</td><td class="val" style="background:#BFD0E3;color:#12345E">2</td><td class="val" style="background:#EEF0F3;color:#B9C0CB">0</td><td class="val" style="background:#EEF0F3;color:#B9C0CB">0</td><td class="ncol">10</td></tr>
+            <tr class="ghdr"><td colspan="6">Other</td></tr>
+            <tr><td class="rl">Other</td><td class="val" style="background:#85A1C1;color:#FFFFFF">8</td><td class="val" style="background:#BFD0E3;color:#12345E">2</td><td class="val" style="background:#EEF0F3;color:#B9C0CB">0</td><td class="val" style="background:#EEF0F3;color:#B9C0CB">0</td><td class="ncol">10</td></tr>
           </tbody>
           <tfoot>
-            <tr><td></td><td class="rl">All compartments</td><td>71</td><td>32</td><td>30</td><td>31</td><td class="ncol">164</td></tr>
+            <tr><td class="rl">All compartments</td><td>71</td><td>32</td><td>30</td><td>31</td><td class="ncol">164</td></tr>
           </tfoot>
         </table>
       </div>
