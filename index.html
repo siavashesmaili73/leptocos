@@ -47,6 +47,8 @@
 
   .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
   #stars{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+  #sankey,#genome{overflow-x:auto}
+  @media(max-width:760px){#sankey>svg{min-width:900px}#genome>svg{min-width:700px}}
   .hero .wrap{position:relative;z-index:1;padding:60px 30px 34px}
   .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);font-weight:700;margin:0 0 14px}
   .hero h1{font-size:clamp(30px,6vw,44px);line-height:1.08;letter-spacing:-.02em;margin:0 0 16px -0.06em;max-width:24em}
@@ -54,7 +56,7 @@
   .prov{display:flex;flex-wrap:wrap;gap:9px 26px;font-size:14px;color:var(--muted);padding-top:12px;border-top:1px solid var(--line)}
   .prov b{color:var(--ink)}
 
-  .kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin:26px 0 8px}
+  .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:26px 0 8px}
   .kpi{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 15px;box-shadow:var(--sh)}
   .kpi .n{font-family:var(--sans);font-weight:800;font-size:27px;line-height:1;color:var(--ink);letter-spacing:-.02em}
   .kpi .l{font-size:12px;color:var(--muted);margin-top:7px}
@@ -84,10 +86,9 @@
   .defitem{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:11px 13px}
   .defitem b{display:block;font-size:12.5px;margin-bottom:3px;color:var(--ink)}
   .defitem span{font-size:12px;color:var(--muted);line-height:1.45}
-  #sankey .rib{transition:opacity .22s ease;cursor:pointer}
+  #sankey .rib{transition:opacity .22s ease}
   #sankey.dim .rib{opacity:.13}
   #sankey.dim .rib.hot{opacity:1}
-  .bar,.cell,.rib,.tm{cursor:pointer}.bar:hover,.tm:hover{opacity:.85}
   .legend{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:12px;font-size:12.5px;color:var(--muted)}
   .legend .s{display:inline-flex;align-items:center;gap:6px}.legend .s i{width:11px;height:11px;border-radius:3px}
   .hint{font-size:12px;color:#6B7480;margin-top:10px}
@@ -135,14 +136,14 @@
   .grp-h{display:flex;align-items:center;gap:9px;margin:18px 0 9px;font-weight:700;font-size:14px}.grp-h i{width:12px;height:12px;border-radius:3px}.grp-h span{color:var(--muted);font-weight:500;font-size:12.5px}
   .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:11px}
   .tc{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px}
-  .tc .t{font-weight:700;font-size:13.5px}.tc .m{font-size:11px;color:#98A2AD;margin:1px 0 6px}.tc .d{font-size:12px;color:var(--muted)}
+  .tc .t{font-weight:700;font-size:13.5px}.tc .m{font-size:11px;color:#6B7480;margin:1px 0 6px}.tc .d{font-size:12px;color:var(--muted)}
   /* taxonomy browser */
   .tx-bar{margin:8px 0 18px}
   .tx-bar #tx-search{width:100%;margin-bottom:12px}
   .tx-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
   .tx-chips{display:flex;flex-wrap:wrap;gap:7px}
   .txchip{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:#F6F8FB;color:#434A57;border-radius:999px;padding:6px 12px;font-size:12.5px;font-weight:500;cursor:pointer;user-select:none;transition:border-color .15s ease,background .15s ease,color .15s ease}
-  .txchip .dot{width:8px;height:8px;border-radius:50%;flex:none}.txchip .cnt{color:#98A2AD}
+  .txchip .dot{width:8px;height:8px;border-radius:50%;flex:none}.txchip .cnt{color:#6B7480}
   .txchip:hover{border-color:#CBD3DE}.txchip.on{font-weight:600}
   .tx-subwrap{position:relative}
   .tx-subbtn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 13px;font-size:13px;color:#434A57;cursor:pointer;font-family:var(--sans);transition:border-color .15s ease}
@@ -150,14 +151,14 @@
   .tx-pop{position:absolute;top:calc(100% + 6px);left:0;z-index:30;background:#fff;border:1px solid var(--line);border-radius:11px;box-shadow:0 10px 30px rgba(16,24,40,.14);padding:8px;width:310px;max-height:330px;overflow:auto;display:none}
   .tx-pop.open{display:block}
   .tx-pop label{display:flex;align-items:center;gap:8px;font-size:12.5px;color:#3A4150;padding:6px 8px;border-radius:7px;cursor:pointer}
-  .tx-pop label:hover{background:#F6F8FB}.tx-pop label .c{margin-left:auto;color:#98A2AD;font-size:11px}
+  .tx-pop label:hover{background:#F6F8FB}.tx-pop label .c{margin-left:auto;color:#6B7480;font-size:11px}
   .tx-sort{border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 11px;font-size:13px;margin-left:auto;font-family:var(--sans);color:#434A57;cursor:pointer;transition:border-color .15s ease}
   .tx-meta{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-top:13px;font-size:13px;color:var(--muted)}.tx-meta b{color:var(--ink)}
   .tx-active{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
   .tx-apill{background:#F6F8FB;border:1px solid var(--line);border-radius:999px;padding:3px 9px;font-size:11.5px;color:var(--muted);cursor:pointer}.tx-apill::after{content:" ✕"}
   .tx-clear{border:none;background:none;color:var(--brand);font-size:12.5px;cursor:pointer;font-weight:600;padding:3px 4px}
   .tx-grouphdr{display:flex;align-items:center;gap:9px;margin:22px 0 11px;font-weight:700;font-size:14.5px;color:#1F2A36}
-  .tx-grouphdr .gd{width:11px;height:11px;border-radius:3px}.tx-grouphdr .gc{color:#98A2AD;font-weight:500;font-size:12.5px}
+  .tx-grouphdr .gd{width:11px;height:11px;border-radius:3px}.tx-grouphdr .gc{color:#6B7480;font-weight:500;font-size:12.5px}
   .tx-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
   .tcard{border:1px solid;border-left-width:3px;border-radius:12px;padding:14px 16px;cursor:pointer;transition:box-shadow .18s var(--ease),transform .18s var(--ease)}
   .tcard:hover{transform:translateY(-1px);box-shadow:var(--sh-h)}
@@ -190,8 +191,8 @@
   .pri{display:inline-block;font-size:11px;padding:2px 8px;border-radius:999px;font-weight:600}
   .pri.Primary{background:#E4EEF8;color:#1E4F86}.pri.Secondary{background:#EDF3F9;color:#345f8c}.pri.Exploratory{background:#E1F1EC;color:#0c6b5e}.pri.ns{background:#fff;border:1px dashed var(--muted);color:var(--muted)}
   .detail{display:grid;grid-template-columns:1fr 1fr;gap:5px 26px;padding:6px 4px 10px;background:var(--panel)}
-  .detail .f .k{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#98A2AD}
-  .caret{color:#98A2AD;font-size:10px;margin-right:6px}
+  .detail .f .k{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#6B7480}
+  .caret{color:#6B7480;font-size:10px;margin-right:6px}
 
   .ask{background:var(--ink2);color:#EAEEF4;border-radius:14px;padding:30px 34px;margin-top:8px;box-shadow:var(--sh)}
   .ask h2{color:#fff;font-size:24px;margin:0 0 8px}.ask p{color:#C4CCD8;font-size:14.5px;max-width:70ch;margin:0 0 8px}
@@ -207,13 +208,13 @@
   <span class="wm"><span class="a">Lepto</span><span class="b">COS</span></span>
   <nav class="links">
     <a href="#why">Rationale</a><a href="#landscape">Landscape</a><a href="#coverage">Coverage</a>
-    <a href="#hetero">Heterogeneity</a><a href="#explore">Definitions</a><a href="#methods">Methods</a>
+    <a href="#hetero">Heterogeneity</a><a href="#taxonomy">Definitions</a><a href="#methods">Methods</a>
   </nav>
   <button class="btn" onclick="window.print()">Print / PDF</button>
 </div></header>
 
 <div class="hero">
-  <canvas id="stars"></canvas>
+  <canvas id="stars" aria-hidden="true"></canvas>
   <div class="wrap">
     <p class="eyebrow">Stakeholder briefing · Society for Neuro-Oncology</p>
     <h1>An international initiative to develop a core outcome set for leptomeningeal disease</h1>
@@ -233,7 +234,7 @@
   <section id="why">
     <p class="lbl">Background</p>
     <h2>Why leptomeningeal disease needs a core outcome set</h2>
-    <p class="dek">Leptomeningeal disease is a late stage of metastatic cancer, poor-prognosis and rising in incidence.
+    <p class="dek">Leptomeningeal disease is a late-stage complication of metastatic cancer, poor-prognosis and rising in incidence.
       Trials are small and scattered over three decades. When they do not share an outcome language, their results
       cannot be pooled, compared, or graded for guidelines. A core outcome set is the agreed minimum set of outcomes
       every trial should report: an agreed minimum, not a limit on what else may be reported.</p>
@@ -283,7 +284,7 @@
     <p class="dek">Every outcome maps to one of five COMET core areas, and within them to 24 sub-domains. Reporting
       concentrates on tumour response and survival; the domains most relevant to patients are least represented.</p>
     <div class="grid2">
-      <div class="card"><p class="ct">Outcomes by COMET core area</p><p class="cn">Area = share of 312 outcomes.</p><div id="treemap"></div>
+      <div class="card"><p class="ct">Outcomes by COMET core area</p><p class="cn">Area = share of 312 outcomes. The Death area covers survival and progression endpoints (PFS/TTP), so roughly half of it is progression, not mortality.</p><div id="treemap"></div>
         <div class="legend" id="core-leg"></div></div>
       <div class="card"><p class="ct">Studies reporting each core area (of 41)</p><p class="cn">How many of the 41 trials report each core area.</p><div id="chart-gap"></div></div>
     </div>
@@ -307,7 +308,7 @@
     <h2>Leptomeningeal treatment response is defined inconsistently</h2>
     <p class="dek">Agreeing that an outcome matters is not enough. The most-reported response outcome is defined many
       different ways; survival is timed inconsistently; and most outcomes name no assessor.</p>
-    <div class="card"><p class="cn" style="font-size:14.5px;line-height:1.5">Reported by <b style="color:#B23A48">21 of 41 trials</b>; only <b style="color:#1F2A36">6 used a RANO-LM based standard</b> (5 RANO-LM, 1 modified); the other <b style="color:#B23A48">15 were study-specific</b>.</p>
+    <div class="card"><p class="cn" style="font-size:14.5px;line-height:1.5">Reported by <b style="color:#B23A48">22 of 41 trials</b>; only <b style="color:#1F2A36">6 used a RANO-LM based standard</b> (5 RANO-LM, 1 modified); the other <b style="color:#B23A48">16 were study-specific</b>.</p>
       <div id="sankey"></div>
       <p class="hint">&middot; N = number of trials using that definition; definitions without a number were each used by one trial.</p></div>
   </section>
@@ -329,7 +330,7 @@
         <div class="defitem"><b>RANO-LM: Response Assessment in Neuro-Oncology, Leptomeningeal Metastases</b><span>Composite response combining a standardized neurological examination, CSF cytology (or flow cytometry in haematological cancers), and contrast-enhanced neuraxis MRI graded on a radiological LM response scorecard. Chamberlain et al., Neuro-Oncology 2017.</span></div>
         <div class="defitem"><b>Modified RANO-LM (radiographic only)</b><span>The radiographic (MRI) component of RANO-LM applied on its own, without the neurological-examination or CSF-cytology components.</span></div>
         <div class="defitem"><b>CSF cytology conversion</b><span>Conversion of cerebrospinal-fluid cytology from positive (malignant cells present) to negative (no malignant or equivocal cells). EANO-ESMO Clinical Practice Guideline, ESMO Open 2023.</span></div>
-        <div class="defitem"><b>RECIST 1.1 (LM as non-measurable disease)</b><span>Leptomeningeal disease is listed under RECIST 1.1 as truly non-measurable, so it is tracked qualitatively rather than as a measurable target lesion. Eisenhauer et al., 2009.</span></div>
+        <div class="defitem"><b>RECIST 1.1 (LM as non-measurable disease)</b><span>Leptomeningeal disease is listed under RECIST 1.1 as truly non-measurable, so it is followed qualitatively as a non-target lesion rather than a measurable target lesion. Eisenhauer et al., 2009.</span></div>
       </div></div>
     <input id="search" type="hidden"><input id="f-pri" type="hidden">
   </section>
@@ -355,7 +356,7 @@
     <p class="lbl">Transparency</p>
     <h2>Methods &amp; limitations</h2>
     <p class="dek" style="margin-bottom:0">Outcomes were extracted from published leptomeningeal disease trials following COMET, COS-STAD and
-      COS-STAP, standardised to defined terms and mapped to COMET core areas. This is a descriptive catalogue of reported
+      PRISMA, standardised to defined terms and mapped to COMET core areas. This is a descriptive catalogue of reported
       outcomes, not the final core outcome set.</p>
   </section>
 
@@ -387,26 +388,19 @@ function countBy(k){const m={};DATA.forEach(r=>m[r[k]||'—']=(m[r[k]||'—']||0
 const coreCounts=countBy('core'), priCounts=countBy('tier'), subCounts=countBy('sub'), termFreq=countBy('std');
 const coreStudies=(()=>{const m={};DATA.forEach(r=>{(m[r.core]=m[r.core]||new Set()).add(r.study)});const o={};for(const k in m)o[k]=m[k].size;return o;})();
 const studyPerTerm=(()=>{const m={};DATA.forEach(r=>{(m[r.std]=m[r.std]||new Set()).add(r.study)});const o={};for(const k in m)o[k]=m[k].size;return o;})();
-const qol=uniq(DATA.filter(d=>d.std==='Quality of Life').map(d=>d.study)).length;
-const notStated=priCounts['ns']||0;
 ['p-stud','p-out','p-term'].forEach((id,i)=>document.getElementById(id).textContent=[studies.length,N,terms.length][i]);
 document.getElementById('gd').textContent=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
-const subDomOfTerm={};Object.entries(TERM_META).forEach(([t,m])=>subDomOfTerm[t]=m.sub);
 const coreOfSub={};DATA.forEach(d=>{if(d.sub&&!coreOfSub[d.sub])coreOfSub[d.sub]=d.core;});
 
 const kpis=[{n:N,l:'reported outcomes'},{n:studies.length,l:'included studies'},{n:terms.length,l:'standardised terms'}];
 document.getElementById('kpis').innerHTML=kpis.map(k=>`<div class="kpi ${k.f?'flag':''}"><div class="n">${k.n}</div><div class="l">${k.l}</div></div>`).join('');
 
 /* ---- matrix (Figure 2) ---- */
-const CONS=['ORR','DCR','CBR','DoR','PFS','TTP','TTR','Other CNS'],COMP=['LM','Intracranial','Extracranial','Overall'];
-const COMP_LABEL={LM:'Leptomeningeal',Intracranial:'Intracranial',Extracranial:'Extracranial',Overall:'Overall'};
-const MATRIX={'ORR':[21,10,11,6],'DCR':[3,5,4,4],'CBR':[1,3,1,2],'DoR':[6,5,2,5],'PFS':[11,7,5,10],'TTP':[9,2,1,1],'TTR':[3,2,1,3],'Other CNS':[11,3,null,null]};
-const CELL_TERM={'ORR|LM':'LM response rate','ORR|Intracranial':'Intracranial ORR','ORR|Extracranial':'Extracranial ORR','ORR|Overall':'Overall ORR','DCR|Intracranial':'Intracranial DCR','DCR|Extracranial':'Extracranial DCR','DCR|Overall':'Overall DCR','DCR|LM':'LM DCR','PFS|LM':'LM PFS','PFS|Intracranial':'Intracranial PFS','PFS|Extracranial':'Extracranial PFS','PFS|Overall':'Overall PFS','TTP|LM':'LM TTP','TTR|Overall':'Overall TTR'};
 
 /* ---------- SVG helpers ---------- */
 function hbars(el,items,{max,fmt,onClick,ref}){
   const W=680,padL=190,padR=66,rowH=items.length>11?24:32,top=8,H=top*2+items.length*rowH,mx=max||Math.max(...items.map(i=>i.value),1),bw=W-padL-padR;
-  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%">`;
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Data figure; described in the caption above.">`;
   items.forEach((it,i)=>{const y=top+i*rowH,bh=Math.min(19,rowH-6),w=Math.max(1,it.value/mx*bw);
     s+=`<text x="${padL-9}" y="${y+bh/2+4}" text-anchor="end" font-size="12" fill="#333">${esc(it.label)}</text>`;
     s+=`<rect class="bar" x="${padL}" y="${y}" width="${w}" height="${bh}" rx="2.5" fill="${it.color}" data-k="${esc(it.key||it.label)}"><title>${esc(it.label)}: ${fmt?fmt(it):it.value}</title></rect>`;
@@ -415,18 +409,8 @@ function hbars(el,items,{max,fmt,onClick,ref}){
   s+='</svg>';el.innerHTML=s;
   if(onClick)el.querySelectorAll('.bar').forEach(b=>b.addEventListener('click',()=>onClick(b.getAttribute('data-k'))));
 }
-function pairedbars(el,items){
-  const W=680,padL=190,padR=54,rowH=40,top=10,H=top*2+items.length*rowH,mx=Math.max(...items.map(i=>i.a),1),bw=W-padL-padR;
-  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%">`;
-  items.forEach((it,i)=>{const y=top+i*rowH,bh=13,wa=Math.max(1,it.a/mx*bw),wb=Math.max(1,it.b/mx*bw);
-    s+=`<text x="${padL-9}" y="${y+bh+2}" text-anchor="end" font-size="12" fill="#333">${esc(it.label)}</text>`;
-    s+=`<rect class="bar" x="${padL}" y="${y}" width="${wa}" height="${bh}" rx="2.5" fill="${it.c}" data-k="${esc(it.label)}"><title>reported ${it.a}×</title></rect><text x="${padL+wa+6}" y="${y+bh-1}" font-size="10.5" fill="#666">${it.a}</text>`;
-    s+=`<rect class="bar" x="${padL}" y="${y+bh+3}" width="${wb}" height="${bh}" rx="2.5" fill="#C79A2E" data-k="${esc(it.label)}"><title>${it.b} distinct criteria</title></rect><text x="${padL+wb+6}" y="${y+2*bh+2}" font-size="10.5" fill="#8A6A16">${it.b}</text>`;});
-  s+='</svg>';el.innerHTML=s;
-  el.querySelectorAll('.bar').forEach(b=>b.addEventListener('click',()=>{state.search=b.getAttribute('data-k');document.getElementById('search').value=state.search;gotoTable();render();}));
-}
 function stacked(el,segs,total,onClick){
-  const W=680,H=92,y=22,bh=34,bw=W-8;let x=4,s=`<svg viewBox="0 0 ${W} ${H}" width="100%">`;
+  const W=680,H=92,y=22,bh=34,bw=W-8;let x=4,s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Data figure; described in the caption above.">`;
   segs.forEach(sg=>{const w=sg.value/total*bw;s+=`<rect class="bar" x="${x}" y="${y}" width="${Math.max(0,w-1)}" height="${bh}" fill="${sg.color}" data-k="${esc(sg.key)}"><title>${esc(sg.label)}: ${sg.value} (${Math.round(sg.value/total*100)}%)</title></rect>`;
     if(w>42){s+=`<text x="${x+w/2}" y="${y+bh/2-1}" text-anchor="middle" font-size="12" font-weight="700" fill="${sg.dark?'#171B23':'#fff'}">${sg.value}</text><text x="${x+w/2}" y="${y+bh/2+13}" text-anchor="middle" font-size="10" fill="${sg.dark?'#5C6675':'rgba(255,255,255,.9)'}">${Math.round(sg.value/total*100)}%</text>`;}x+=w;});
   s+='</svg>';el.innerHTML=s;el.querySelectorAll('.bar').forEach(b=>b.addEventListener('click',()=>onClick(b.getAttribute('data-k'))));
@@ -445,7 +429,7 @@ function treemap(){
   while(i<items.length){const horiz=w<h?false:true;const len=horiz?h:w;let cur=[];
     while(i<items.length){const test=cur.concat(items[i]);if(cur.length===0||worst(test,len)<=worst(cur,len)){cur=test;i++;}else break;}
     layoutRow(cur,len,horiz);}
-  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%">`;
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Data figure; described in the caption above.">`;
   rects.forEach(r=>{const pct=(r.v/total*100).toFixed(1);const big=r.w>90&&r.h>44;
     s+=`<rect class="tm" x="${r.x+1}" y="${r.y+1}" width="${Math.max(0,r.w-2)}" height="${Math.max(0,r.h-2)}" rx="3" fill="${CORE_COL[r.k]}" data-k="${esc(r.k)}"><title>${esc(r.k)}: ${r.v} (${pct}%)</title></rect>`;
     if(big){s+=`<text x="${r.x+10}" y="${r.y+22}" font-size="12.5" font-weight="700" fill="#fff">${esc(r.k)}</text><text x="${r.x+10}" y="${r.y+40}" font-size="13" fill="rgba(255,255,255,.9)">${r.v} · ${pct}%</text>`;}
@@ -455,26 +439,10 @@ function treemap(){
   document.getElementById('core-leg').innerHTML=CORE_ORDER.map(c=>`<span class="s"><i style="background:${CORE_COL[c]}"></i>${esc(c)}</span>`).join('');
 }
 /* heatmap */
-function heatmap(){
-  const rows=CONS,cols=COMP,W=680,padL=92,padT=60,padR=52,cw=(W-padL-padR)/cols.length,ch=33,H=padT+rows.length*ch+8;
-  let mx=0;rows.forEach(r=>MATRIX[r].forEach(v=>{if(v!=null&&v>mx)mx=v;}));
-  const ramp=v=>{if(v==null)return'#EEF1F5';const t=Math.pow(v/mx,.72),c1=[210,225,242],c2=[30,79,134];return`rgb(${c1.map((a,i)=>Math.round(a+(c2[i]-a)*t)).join(',')})`;};
-  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%">`;
-  cols.forEach((c,j)=>s+=`<text x="${padL+j*cw+cw/2}" y="${padT-13}" text-anchor="middle" font-size="11" font-weight="700" fill="#1E4F86">${COMP_LABEL[c]}</text>`);
-  s+=`<text x="${padL+cols.length*cw+8}" y="${padT-13}" font-size="10" fill="#5C6675">total</text>`;
-  rows.forEach((r,i)=>{const y=padT+i*ch;let tot=0;
-    s+=`<text x="${padL-8}" y="${y+ch/2+4}" text-anchor="end" font-size="11.5" font-weight="600" fill="#333">${r}</text>`;
-    cols.forEach((c,j)=>{const v=MATRIX[r][j];if(v!=null)tot+=v;const x=padL+j*cw,dark=v!=null&&v/mx>.5;
-      s+=`<rect class="cell" x="${x+1}" y="${y+1}" width="${cw-2}" height="${ch-2}" fill="${ramp(v)}" data-c="${r}" data-comp="${c}"><title>${r} · ${COMP_LABEL[c]}: ${v==null?'n/a':v}</title></rect>`;
-      s+=`<text x="${x+cw/2}" y="${y+ch/2+4}" text-anchor="middle" font-size="12" font-weight="600" fill="${v==null?'#AAB2BD':(dark?'#fff':'#1E4F86')}">${v==null?'—':v}</text>`;});
-    s+=`<text x="${padL+cols.length*cw+8}" y="${y+ch/2+4}" font-size="11.5" font-weight="700" fill="#1E4F86">${tot}</text>`;});
-  s+='</svg>';document.getElementById('heatmap').innerHTML=s;
-  document.querySelectorAll('#heatmap .cell').forEach(c=>c.addEventListener('click',()=>{const term=CELL_TERM[c.getAttribute('data-c')+'|'+c.getAttribute('data-comp')];if(term){state.search=term;document.getElementById('search').value=term;gotoTable();render();}}));
-}
-/* LM-response definitions sankey — teal/rose gradient (21 of 41 trials) */
+/* LM-response definitions sankey — teal/rose gradient (22 of 41 trials) */
 function sankey(){
   const rano={label:'RANO-LM based',n:6,node:'#16897A',leaves:[['RANO-LM',5,'2020 to 2025'],['Modified RANO-LM · radiographic only',1,'2020']]};
-  const besp={label:'Study-specific',n:15,node:'#BE3A56',leaves:[['CSF cytology conversion + neurologic stability',4,'1999 to 2002'],['CSF cytology conversion',2,'1999, 2015'],['CSF cytology + neurologic status',1,'2006'],['CSF cytology + neurologic symptoms',1,'2002'],['CSF cytology + biochemistry + neurologic',1,'2000'],['Clinical + MRI + CSF composite',1,'2020'],['CSF + radiographic + clinical composite',1,'2023'],['Cytologic + neurologic + radiographic',1,'2021'],['Radiologic + cytologic composite',1,'2021'],['RECIST (LM non-target lesion)',1,'2020'],['Neurologic exam + imaging composite',1,'1998']]};
+  const besp={label:'Study-specific',n:16,node:'#BE3A56',leaves:[['CSF cytology conversion + neurologic stability',4,'1999 to 2002'],['CSF cytology conversion',2,'1999, 2015'],['CSF cytology + neurologic status',1,'2006'],['CSF cytology + neurologic symptoms',1,'2002'],['CSF cytology + biochemistry + neurologic',1,'2000'],['Clinical + MRI + CSF composite',1,'2020'],['CSF + radiographic + clinical composite',1,'2023'],['Cytologic + neurologic + radiographic',1,'2021'],['Radiologic + cytologic composite',1,'2021'],['RECIST (LM non-target lesion)',1,'2020'],['Neurologic exam + imaging composite',1,'1998'],['Cytologic + clinical + neuroimaging composite',1,'1998']]};
   const total=21,W=2440,H=1120,top=40,bot=40,usable=H-top-bot;
   const aX=500,aW=22,bX=1010,bW=16,cX=1520,cW=16,groupGap=44,leafGap=20;
   const SLATE='#3D4453',TEAL='#1F9E8C',TEALL='#A7DBD1',ROSE='#C64A62',ROSEL='#ECBBC4';
@@ -499,16 +467,16 @@ function sankey(){
   fan(bRano,ranoLeaves);fan(bBesp,bespLeaves);
   let nodes=`<rect x="${aX}" y="${aY}" width="${aW}" height="${aH}" rx="3" fill="${SLATE}"/>`;
   nodes+=`<text x="${aX-18}" y="${aY+aH/2-2}" text-anchor="end" font-size="30" font-weight="700" fill="#1F2A36">Leptomeningeal response</text>`;
-  nodes+=`<text x="${aX-18}" y="${aY+aH/2+26}" text-anchor="end" font-size="18" fill="#5C6675">reported by 21 of 41 trials</text>`;
+  nodes+=`<text x="${aX-18}" y="${aY+aH/2+26}" text-anchor="end" font-size="18" fill="#5C6675">reported by 22 of 41 trials</text>`;
   nodes+=`<rect x="${bX}" y="${bRano.y}" width="${bW}" height="${bRano.h}" rx="3" fill="${bRano.node}"/>`;
   nodes+=`<text x="${bX+bW+18}" y="${bRano.y+bRano.h/2+9}" font-size="27" font-weight="700" fill="#12433D">RANO-LM based · 6</text>`;
   nodes+=`<rect x="${bX}" y="${bBesp.y}" width="${bW}" height="${bBesp.h}" rx="3" fill="${bBesp.node}"/>`;
-  nodes+=`<text x="${bX+bW+18}" y="${bBesp.y+bBesp.h/2+9}" font-size="27" font-weight="700" fill="#7A2436">Study-specific · 15</text>`;
+  nodes+=`<text x="${bX+bW+18}" y="${bBesp.y+bBesp.h/2+9}" font-size="27" font-weight="700" fill="#7A2436">Study-specific · 16</text>`;
   cpos.forEach(lf=>{nodes+=`<rect x="${cX}" y="${lf.y}" width="${cW}" height="${lf.h}" rx="3" fill="${lf.node}"/>`;
     nodes+=`<text x="${cX+cW+15}" y="${lf.y+lf.h/2+8}" font-size="25" fill="#26313D">${esc(lf.lab)}${lf.n>1?`<tspan font-weight="700"> ·${lf.n}</tspan>`:''}${lf.dt?`<tspan fill="#9AA3AD" font-size="19"> ${esc(lf.dt)}</tspan>`:''}</text>`;});
   const el=document.getElementById('sankey');
   const canAnim=!RM&&('IntersectionObserver' in window);
-  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%"><defs>${defs}<clipPath id="sk-wipe"><rect id="sk-rect" x="0" y="0" width="${canAnim?0:W}" height="${H}"/></clipPath></defs><g clip-path="url(#sk-wipe)">${ribs}</g>${nodes}</svg>`;
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="How leptomeningeal response is defined across trials"><defs>${defs}<clipPath id="sk-wipe"><rect id="sk-rect" x="0" y="0" width="${canAnim?0:W}" height="${H}"/></clipPath></defs><g clip-path="url(#sk-wipe)">${ribs}</g>${nodes}</svg>`;
   el.querySelectorAll('.rib').forEach(p=>{
     p.addEventListener('mouseenter',()=>{el.classList.add('dim');const b=p.getAttribute('data-b');el.querySelectorAll('.rib[data-b="'+b+'"]').forEach(x=>x.classList.add('hot'));});
     p.addEventListener('mouseleave',()=>{el.classList.remove('dim');el.querySelectorAll('.rib.hot').forEach(x=>x.classList.remove('hot'));});});
@@ -519,7 +487,7 @@ function allFreqChart(){
   const el=document.getElementById('chart-allfreq');if(!el)return;
   const items=Object.entries(studyPerTerm).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]));
   const W=1100,padL=262,padR=46,rowH=22,top=10,H=top*2+items.length*rowH,mx=Math.max(...items.map(i=>i[1]),1),bw=W-padL-padR;
-  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%">`;
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Data figure; described in the caption above.">`;
   items.forEach(([t,v],i)=>{const y=top+i*rowH,bh=15,w=Math.max(1,v/mx*bw),col=CORE_COL[(TERM_META[t]||{}).core]||'#8894A2';
     s+=`<text x="${padL-9}" y="${y+bh/2+4}" text-anchor="end" font-size="12" fill="#2A303B">${esc(t.length>36?t.slice(0,35)+'…':t)}</text>`;
     s+=`<rect class="bar" x="${padL}" y="${y}" width="${w}" height="${bh}" rx="2" fill="${col}" data-k="${esc(t)}"><title>${esc(t)}: ${v} trial${v===1?'':'s'}</title></rect>`;
@@ -538,7 +506,7 @@ function coverageMatrix(){
   const has=new Set();DATA.forEach(d=>has.add(d.study+'||'+d.std));
   const cell=11,gap=1.2,padL=256,padR=34,padT=10,cw=cell+gap,gridB=padT+rows.length*cw;
   const W=padL+cols.length*cw+padR,H=gridB+66;
-  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%">`;
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Data figure; described in the caption above.">`;
   rows.forEach((t,i)=>{const y=padT+i*cw,col=CORE_COL[(TERM_META[t]||{}).core]||'#8894A2';
     s+=`<text x="${padL-8}" y="${y+cell/2+3.5}" text-anchor="end" font-size="10.5" fill="#3A4150">${esc(t)}</text>`;
     cols.forEach((st,j)=>{const x=padL+j*cw,on=has.has(st+'||'+t);
@@ -558,7 +526,6 @@ const subTop=Object.entries(subCounts).sort((a,b)=>b[1]-a[1]).slice(0,16);
 hbars(document.getElementById('chart-sub'),subTop.map(([s,v])=>({label:s,key:s,value:v,color:CORE_COL[coreOfSub[s]]||'#889'})),
   {onClick:s=>{state.search=s;document.getElementById('search').value=s;gotoTable();render();}});
 sankey();allFreqChart();coverageMatrix();
-function distinctCrit(term){return uniq(DATA.filter(d=>d.std===term&&d.acrit&&!['ns','NS'].includes(String(d.acrit).trim())).map(d=>String(d.acrit).trim().toLowerCase())).length;}
 stacked(document.getElementById('chart-pri'),PRI_ORDER.map(t=>({label:PRI_LABEL[t],key:t,value:priCounts[t]||0,color:PRI_COL[t],dark:t==='ns'})),N,t=>{document.getElementById('f-pri').value=t;state.tier=t;gotoTable();render();});
 document.getElementById('chart-pri').insertAdjacentHTML('afterend','<div class="legend">'+PRI_ORDER.map(t=>`<span class="s"><i style="background:${PRI_COL[t]}"></i>${PRI_LABEL[t]}: ${priCounts[t]||0}</span>`).join('')+'</div>');
 
@@ -630,7 +597,6 @@ if('IntersectionObserver' in window && !RM){const io=new IntersectionObserver(es
     for(let j=i+1;j<pts.length;j++){const q=pts[j],dx=p.x-q.x,dy=p.y-q.y,dd=Math.hypot(dx,dy);if(dd<135*devicePixelRatio){ctx.globalAlpha=(1-dd/(135*devicePixelRatio))*.30;ctx.strokeStyle='#2F6FB8';ctx.lineWidth=1.15*devicePixelRatio;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.stroke();}}}
     ctx.globalAlpha=.78;pts.forEach(p=>{ctx.fillStyle=p.c;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,7);ctx.fill();});raf=requestAnimationFrame(draw);}
   draw();document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAnimationFrame(raf);else draw();});})();
-console.log('LeptoCOS v4 → outcomes',N,'studies',studies.length,'terms',terms.length,'core',JSON.stringify(coreCounts),'pri',JSON.stringify(priCounts));
 </script>
 </body>
 </html>
