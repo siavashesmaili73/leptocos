@@ -42,9 +42,26 @@
       html=html.replace("document.getElementById('gd').textContent=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});",'');
       html=html.replace("el.querySelectorAll('.tm').forEach(t=>t.addEventListener('click',()=>{setCore(t.getAttribute('data-k'));gotoTable();}));",'');
       html=html.replace("el.querySelectorAll('.bar').forEach(b=>b.addEventListener('click',()=>{state.search=b.getAttribute('data-k');document.getElementById('search').value=state.search;gotoTable();render();}));",'');
+
+      const coreChartFn=`
+function renderCoreGapLarge(){
+  const el=document.getElementById('chart-gap');if(!el)return;
+  const items=CORE_ORDER.map(function(c){return{label:c,value:coreStudies[c]||0,color:CORE_COL[c]};});
+  const W=760,padL=214,padR=64,rowH=62,top=20,H=top*2+items.length*rowH,mx=studies.length,bw=W-padL-padR;
+  let s='<svg viewBox="0 0 '+W+' '+H+'" width="100%" role="img" aria-label="Studies reporting each COMET core area">';
+  items.forEach(function(it,i){
+    const y=top+i*rowH,bh=31,w=Math.max(2,it.value/mx*bw);
+    s+='<text x="'+(padL-13)+'" y="'+(y+21)+'" text-anchor="end" font-size="15" font-weight="600" fill="#333">'+esc(it.label)+'</text>';
+    s+='<rect x="'+padL+'" y="'+y+'" width="'+w+'" height="'+bh+'" rx="4" fill="'+it.color+'"><title>'+esc(it.label)+': '+it.value+' studies</title></rect>';
+    s+='<text x="'+(padL+w+10)+'" y="'+(y+21)+'" font-size="14" font-weight="600" fill="#555">'+it.value+'</text>';
+  });
+  s+='</svg>';el.innerHTML=s;
+}
+`;
+      html=html.replace('/* ---- charts ---- */',coreChartFn+'/* ---- charts ---- */');
       html=html.replace(
         "hbars(document.getElementById('chart-gap'),CORE_ORDER.map(c=>({label:c,key:c,value:coreStudies[c]||0,color:CORE_COL[c]})),{max:studies.length,onClick:c=>{setCore(c);gotoTable();}});",
-        "hbars(document.getElementById('chart-gap'),CORE_ORDER.map(c=>({label:c,key:c,value:coreStudies[c]||0,color:CORE_COL[c]})),{max:studies.length});"
+        'renderCoreGapLarge();'
       );
       html=html.replace(
         "hbars(document.getElementById('chart-sub'),subTop.map(([s,v])=>({label:s,key:s,value:v,color:CORE_COL[coreOfSub[s]]||'#889'})),\n  {onClick:s=>{state.search=s;document.getElementById('search').value=s;gotoTable();render();}});",
@@ -54,6 +71,46 @@
         "s+='</svg>';el.innerHTML=s;el.querySelectorAll('.bar').forEach(b=>b.addEventListener('click',()=>onClick(b.getAttribute('data-k'))));",
         "s+='</svg>';el.innerHTML=s;"
       );
+
+      html=html.replace(
+        '<tr><th class="rl"></th><th>Leptomeningeal<small>LM</small></th><th>Intracranial<small>brain</small></th><th>Extracranial<small>systemic</small></th><th>Overall<small>IC + EC</small></th><th class="ncol">n</th></tr>',
+        '<tr><th class="group-col"></th><th class="rl">Metric</th><th>Leptomeningeal<small>LM</small></th><th>Intracranial<small>brain</small></th><th>Extracranial<small>systemic</small></th><th>Overall<small>IC + EC</small></th><th class="ncol">n</th></tr>'
+      );
+      html=html.replace(
+        '            <tr class="ghdr"><td colspan="6">Response</td></tr>\n            <tr><td class="rl">Response</td>',
+        '            <tr class="group-start"><td class="groupcell" rowspan="5">Response</td><td class="rl">Response</td>'
+      );
+      html=html.replace(
+        '            <tr class="ghdr"><td colspan="6">Progression</td></tr>\n            <tr><td class="rl">PFS</td>',
+        '            <tr class="group-start"><td class="groupcell" rowspan="2">Progression</td><td class="rl">PFS</td>'
+      );
+      html=html.replace(
+        '            <tr class="ghdr"><td colspan="6">Other</td></tr>\n            <tr><td class="rl">Other</td>',
+        '            <tr class="group-start"><td class="groupcell" rowspan="1">Other</td><td class="rl">Other</td>'
+      );
+      html=html.replace(
+        '<tr><td class="rl">All compartments</td><td>71</td><td>32</td><td>30</td><td>31</td><td class="ncol">164</td></tr>',
+        '<tr><td class="group-total"></td><td class="rl">All compartments</td><td>71</td><td>32</td><td>30</td><td>31</td><td class="ncol">164</td></tr>'
+      );
+
+      const layoutCss=`
+<style id="lc-layout-fixes">
+#landscape #chart-gap{margin-top:18px;padding:4px 0 8px}
+#landscape #chart-gap svg{display:block!important;width:100%!important;min-height:350px!important}
+#compartment .cmx{min-width:735px!important}
+#compartment .cmx th.group-col{width:112px!important;min-width:112px!important;padding:0!important;cursor:default!important}
+#compartment .cmx th.rl{text-align:left!important;padding-left:16px!important}
+#compartment .cmx td.groupcell{
+  width:112px!important;min-width:112px!important;padding:12px 14px!important;vertical-align:middle!important;text-align:center!important;
+  border:2px solid #fff!important;border-right:1px solid #DDE4EC!important;background:#F6F8FB!important;color:#5C6675!important;
+  font-size:11px!important;font-weight:800!important;letter-spacing:.13em!important;text-transform:uppercase!important;line-height:1.35!important;
+}
+#compartment .cmx td.rl{padding-left:16px!important}
+#compartment .cmx tr.group-start td{border-top-width:8px!important}
+#compartment .cmx tr.group-start td.groupcell{border-top-width:8px!important}
+#compartment .cmx td.group-total{border:none!important;border-top:1px solid var(--line)!important;background:#fff!important}
+@media(max-width:860px){#landscape #chart-gap svg{min-height:310px!important}}
+</style>`;
 
       const feedbackCss=`
 <style id="lc-feedback-styles">
@@ -155,7 +212,7 @@
 })();
 <\/script>`;
 
-      html=html.replace('</head>',feedbackCss+'</head>');
+      html=html.replace('</head>',layoutCss+feedbackCss+'</head>');
       html=html.replace('</body>',feedbackMarkup+feedbackScript+'</body>');
       document.open();document.write(html);document.close();
     }catch(error){status.className='loading error';status.textContent=error.message;}
