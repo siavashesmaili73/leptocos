@@ -91,6 +91,12 @@
   #sankey.dim .rib.hot{opacity:1}
   .legend{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:12px;font-size:12.5px;color:var(--muted)}
   .legend .s{display:inline-flex;align-items:center;gap:6px}.legend .s i{width:11px;height:11px;border-radius:3px}
+  .cov-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px 16px;flex-wrap:wrap;margin:0 0 4px}
+  .cov-toggle{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden;flex:none}
+  .cov-btn{border:none;background:#fff;padding:7px 13px;font-size:12.5px;color:#434A57;cursor:pointer;font-family:var(--sans);font-weight:600;transition:background .15s ease,color .15s ease}
+  .cov-btn+.cov-btn{border-left:1px solid var(--line)}
+  .cov-btn.is-on{background:var(--brand);color:#fff}
+  .cov-btn:not(.is-on):hover{background:var(--panel)}
   .hint{font-size:12px;color:#6B7480;margin-top:10px}
   .cmx-wrap{overflow-x:auto;margin:6px 0 0}
   .cmx{border-collapse:collapse;width:100%;min-width:560px;font-size:13px}
@@ -311,7 +317,17 @@
     <p class="dek">This grid shows every standardised outcome (a row) against every trial (a column). A filled cell
       means that trial reported that outcome. Outcomes are ordered most-reported at the top; the trials run left to right
       by year (1991 to 2025), so you can also see when each outcome first appears.</p>
-    <div class="card"><p class="ct">Which of the 41 trials reported each outcome</p><p class="cn">Rows are the 55 standardised outcomes; columns are the 41 trials, left to right by year. A filled cell means reported, coloured by COMET core area; the number at right is how many trials reported it. Hover a cell for details.</p><div id="genome"></div></div>
+    <div class="card">
+      <div class="cov-head">
+        <p class="ct" style="margin:0">Which of the 41 trials reported each outcome</p>
+        <div class="cov-toggle" role="group" aria-label="Row ordering">
+          <button type="button" class="cov-btn is-on" data-mode="freq">By frequency</button>
+          <button type="button" class="cov-btn" data-mode="first">By first appearance</button>
+        </div>
+      </div>
+      <p class="cn" id="genome-cap">Rows are the 55 standardised outcomes, ordered most-reported at the top; columns are the 41 trials, left to right by year (1991 to 2025). A filled cell means reported, coloured by COMET core area; the number at right is how many trials reported it. Hover a cell for details.</p>
+      <div id="genome"></div>
+    </div>
   </section>
 
 
@@ -546,10 +562,15 @@ function allFreqChart(){
   el.insertAdjacentHTML('afterend','<div class="legend" style="margin-top:12px">'+CORE_ORDER.map(c=>`<span class="s"><i style="background:${CORE_COL[c]}"></i>${esc(c)}</span>`).join('')+'</div>');
 }
 
-function coverageMatrix(){
+let covMode='freq';
+function coverageMatrix(mode){
+  covMode=mode||covMode;
   const el=document.getElementById('genome');if(!el)return;
   const yr=v=>{const m=String(v).match(/(?:19|20)\d{2}/);return m?+m[0]:9999;};
-  const rows=Object.keys(termFreq).sort((a,b)=>(studyPerTerm[b]-studyPerTerm[a])||a.localeCompare(b));
+  const firstYear={};DATA.forEach(d=>{const y=yr(d.study);if(firstYear[d.std]===undefined||y<firstYear[d.std])firstYear[d.std]=y;});
+  const rows=Object.keys(termFreq).sort(covMode==='first'
+    ?(a,b)=>(firstYear[b]-firstYear[a])||(studyPerTerm[b]-studyPerTerm[a])||a.localeCompare(b)
+    :(a,b)=>(studyPerTerm[b]-studyPerTerm[a])||a.localeCompare(b));
   const stTerms={};DATA.forEach(d=>{(stTerms[d.study]=stTerms[d.study]||new Set()).add(d.std);});
   const cols=Object.keys(stTerms).sort((a,b)=>yr(a)-yr(b)||a.localeCompare(b));
   const has=new Set();DATA.forEach(d=>has.add(d.study+'||'+d.std));
@@ -565,7 +586,8 @@ function coverageMatrix(){
     s+=`<text x="${cx}" y="${y0}" font-size="7.5" fill="#8A93A0" transform="rotate(90 ${cx} ${y0})">${y===9999?'n/a':y}</text>`;});
   s+=`<text x="${padL+cols.length*cw/2}" y="${gridB+60}" text-anchor="middle" font-size="11" font-weight="600" fill="#3A4150">Each column is one of 41 trials, ordered by year: earliest (left) to latest (right)</text>`;
   s+='</svg>';el.innerHTML=s;
-  el.insertAdjacentHTML('afterend','<div class="legend" style="margin-top:12px">'+CORE_ORDER.map(c=>`<span class="s"><i style="background:${CORE_COL[c]}"></i>${esc(c)}</span>`).join('')+'</div>');
+  const old=el.nextElementSibling;if(old&&old.classList&&old.classList.contains('genome-legend'))old.remove();
+  el.insertAdjacentHTML('afterend','<div class="legend genome-legend" style="margin-top:12px">'+CORE_ORDER.map(c=>`<span class="s"><i style="background:${CORE_COL[c]}"></i>${esc(c)}</span>`).join('')+'</div>');
 }
 
 /* ---- charts ---- */
@@ -575,6 +597,8 @@ const subTop=Object.entries(subCounts).sort((a,b)=>b[1]-a[1]).slice(0,16);
 hbars(document.getElementById('chart-sub'),subTop.map(([s,v])=>({label:s,key:s,value:v,color:CORE_COL[coreOfSub[s]]||'#889'})),
   {onClick:s=>{state.search=s;document.getElementById('search').value=s;gotoTable();render();}});
 sankey();allFreqChart();coverageMatrix();
+const covCap={freq:"Rows are the 55 standardised outcomes, ordered most-reported at the top; columns are the 41 trials, left to right by year (1991 to 2025). A filled cell means reported, coloured by COMET core area; the number at right is how many trials reported it. Hover a cell for details.",first:"Rows are ordered by first appearance: the outcome reported earliest sits at the bottom and the most recently introduced at the top, so the leading edge of filled cells traces when each outcome first entered the trial literature. Columns are the 41 trials, left to right by year (1991 to 2025); the number at right is how many trials reported it. Hover a cell for details."};
+document.querySelectorAll('.cov-btn').forEach(b=>b.addEventListener('click',()=>{const m=b.getAttribute('data-mode');document.querySelectorAll('.cov-btn').forEach(x=>x.classList.toggle('is-on',x===b));const cap=document.getElementById('genome-cap');if(cap)cap.textContent=covCap[m];coverageMatrix(m);}));
 stacked(document.getElementById('chart-pri'),PRI_ORDER.map(t=>({label:PRI_LABEL[t],key:t,value:priCounts[t]||0,color:PRI_COL[t],dark:t==='ns'})),N,t=>{document.getElementById('f-pri').value=t;state.tier=t;gotoTable();render();});
 document.getElementById('chart-pri').insertAdjacentHTML('afterend','<div class="legend">'+PRI_ORDER.map(t=>`<span class="s"><i style="background:${PRI_COL[t]}"></i>${PRI_LABEL[t]}: ${priCounts[t]||0}</span>`).join('')+'</div>');
 
