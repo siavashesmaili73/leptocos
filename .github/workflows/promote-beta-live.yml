@@ -1,0 +1,51 @@
+name: Promote cleaned beta to production
+
+on:
+  push:
+    paths:
+      - '.promote-beta-live'
+
+permissions:
+  contents: write
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Promote beta wrapper safely
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          prod = Path('index.html')
+          beta = Path('beta/index.html')
+          backup = Path('production-source.html')
+
+          prod_text = prod.read_text(encoding='utf-8')
+          beta_text = beta.read_text(encoding='utf-8')
+
+          # Preserve the current production page as the source document used
+          # by the promoted wrapper, avoiding a recursive fetch loop.
+          backup.write_text(prod_text, encoding='utf-8')
+
+          root_text = beta_text.replace("fetch('../index.html',{cache:'no-store'})", "fetch('production-source.html',{cache:'no-store'})", 1)
+          beta_text = beta_text.replace("fetch('../index.html',{cache:'no-store'})", "fetch('../production-source.html',{cache:'no-store'})", 1)
+
+          if "fetch('production-source.html',{cache:'no-store'})" not in root_text:
+              raise SystemExit('Root fetch replacement failed')
+          if "fetch('../production-source.html',{cache:'no-store'})" not in beta_text:
+              raise SystemExit('Beta fetch replacement failed')
+
+          prod.write_text(root_text, encoding='utf-8')
+          beta.write_text(beta_text, encoding='utf-8')
+          PY
+      - name: Commit promotion
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html beta/index.html production-source.html
+          git commit -m "Promote cleaned beta experience to production"
+          git push
