@@ -23,7 +23,6 @@ jobs:
           path = Path('beta/index.html')
           text = path.read_text(encoding='utf-8')
 
-          # Remove the inline mailto submit handler.
           text, n_form = re.subn(
               r'<form class="lc-feedback-form" id="lcFeedbackForm" onsubmit="[^"]*">',
               '<form class="lc-feedback-form" id="lcFeedbackForm">',
@@ -31,7 +30,6 @@ jobs:
               count=1,
           )
 
-          # Add a honeypot and an initially empty, accessible status message.
           old_button = '<button class="lc-feedback-submit" type="submit">Send feedback</button>'
           new_button = (
               '<input type="text" name="_honey" tabindex="-1" autocomplete="off" '
@@ -43,7 +41,6 @@ jobs:
               raise SystemExit('Submit button markup not found')
           text = text.replace(old_button, new_button, 1)
 
-          # Add status styling inside the feedback style block.
           css = (
               '\n.lc-feedback-result{min-height:0!important;margin:0!important;text-align:center!important;'
               'font-size:12px!important;line-height:1.4!important;font-weight:650!important;color:#355269!important}'
@@ -138,3 +135,5 @@ jobs:
           git add beta/index.html
           git commit -m "Send beta feedback directly without mail app"
           git push
+
+# trigger 2
