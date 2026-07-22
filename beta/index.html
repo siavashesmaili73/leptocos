@@ -78,15 +78,15 @@ function renderCoreGapLarge(){
       );
       html=html.replace(
         '            <tr class="ghdr"><td colspan="6">Response</td></tr>\n            <tr><td class="rl">Response</td>',
-        '            <tr class="group-start response-start"><td class="groupcell group-response" rowspan="5"><div class="group-marker"><span class="group-name">Response</span><span class="group-brace">}</span></div></td><td class="rl">Response</td>'
+        '            <tr class="group-start response-start"><td class="groupcell group-response" rowspan="5"><div class="group-marker"><span class="group-name">Response</span><svg class="group-brace" viewBox="0 0 18 100" preserveAspectRatio="none" aria-hidden="true"><path d="M16 2 C8 2 7 14 7 27 V39 C7 47 3 50 1 50 C3 50 7 53 7 61 V73 C7 86 8 98 16 98"/></svg></div></td><td class="rl">Response</td>'
       );
       html=html.replace(
         '            <tr class="ghdr"><td colspan="6">Progression</td></tr>\n            <tr><td class="rl">PFS</td>',
-        '            <tr class="group-spacer"><td colspan="7"></td></tr>\n            <tr class="group-start progression-start"><td class="groupcell group-progression" rowspan="2"><div class="group-marker"><span class="group-name">Progression</span><span class="group-brace">}</span></div></td><td class="rl">PFS</td>'
+        '            <tr class="group-spacer"><td colspan="7"></td></tr>\n            <tr class="group-start progression-start"><td class="groupcell group-progression" rowspan="2"><div class="group-marker"><span class="group-name">Progression</span><svg class="group-brace" viewBox="0 0 18 100" preserveAspectRatio="none" aria-hidden="true"><path d="M16 2 C8 2 7 14 7 27 V39 C7 47 3 50 1 50 C3 50 7 53 7 61 V73 C7 86 8 98 16 98"/></svg></div></td><td class="rl">PFS</td>'
       );
       html=html.replace(
         '            <tr class="ghdr"><td colspan="6">Other</td></tr>\n            <tr><td class="rl">Other</td>',
-        '            <tr class="group-spacer"><td colspan="7"></td></tr>\n            <tr class="group-start other-start"><td class="groupcell group-other" rowspan="1"><div class="group-marker"><span class="group-name">Other</span><span class="group-brace">}</span></div></td><td class="rl">Other</td>'
+        '            <tr class="group-spacer"><td colspan="7"></td></tr>\n            <tr class="group-start other-start"><td class="groupcell group-other" rowspan="1"><div class="group-marker"><span class="group-name">Other</span><svg class="group-brace" viewBox="0 0 18 100" preserveAspectRatio="none" aria-hidden="true"><path d="M16 2 C8 2 7 14 7 27 V39 C7 47 3 50 1 50 C3 50 7 53 7 61 V73 C7 86 8 98 16 98"/></svg></div></td><td class="rl">Other</td>'
       );
       html=html.replace(
         '<tr><td class="rl">All compartments</td><td>71</td><td>32</td><td>30</td><td>31</td><td class="ncol">164</td></tr>',
@@ -111,16 +111,13 @@ function renderCoreGapLarge(){
 #compartment .cmx tr.group-spacer{height:18px!important}
 #compartment .cmx tr.group-spacer td{height:18px!important;padding:0!important;border:0!important;background:transparent!important}
 #compartment .cmx td.groupcell{position:relative!important;width:132px!important;min-width:132px!important;padding:0!important;border:0!important;background:transparent!important;vertical-align:middle!important;overflow:visible!important}
-#compartment .cmx .group-marker{position:absolute!important;left:7px!important;right:4px!important;top:50%!important;transform:translateY(-50%)!important;display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:9px!important;white-space:nowrap!important;pointer-events:none!important}
+#compartment .cmx .group-marker{position:absolute!important;inset:7px 4px 7px 7px!important;display:grid!important;grid-template-columns:minmax(0,1fr) 18px!important;align-items:center!important;column-gap:10px!important;white-space:nowrap!important;pointer-events:none!important}
 #compartment .cmx .group-name{color:#5C6675!important;font-size:10px!important;font-weight:800!important;letter-spacing:.14em!important;text-transform:uppercase!important;line-height:1.15!important}
-#compartment .cmx .group-brace{display:block!important;color:#B8C3CF!important;font-family:Georgia,'Times New Roman',serif!important;font-weight:400!important;line-height:.72!important;transform-origin:center!important}
-#compartment .cmx td.group-response .group-brace{font-size:88px!important;transform:scaleY(2.35)!important}
-#compartment .cmx td.group-progression .group-brace{font-size:64px!important;transform:scaleY(1.25)!important}
-#compartment .cmx td.group-other .group-brace{font-size:42px!important;transform:scaleY(.74)!important}
+#compartment .cmx .group-brace{display:block!important;width:18px!important;height:100%!important;overflow:visible!important;fill:none!important;stroke:#AAB8C6!important;stroke-width:1.45!important;stroke-linecap:round!important;stroke-linejoin:round!important;filter:drop-shadow(0 1px 1px rgba(31,54,78,.06))!important}
 #compartment .cmx tfoot td{height:48px!important;padding:7px 9px!important;border:0!important;border-top:1px solid var(--line)!important;background:transparent!important;vertical-align:middle!important}
 #compartment .cmx tfoot td.rl{text-align:left!important;padding-left:14px!important}
 #compartment .cmx td.group-total{border-top:1px solid var(--line)!important;background:transparent!important}
-@media(max-width:860px){#landscape #chart-gap svg{min-height:310px!important}#compartment .cmx{min-width:900px!important}#compartment .cmx .group-marker{left:5px!important;right:3px!important}}
+@media(max-width:860px){#landscape #chart-gap svg{min-height:310px!important}#compartment .cmx{min-width:900px!important}#compartment .cmx .group-marker{inset:7px 3px 7px 5px!important}}
 </style>`;
 
       const feedbackCss=`
