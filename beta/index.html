@@ -4,14 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <title>LeptoCOS Beta</title>
+  <title>LeptoCOS</title>
   <style>
     body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:#171B23;background:#fff}
     .loading{max-width:720px;margin:80px auto;padding:0 24px;line-height:1.6}.error{color:#9A431B}
   </style>
 </head>
 <body>
-<div class="loading" id="status">Loading the LeptoCOS beta preview…</div>
+<div class="loading" id="status">Loading LeptoCOS…</div>
 <script>
 (async function(){
   const status=document.getElementById('status');
@@ -20,8 +20,6 @@
     if(!response.ok)throw new Error('Could not load the current LeptoCOS page.');
     let html=await response.text();
 
-    html=html.replace('<title>LeptoCOS · A core outcome set for leptomeningeal disease</title>','<title>LeptoCOS Beta · A core outcome set for leptomeningeal disease</title>');
-    html=html.replace('<span class="wm"><span class="a">Lepto</span><span class="b">COS</span></span>','<span class="wm"><span class="a">Lepto</span><span class="b">COS</span></span><span class="chip">Beta preview</span>');
     html=html.replace('const total=21,W=2440,H=1120','const total=22,W=2440,H=1120');
     html=html.replace('Registered as <b style="color:var(--ink)">COMET Initiative Study 3224</b> · conducted in accordance with COMET, COS-STAD and PRISMA.','Registered as <b style="color:var(--ink)">COMET Initiative Study 3224</b> · developed in accordance with COMET and COS-STAD guidance; the systematic review was reported in accordance with PRISMA.');
     html=html.replace('<h2>Methods and limitations</h2>','<h2>Methods and scope</h2>');
