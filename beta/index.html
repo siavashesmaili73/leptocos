@@ -94,7 +94,8 @@ function renderCoreGapLarge(){
     const feedbackScript=`<script>
 (function(){
  const tab=document.getElementById('lcFeedbackTab'),panel=document.getElementById('lcFeedbackPanel'),close=document.getElementById('lcFeedbackClose'),form=document.getElementById('lcFeedbackForm'),result=document.getElementById('lcFeedbackResult');
- function setOpen(open){panel.classList.toggle('is-open',open);panel.setAttribute('aria-hidden',String(!open));tab.setAttribute('aria-expanded',String(open));if(open)close.focus();}
+ function clearResult(){if(!result.classList.contains('is-pending')){result.className='lc-feedback-result';result.textContent='';}}
+ function setOpen(open){panel.classList.toggle('is-open',open);panel.setAttribute('aria-hidden',String(!open));tab.setAttribute('aria-expanded',String(open));if(open){clearResult();close.focus();}}
  tab.addEventListener('click',()=>setOpen(!panel.classList.contains('is-open')));close.addEventListener('click',()=>{setOpen(false);tab.focus();});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&panel.classList.contains('is-open'))setOpen(false);});
  const canvas=document.getElementById('lcFeedbackNetwork'),ctx=canvas.getContext('2d'),hero=canvas.parentElement,reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;let particles=[];
  function reset(){const r=hero.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(r.width*d);canvas.height=Math.round(r.height*d);canvas.style.width=r.width+'px';canvas.style.height=r.height+'px';ctx.setTransform(d,0,0,d,0,0);particles=Array.from({length:12},()=>({x:r.width*(.38+Math.random()*.66),y:8+Math.random()*Math.max(20,r.height-16),vx:(Math.random()-.5)*.42,vy:(Math.random()-.5)*.34,r:1.15+Math.random()*.85}));}
@@ -102,6 +103,8 @@ function renderCoreGapLarge(){
  function frame(){draw(true);requestAnimationFrame(frame);}reset();draw(false);if(!reduced)requestAnimationFrame(frame);addEventListener('resize',()=>{reset();draw(false);});
  const endpoint='https://script.google.com/macros/s/AKfycbyHTR893s06s0no_FzYth77-QI_EgHsX-a96_EI_0Z8A9HVtjW8naEbTsQa3atkPCoQ1w/exec';
  function setResult(kind,message){result.className='lc-feedback-result '+kind;result.textContent=message;}
+ form.addEventListener('input',clearResult);
+ form.addEventListener('change',clearResult);
  form.addEventListener('submit',e=>{
   e.preventDefault();
   const submit=form.querySelector('.lc-feedback-submit'),nonce=Date.now().toString(36)+Math.random().toString(36).slice(2),callback='lcFeedbackCallback_'+nonce.replace(/\W/g,'');
@@ -110,10 +113,10 @@ function renderCoreGapLarge(){
   data.set('_nonce',nonce);data.set('callback',callback);data.set('page',location.href);data.set('userAgent',navigator.userAgent);
   let finished=false,script=document.createElement('script');
   const cleanup=()=>{delete window[callback];if(script&&script.parentNode)script.parentNode.removeChild(script);};
-  const timeout=setTimeout(()=>{if(finished)return;finished=true;submit.disabled=false;setResult('is-error','Feedback could not be confirmed. Please try again or email siavash@msu.edu.');cleanup();},18000);
+  const timeout=setTimeout(()=>{if(finished)return;finished=true;submit.disabled=false;setResult('is-pending','Still sending feedback...');},18000);
   window[callback]=payload=>{if(!payload||payload.source!=='leptocos-feedback'||payload.nonce!==nonce)return;finished=true;clearTimeout(timeout);submit.disabled=false;cleanup();if(payload.ok&&payload.stored){setResult('is-success',payload.message||'Feedback saved. Thank you for helping improve LeptoCOS.');form.reset();}else{setResult('is-error',payload.message||'Feedback could not be saved. Please try again or email siavash@msu.edu.');}};
   script.onerror=()=>{if(finished)return;finished=true;clearTimeout(timeout);submit.disabled=false;setResult('is-error','Feedback could not be sent. Please try again or email siavash@msu.edu.');cleanup();};
-  submit.disabled=true;setResult('is-pending','Sending feedback...');script.src=endpoint+'?'+data.toString();document.body.appendChild(script);
+  clearResult();submit.disabled=true;setResult('is-pending','Sending feedback...');script.src=endpoint+'?'+data.toString();document.body.appendChild(script);
  });
 })();
 <\/script>`;
