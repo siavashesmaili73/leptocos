@@ -100,7 +100,22 @@ function renderCoreGapLarge(){
  function reset(){const r=hero.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(r.width*d);canvas.height=Math.round(r.height*d);canvas.style.width=r.width+'px';canvas.style.height=r.height+'px';ctx.setTransform(d,0,0,d,0,0);particles=Array.from({length:12},()=>({x:r.width*(.38+Math.random()*.66),y:8+Math.random()*Math.max(20,r.height-16),vx:(Math.random()-.5)*.42,vy:(Math.random()-.5)*.34,r:1.15+Math.random()*.85}));}
  function draw(move){const w=hero.clientWidth,h=hero.clientHeight;ctx.clearRect(0,0,w,h);if(move)particles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<150||p.x>w+8)p.vx*=-1;if(p.y<5||p.y>h-5)p.vy*=-1;});for(let i=0;i<particles.length;i++)for(let j=i+1;j<particles.length;j++){const a=particles[i],b=particles[j],dx=a.x-b.x,dy=a.y-b.y,d=Math.hypot(dx,dy),limit=88;if(d<limit){ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.strokeStyle='rgba(255,255,255,'+(.26*(1-d/limit)).toFixed(3)+')';ctx.lineWidth=.75;ctx.stroke();}}particles.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle='rgba(255,255,255,.58)';ctx.fill();});}
  function frame(){draw(true);requestAnimationFrame(frame);}reset();draw(false);if(!reduced)requestAnimationFrame(frame);addEventListener('resize',()=>{reset();draw(false);});
- form.addEventListener('submit',e=>{e.preventDefault();result.className='lc-feedback-result is-error';result.textContent='Direct feedback is temporarily unavailable while we connect a verified delivery service.';});
+ const endpoint='https://script.google.com/macros/s/AKfycbyHTR893s06s0no_FzYth77-QI_EgHsX-a96_EI_0Z8A9HVtjW8naEbTsQa3atkPCoQ1w/exec';
+ function setResult(kind,message){result.className='lc-feedback-result '+kind;result.textContent=message;}
+ function cleanupFrame(frame){setTimeout(()=>{if(frame&&frame.parentNode)frame.parentNode.removeChild(frame);},0);}
+ form.addEventListener('submit',e=>{
+  e.preventDefault();
+  const submit=form.querySelector('.lc-feedback-submit'),nonce=Date.now().toString(36)+Math.random().toString(36).slice(2),frameName='lcFeedbackSubmit_'+nonce;
+  const data=new FormData(form);data.set('_nonce',nonce);data.set('page',location.href);data.set('userAgent',navigator.userAgent);
+  const frame=document.createElement('iframe');frame.name=frameName;frame.hidden=true;frame.style.display='none';
+  const relay=document.createElement('form');relay.method='POST';relay.action=endpoint;relay.target=frameName;relay.hidden=true;relay.style.display='none';
+  for(const [key,value] of data.entries()){const input=document.createElement('input');input.type='hidden';input.name=key;input.value=value;relay.appendChild(input);}
+  let finished=false;
+  const timeout=setTimeout(()=>{if(finished)return;finished=true;submit.disabled=false;setResult('is-error','Feedback could not be confirmed. Please try again or email siavash@msu.edu.');cleanupFrame(frame);relay.remove();},18000);
+  function onMessage(ev){const payload=ev.data||{};if(payload.source!=='leptocos-feedback'||payload.nonce!==nonce)return;finished=true;clearTimeout(timeout);removeEventListener('message',onMessage);submit.disabled=false;cleanupFrame(frame);relay.remove();if(payload.ok&&payload.stored){setResult('is-success',payload.message||'Feedback saved. Thank you for helping improve LeptoCOS.');form.reset();}else{setResult('is-error',payload.message||'Feedback could not be saved. Please try again or email siavash@msu.edu.');}}
+  addEventListener('message',onMessage);
+  submit.disabled=true;setResult('is-pending','Sending feedback...');document.body.appendChild(frame);document.body.appendChild(relay);relay.submit();
+ });
 })();
 <\/script>`;
 
