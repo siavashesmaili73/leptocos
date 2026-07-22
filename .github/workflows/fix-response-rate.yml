@@ -20,11 +20,14 @@ jobs:
           from pathlib import Path
           p=Path('index.html')
           s=p.read_text(encoding='utf-8')
-          old="<td class=\"rl\">Response</td><td class=\"val\""
-          new="<td class=\"rl\">Response rate</td><td class=\"val\""
-          if old not in s:
+          old='</div></td><td class="rl">Response</td>\' );'
+          if old in s:
+              raise SystemExit('unexpected formatting')
+          target='</div></td><td class="rl">Response</td>\');'
+          replacement='</div></td><td class="rl">Response rate</td>\');'
+          if target not in s:
               raise SystemExit('target label not found')
-          s=s.replace(old,new,1)
+          s=s.replace(target,replacement,1)
           p.write_text(s,encoding='utf-8')
           PY
       - name: Commit change
