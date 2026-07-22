@@ -7,222 +7,108 @@
   <title>LeptoCOS Beta</title>
   <style>
     body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:#171B23;background:#fff}
-    .loading{max-width:720px;margin:80px auto;padding:0 24px;line-height:1.6}
-    .error{color:#9A431B}
+    .loading{max-width:720px;margin:80px auto;padding:0 24px;line-height:1.6}.error{color:#9A431B}
   </style>
 </head>
 <body>
-  <div class="loading" id="status">Loading the LeptoCOS beta preview…</div>
-  <script>
-  (async function(){
-    const status=document.getElementById('status');
-    try{
-      const response=await fetch('../index.html',{cache:'no-store'});
-      if(!response.ok)throw new Error('Could not load the current LeptoCOS page.');
-      let html=await response.text();
+<div class="loading" id="status">Loading the LeptoCOS beta preview…</div>
+<script>
+(async function(){
+  const status=document.getElementById('status');
+  try{
+    const response=await fetch('../index.html',{cache:'no-store'});
+    if(!response.ok)throw new Error('Could not load the current LeptoCOS page.');
+    let html=await response.text();
 
-      html=html.replace(
-        '<title>LeptoCOS · A core outcome set for leptomeningeal disease</title>',
-        '<title>LeptoCOS Beta · A core outcome set for leptomeningeal disease</title>'
-      );
-      html=html.replace(
-        '<span class="wm"><span class="a">Lepto</span><span class="b">COS</span></span>',
-        '<span class="wm"><span class="a">Lepto</span><span class="b">COS</span></span><span class="chip">Beta preview</span>'
-      );
-      html=html.replace('const total=21,W=2440,H=1120','const total=22,W=2440,H=1120');
-      html=html.replace(
-        'Registered as <b style="color:var(--ink)">COMET Initiative Study 3224</b> · conducted in accordance with COMET, COS-STAD and PRISMA.',
-        'Registered as <b style="color:var(--ink)">COMET Initiative Study 3224</b> · developed in accordance with COMET and COS-STAD guidance; the systematic review was reported in accordance with PRISMA.'
-      );
-      html=html.replace('<h2>Methods and limitations</h2>','<h2>Methods and scope</h2>');
-      html=html.replace(
-        '<footer><b>LeptoCOS</b> · a core outcome set for leptomeningeal disease · generated <span id="gd"></span>.',
-        '<footer><b>LeptoCOS</b> · a core outcome set for leptomeningeal disease · Last updated July 21, 2026.'
-      );
-      html=html.replace("document.getElementById('gd').textContent=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});",'');
-      html=html.replace("el.querySelectorAll('.tm').forEach(t=>t.addEventListener('click',()=>{setCore(t.getAttribute('data-k'));gotoTable();}));",'');
-      html=html.replace("el.querySelectorAll('.bar').forEach(b=>b.addEventListener('click',()=>{state.search=b.getAttribute('data-k');document.getElementById('search').value=state.search;gotoTable();render();}));",'');
+    html=html.replace('<title>LeptoCOS · A core outcome set for leptomeningeal disease</title>','<title>LeptoCOS Beta · A core outcome set for leptomeningeal disease</title>');
+    html=html.replace('<span class="wm"><span class="a">Lepto</span><span class="b">COS</span></span>','<span class="wm"><span class="a">Lepto</span><span class="b">COS</span></span><span class="chip">Beta preview</span>');
+    html=html.replace('const total=21,W=2440,H=1120','const total=22,W=2440,H=1120');
+    html=html.replace('Registered as <b style="color:var(--ink)">COMET Initiative Study 3224</b> · conducted in accordance with COMET, COS-STAD and PRISMA.','Registered as <b style="color:var(--ink)">COMET Initiative Study 3224</b> · developed in accordance with COMET and COS-STAD guidance; the systematic review was reported in accordance with PRISMA.');
+    html=html.replace('<h2>Methods and limitations</h2>','<h2>Methods and scope</h2>');
+    html=html.replace('<footer><b>LeptoCOS</b> · a core outcome set for leptomeningeal disease · generated <span id="gd"></span>.','<footer><b>LeptoCOS</b> · a core outcome set for leptomeningeal disease · Last updated July 21, 2026.');
+    html=html.replace("document.getElementById('gd').textContent=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});",'');
+    html=html.replace("el.querySelectorAll('.tm').forEach(t=>t.addEventListener('click',()=>{setCore(t.getAttribute('data-k'));gotoTable();}));",'');
+    html=html.replace("el.querySelectorAll('.bar').forEach(b=>b.addEventListener('click',()=>{state.search=b.getAttribute('data-k');document.getElementById('search').value=state.search;gotoTable();render();}));",'');
 
-      const coreChartFn=`
+    const coreChartFn=`
 function renderCoreGapLarge(){
   const el=document.getElementById('chart-gap');if(!el)return;
-  const items=CORE_ORDER.map(function(c){return{label:c,value:coreStudies[c]||0,color:CORE_COL[c]};});
+  const items=CORE_ORDER.map(c=>({label:c,value:coreStudies[c]||0,color:CORE_COL[c]}));
   const W=760,padL=214,padR=64,rowH=62,top=20,H=top*2+items.length*rowH,mx=studies.length,bw=W-padL-padR;
   let s='<svg viewBox="0 0 '+W+' '+H+'" width="100%" role="img" aria-label="Studies reporting each COMET core area">';
-  items.forEach(function(it,i){
-    const y=top+i*rowH,bh=31,w=Math.max(2,it.value/mx*bw);
-    s+='<text x="'+(padL-13)+'" y="'+(y+21)+'" text-anchor="end" font-size="15" font-weight="600" fill="#333">'+esc(it.label)+'</text>';
-    s+='<rect x="'+padL+'" y="'+y+'" width="'+w+'" height="'+bh+'" rx="4" fill="'+it.color+'"><title>'+esc(it.label)+': '+it.value+' studies</title></rect>';
-    s+='<text x="'+(padL+w+10)+'" y="'+(y+21)+'" font-size="14" font-weight="600" fill="#555">'+it.value+'</text>';
-  });
+  items.forEach((it,i)=>{const y=top+i*rowH,bh=31,w=Math.max(2,it.value/mx*bw);s+='<text x="'+(padL-13)+'" y="'+(y+21)+'" text-anchor="end" font-size="15" font-weight="600" fill="#333">'+esc(it.label)+'</text><rect x="'+padL+'" y="'+y+'" width="'+w+'" height="'+bh+'" rx="4" fill="'+it.color+'"><title>'+esc(it.label)+': '+it.value+' studies</title></rect><text x="'+(padL+w+10)+'" y="'+(y+21)+'" font-size="14" font-weight="600" fill="#555">'+it.value+'</text>';});
   s+='</svg>';el.innerHTML=s;
 }
 `;
-      html=html.replace('/* ---- charts ---- */',coreChartFn+'/* ---- charts ---- */');
-      html=html.replace(
-        "hbars(document.getElementById('chart-gap'),CORE_ORDER.map(c=>({label:c,key:c,value:coreStudies[c]||0,color:CORE_COL[c]})),{max:studies.length,onClick:c=>{setCore(c);gotoTable();}});",
-        'renderCoreGapLarge();'
-      );
-      html=html.replace(
-        "hbars(document.getElementById('chart-sub'),subTop.map(([s,v])=>({label:s,key:s,value:v,color:CORE_COL[coreOfSub[s]]||'#889'})),\n  {onClick:s=>{state.search=s;document.getElementById('search').value=s;gotoTable();render();}});",
-        "hbars(document.getElementById('chart-sub'),subTop.map(([s,v])=>({label:s,key:s,value:v,color:CORE_COL[coreOfSub[s]]||'#889'})),{});"
-      );
-      html=html.replace(
-        "s+='</svg>';el.innerHTML=s;el.querySelectorAll('.bar').forEach(b=>b.addEventListener('click',()=>onClick(b.getAttribute('data-k'))));",
-        "s+='</svg>';el.innerHTML=s;"
-      );
+    html=html.replace('/* ---- charts ---- */',coreChartFn+'/* ---- charts ---- */');
+    html=html.replace("hbars(document.getElementById('chart-gap'),CORE_ORDER.map(c=>({label:c,key:c,value:coreStudies[c]||0,color:CORE_COL[c]})),{max:studies.length,onClick:c=>{setCore(c);gotoTable();}});",'renderCoreGapLarge();');
+    html=html.replace("hbars(document.getElementById('chart-sub'),subTop.map(([s,v])=>({label:s,key:s,value:v,color:CORE_COL[coreOfSub[s]]||'#889'})),\n  {onClick:s=>{state.search=s;document.getElementById('search').value=s;gotoTable();render();}});","hbars(document.getElementById('chart-sub'),subTop.map(([s,v])=>({label:s,key:s,value:v,color:CORE_COL[coreOfSub[s]]||'#889'})),{});");
+    html=html.replace("s+='</svg>';el.innerHTML=s;el.querySelectorAll('.bar').forEach(b=>b.addEventListener('click',()=>onClick(b.getAttribute('data-k'))));","s+='</svg>';el.innerHTML=s;");
 
-      html=html.replace(
-        '<tr><th class="rl"></th><th>Leptomeningeal<small>LM</small></th><th>Intracranial<small>brain</small></th><th>Extracranial<small>systemic</small></th><th>Overall<small>IC + EC</small></th><th class="ncol">n</th></tr>',
-        '<tr><th class="group-col"></th><th class="rl">Metric</th><th>Leptomeningeal<small>LM</small></th><th>Intracranial<small>brain</small></th><th>Extracranial<small>systemic</small></th><th>Overall<small>IC + EC</small></th><th class="ncol">n</th></tr>'
-      );
-      html=html.replace(
-        '            <tr class="ghdr"><td colspan="6">Response</td></tr>\n            <tr><td class="rl">Response</td>',
-        '            <tr class="group-start response-start"><td class="groupcell group-response" rowspan="5"><div class="group-marker"><span class="group-name">Response</span><svg class="group-brace" viewBox="0 0 18 100" preserveAspectRatio="none" aria-hidden="true"><path d="M16 2 C8 2 7 14 7 27 V39 C7 47 3 50 1 50 C3 50 7 53 7 61 V73 C7 86 8 98 16 98"/></svg></div></td><td class="rl">Response</td>'
-      );
-      html=html.replace(
-        '            <tr class="ghdr"><td colspan="6">Progression</td></tr>\n            <tr><td class="rl">PFS</td>',
-        '            <tr class="group-spacer"><td colspan="7"></td></tr>\n            <tr class="group-start progression-start"><td class="groupcell group-progression" rowspan="2"><div class="group-marker"><span class="group-name">Progression</span><svg class="group-brace" viewBox="0 0 18 100" preserveAspectRatio="none" aria-hidden="true"><path d="M16 2 C8 2 7 14 7 27 V39 C7 47 3 50 1 50 C3 50 7 53 7 61 V73 C7 86 8 98 16 98"/></svg></div></td><td class="rl">PFS</td>'
-      );
-      html=html.replace(
-        '            <tr class="ghdr"><td colspan="6">Other</td></tr>\n            <tr><td class="rl">Other</td>',
-        '            <tr class="group-spacer"><td colspan="7"></td></tr>\n            <tr class="group-start other-start"><td class="groupcell group-other" rowspan="1"><div class="group-marker"><span class="group-name">Other</span><svg class="group-brace" viewBox="0 0 18 100" preserveAspectRatio="none" aria-hidden="true"><path d="M16 2 C8 2 7 14 7 27 V39 C7 47 3 50 1 50 C3 50 7 53 7 61 V73 C7 86 8 98 16 98"/></svg></div></td><td class="rl">Other</td>'
-      );
-      html=html.replace(
-        '<tr><td class="rl">All compartments</td><td>71</td><td>32</td><td>30</td><td>31</td><td class="ncol">164</td></tr>',
-        '<tr><td class="group-total"></td><td class="rl">All compartments</td><td>71</td><td>32</td><td>30</td><td>31</td><td class="ncol">164</td></tr>'
-      );
+    const brace='<svg class="group-brace" viewBox="0 0 18 100" preserveAspectRatio="none" aria-hidden="true"><path d="M16 2 C8 2 7 14 7 27 V39 C7 47 3 50 1 50 C3 50 7 53 7 61 V73 C7 86 8 98 16 98"/></svg>';
+    html=html.replace('<tr><th class="rl"></th><th>Leptomeningeal<small>LM</small></th><th>Intracranial<small>brain</small></th><th>Extracranial<small>systemic</small></th><th>Overall<small>IC + EC</small></th><th class="ncol">n</th></tr>','<tr><th class="group-col"></th><th class="rl">Metric</th><th>Leptomeningeal<small>LM</small></th><th>Intracranial<small>brain</small></th><th>Extracranial<small>systemic</small></th><th>Overall<small>IC + EC</small></th><th class="ncol">n</th></tr>');
+    html=html.replace('            <tr class="ghdr"><td colspan="6">Response</td></tr>\n            <tr><td class="rl">Response</td>','            <tr class="group-start response-start"><td class="groupcell group-response" rowspan="5"><div class="group-marker"><span class="group-name">Response</span>'+brace+'</div></td><td class="rl">Response</td>');
+    html=html.replace('            <tr class="ghdr"><td colspan="6">Progression</td></tr>\n            <tr><td class="rl">PFS</td>','            <tr class="group-spacer"><td colspan="7"></td></tr>\n            <tr class="group-start progression-start"><td class="groupcell group-progression" rowspan="2"><div class="group-marker"><span class="group-name">Progression</span>'+brace+'</div></td><td class="rl">PFS</td>');
+    html=html.replace('            <tr class="ghdr"><td colspan="6">Other</td></tr>\n            <tr><td class="rl">Other</td>','            <tr class="group-spacer"><td colspan="7"></td></tr>\n            <tr class="group-start other-start"><td class="groupcell group-other" rowspan="1"><div class="group-marker"><span class="group-name">Other</span>'+brace+'</div></td><td class="rl">Other</td>');
+    html=html.replace('<tr><td class="rl">All compartments</td><td>71</td><td>32</td><td>30</td><td>31</td><td class="ncol">164</td></tr>','<tr><td class="group-total"></td><td class="rl">All compartments</td><td>71</td><td>32</td><td>30</td><td>31</td><td class="ncol">164</td></tr>');
 
-      const layoutCss=`
-<style id="lc-layout-fixes">
-#landscape #chart-gap{margin-top:18px;padding:4px 0 8px}
-#landscape #chart-gap svg{display:block!important;width:100%!important;min-height:350px!important}
-#compartment .cmx-wrap{overflow-x:auto!important;padding:2px 0 5px!important}
-#compartment .cmx{width:100%!important;min-width:900px!important;table-layout:fixed!important;border-collapse:separate!important;border-spacing:4px 4px!important}
-#compartment .cmx th.group-col{width:132px!important;min-width:132px!important;padding:0!important;cursor:default!important;border-bottom:1px solid var(--line)!important}
-#compartment .cmx th.rl{width:158px!important;min-width:158px!important;text-align:left!important;padding-left:14px!important}
-#compartment .cmx th.ncol{width:58px!important;min-width:58px!important}
+    const layoutCss=`<style id="lc-layout-fixes">
+#landscape #chart-gap{margin-top:18px;padding:4px 0 8px}#landscape #chart-gap svg{display:block!important;width:100%!important;min-height:350px!important}
+#compartment .cmx-wrap{overflow-x:auto!important;padding:2px 0 5px!important}#compartment .cmx{width:100%!important;min-width:900px!important;table-layout:fixed!important;border-collapse:separate!important;border-spacing:4px!important}
+#compartment .cmx th.group-col{width:132px!important;min-width:132px!important;padding:0!important;cursor:default!important;border-bottom:1px solid var(--line)!important}#compartment .cmx th.rl{width:158px!important;min-width:158px!important;text-align:left!important;padding-left:14px!important}#compartment .cmx th.ncol{width:58px!important;min-width:58px!important}
 #compartment .cmx thead th{position:static!important;background:transparent!important;border:0!important;border-bottom:1px solid var(--line)!important;padding-top:6px!important;padding-bottom:12px!important;cursor:default!important}
-#compartment .cmx tbody tr:not(.group-spacer){height:58px!important}
-#compartment .cmx td.rl{height:58px!important;padding:0 14px!important;border:0!important;background:transparent!important;vertical-align:middle!important;text-align:left!important;font-size:13px!important;font-weight:650!important}
-#compartment .cmx td.val{width:auto!important;height:58px!important;min-width:0!important;padding:0 8px!important;vertical-align:middle!important;text-align:center!important;border:1px solid rgba(255,255,255,.88)!important;border-radius:9px!important;background-clip:padding-box!important;background-image:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.015))!important;box-shadow:inset 0 0 0 1px rgba(23,53,87,.055),0 1px 2px rgba(23,53,87,.055)!important;font-size:13px!important;font-weight:750!important;transition:transform .16s ease,box-shadow .16s ease!important}
-#compartment .cmx td.val:hover{transform:translateY(-1px)!important;box-shadow:inset 0 0 0 1px rgba(23,53,87,.08),0 4px 10px rgba(23,53,87,.09)!important}
+#compartment .cmx tbody tr:not(.group-spacer){height:58px!important}#compartment .cmx td.rl{height:58px!important;padding:0 14px!important;border:0!important;background:transparent!important;vertical-align:middle!important;text-align:left!important;font-size:13px!important;font-weight:650!important}
+#compartment .cmx td.val{width:auto!important;height:58px!important;min-width:0!important;padding:0 8px!important;vertical-align:middle!important;text-align:center!important;border:1px solid rgba(255,255,255,.88)!important;border-radius:9px!important;background-clip:padding-box!important;background-image:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.015))!important;box-shadow:inset 0 0 0 1px rgba(23,53,87,.055),0 1px 2px rgba(23,53,87,.055)!important;font-size:13px!important;font-weight:750!important}
 #compartment .cmx td.ncol{width:58px!important;height:58px!important;padding:0 4px!important;border:0!important;background:transparent!important;text-align:center!important;vertical-align:middle!important;font-size:12px!important;font-weight:700!important}
-#compartment .cmx tr.group-spacer{height:18px!important}
-#compartment .cmx tr.group-spacer td{height:18px!important;padding:0!important;border:0!important;background:transparent!important}
-#compartment .cmx td.groupcell{position:relative!important;width:132px!important;min-width:132px!important;padding:0!important;border:0!important;background:transparent!important;vertical-align:middle!important;overflow:visible!important}
-#compartment .cmx .group-marker{position:absolute!important;inset:7px 4px 7px 7px!important;display:grid!important;grid-template-columns:minmax(0,1fr) 18px!important;align-items:center!important;column-gap:10px!important;white-space:nowrap!important;pointer-events:none!important}
-#compartment .cmx .group-name{color:#5C6675!important;font-size:10px!important;font-weight:800!important;letter-spacing:.14em!important;text-transform:uppercase!important;line-height:1.15!important}
-#compartment .cmx .group-brace{display:block!important;width:18px!important;height:100%!important;overflow:visible!important;fill:none!important;stroke:#AAB8C6!important;stroke-width:1.45!important;stroke-linecap:round!important;stroke-linejoin:round!important;filter:drop-shadow(0 1px 1px rgba(31,54,78,.06))!important}
-#compartment .cmx tfoot td{height:48px!important;padding:7px 9px!important;border:0!important;border-top:1px solid var(--line)!important;background:transparent!important;vertical-align:middle!important}
-#compartment .cmx tfoot td.rl{text-align:left!important;padding-left:14px!important}
-#compartment .cmx td.group-total{border-top:1px solid var(--line)!important;background:transparent!important}
+#compartment .cmx tr.group-spacer{height:18px!important}#compartment .cmx tr.group-spacer td{height:18px!important;padding:0!important;border:0!important;background:transparent!important}
+#compartment .cmx td.groupcell{position:relative!important;width:132px!important;min-width:132px!important;padding:0!important;border:0!important;background:transparent!important;vertical-align:middle!important;overflow:visible!important}#compartment .cmx .group-marker{position:absolute!important;inset:7px 4px 7px 7px!important;display:grid!important;grid-template-columns:minmax(0,1fr) 18px!important;align-items:center!important;column-gap:10px!important;white-space:nowrap!important;pointer-events:none!important}
+#compartment .cmx .group-name{color:#5C6675!important;font-size:10px!important;font-weight:800!important;letter-spacing:.14em!important;text-transform:uppercase!important;line-height:1.15!important}#compartment .cmx .group-brace{display:block!important;width:18px!important;height:100%!important;overflow:visible!important;fill:none!important;stroke:#AAB8C6!important;stroke-width:1.45!important;stroke-linecap:round!important;stroke-linejoin:round!important;filter:drop-shadow(0 1px 1px rgba(31,54,78,.06))!important}
+#compartment .cmx tfoot td{height:48px!important;padding:7px 9px!important;border:0!important;border-top:1px solid var(--line)!important;background:transparent!important;vertical-align:middle!important}#compartment .cmx tfoot td.rl{text-align:left!important;padding-left:14px!important}#compartment .cmx td.group-total{border-top:1px solid var(--line)!important;background:transparent!important}
 @media(max-width:860px){#landscape #chart-gap svg{min-height:310px!important}#compartment .cmx{min-width:900px!important}#compartment .cmx .group-marker{inset:7px 3px 7px 5px!important}}
 </style>`;
 
-      const feedbackCss=`
-<style id="lc-feedback-styles">
-#lcFeedbackTab{position:fixed!important;right:28px!important;bottom:28px!important;top:auto!important;left:auto!important;z-index:2147483646!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:10px!important;min-width:172px!important;min-height:58px!important;margin:0!important;padding:16px 23px!important;border:1px solid rgba(255,255,255,.24)!important;border-radius:999px!important;background:linear-gradient(135deg,#173b64,#245f83)!important;color:#fff!important;font:800 16px/1 system-ui,-apple-system,"Segoe UI",sans-serif!important;letter-spacing:.01em!important;box-shadow:0 14px 40px rgba(15,43,72,.38),0 0 0 7px rgba(36,95,131,.10)!important;cursor:pointer!important;visibility:visible!important;opacity:1!important;transform:none!important;transition:transform .2s ease,box-shadow .2s ease!important}
-#lcFeedbackTab:hover{transform:translateY(-3px)!important;box-shadow:0 18px 46px rgba(15,43,72,.42),0 0 0 8px rgba(36,95,131,.13)!important}
-#lcFeedbackTab svg{width:22px!important;height:22px!important;fill:none!important;stroke:currentColor!important;stroke-width:1.9!important}
-#lcFeedbackPanel{position:fixed!important;right:28px!important;bottom:100px!important;top:auto!important;left:auto!important;z-index:2147483647!important;width:min(430px,calc(100vw - 36px))!important;max-height:calc(100vh - 132px)!important;margin:0!important;overflow:auto!important;border:1px solid rgba(25,63,105,.15)!important;border-radius:24px!important;background:rgba(255,255,255,.995)!important;box-shadow:0 28px 80px rgba(20,44,73,.30)!important;transform:translateY(22px) scale(.97)!important;transform-origin:bottom right!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important;transition:transform .25s ease,opacity .2s ease,visibility .2s ease!important;font-family:system-ui,-apple-system,"Segoe UI",sans-serif!important}
-#lcFeedbackPanel.is-open{transform:translateY(0) scale(1)!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important}
-.lc-feedback-hero{position:relative!important;min-height:124px!important;padding:24px 26px 19px!important;overflow:hidden!important;color:#fff!important;background:linear-gradient(135deg,#173b64,#276d8a)!important}
-.lc-feedback-hero h3{position:relative!important;z-index:2!important;margin:0 42px 8px 0!important;font-size:23px!important;line-height:1.2!important;color:#fff!important}
-.lc-feedback-hero p{position:relative!important;z-index:2!important;margin:0!important;max-width:310px!important;color:rgba(255,255,255,.88)!important;font-size:13.5px!important;line-height:1.5!important}
-#lcFeedbackClose{position:absolute!important;right:15px!important;top:14px!important;z-index:3!important;width:34px!important;height:34px!important;margin:0!important;padding:0!important;border:1px solid rgba(255,255,255,.34)!important;border-radius:50%!important;background:rgba(255,255,255,.12)!important;color:#fff!important;font-size:22px!important;cursor:pointer!important}
-#lcFeedbackNetwork{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;z-index:1!important;opacity:.62!important;pointer-events:none!important}
-.lc-feedback-body{padding:22px 24px 24px!important}
-.lc-feedback-intro{margin:0 0 15px!important;color:#33465b!important;font-size:13.5px!important;line-height:1.55!important}
-.lc-feedback-form{display:grid!important;gap:13px!important}
-.lc-field{display:grid!important;gap:6px!important}
-.lc-field label{color:#294966!important;font-size:12px!important;font-weight:750!important}
-.lc-field input,.lc-field select,.lc-field textarea{display:block!important;width:100%!important;box-sizing:border-box!important;margin:0!important;border:1px solid #cbd8e2!important;border-radius:11px!important;background:#fff!important;color:#203247!important;font:13.5px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif!important;padding:11px 12px!important;outline:none!important}
-.lc-field textarea{min-height:118px!important;resize:vertical!important}
-.lc-field input:focus,.lc-field select:focus,.lc-field textarea:focus{border-color:#4b91a8!important;box-shadow:0 0 0 3px rgba(75,145,168,.14)!important}
-.lc-optional{border:1px solid #D8E1E9!important;border-radius:12px!important;background:#F8FAFC!important;overflow:hidden!important}
-.lc-optional summary{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:10px!important;padding:12px 14px!important;color:#294966!important;font-size:12.5px!important;font-weight:750!important;cursor:pointer!important;list-style:none!important}
-.lc-optional summary::-webkit-details-marker{display:none!important}
-.lc-optional summary::after{content:'+'!important;display:grid!important;place-items:center!important;width:22px!important;height:22px!important;border-radius:50%!important;background:#E8EEF4!important;color:#31526E!important;font-size:16px!important;line-height:1!important}
-.lc-optional[open] summary::after{content:'−'!important}
-.lc-optional-grid{display:grid!important;gap:11px!important;padding:13px 14px 14px!important;border-top:1px solid #E4EAF0!important}
-.lc-feedback-submit{display:flex!important;align-items:center!important;justify-content:center!important;width:100%!important;box-sizing:border-box!important;margin:0!important;border:0!important;padding:14px 17px!important;border-radius:12px!important;background:#193F69!important;color:#fff!important;font-weight:780!important;font-size:14.5px!important;cursor:pointer!important}
+    const feedbackCss=`<style id="lc-feedback-styles">
+#lcFeedbackTab{position:fixed!important;right:28px!important;bottom:28px!important;z-index:2147483646!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:10px!important;min-width:172px!important;min-height:58px!important;margin:0!important;padding:16px 23px!important;border:1px solid rgba(255,255,255,.24)!important;border-radius:999px!important;background:linear-gradient(135deg,#173b64,#245f83)!important;color:#fff!important;font:800 16px/1 system-ui,-apple-system,"Segoe UI",sans-serif!important;box-shadow:0 14px 40px rgba(15,43,72,.38),0 0 0 7px rgba(36,95,131,.10)!important;cursor:pointer!important}
+#lcFeedbackTab:hover{transform:translateY(-3px)!important}#lcFeedbackTab svg{width:22px!important;height:22px!important;fill:none!important;stroke:currentColor!important;stroke-width:1.9!important}
+#lcFeedbackPanel{position:fixed!important;right:28px!important;bottom:100px!important;z-index:2147483647!important;width:min(430px,calc(100vw - 36px))!important;max-height:calc(100vh - 132px)!important;overflow:auto!important;border:1px solid rgba(25,63,105,.15)!important;border-radius:24px!important;background:rgba(255,255,255,.995)!important;box-shadow:0 28px 80px rgba(20,44,73,.30)!important;transform:translateY(22px) scale(.97)!important;transform-origin:bottom right!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important;transition:transform .25s ease,opacity .2s ease,visibility .2s ease!important;font-family:system-ui,-apple-system,"Segoe UI",sans-serif!important}#lcFeedbackPanel.is-open{transform:translateY(0) scale(1)!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important}
+.lc-feedback-hero{position:relative!important;min-height:124px!important;padding:24px 26px 19px!important;overflow:hidden!important;color:#fff!important;background:linear-gradient(135deg,#173b64,#276d8a)!important}.lc-feedback-hero h3{position:relative!important;z-index:2!important;margin:0 42px 8px 0!important;font-size:23px!important;line-height:1.2!important;color:#fff!important}.lc-feedback-hero p{position:relative!important;z-index:2!important;margin:0!important;max-width:310px!important;color:rgba(255,255,255,.88)!important;font-size:13.5px!important;line-height:1.5!important}
+#lcFeedbackClose{position:absolute!important;right:15px!important;top:14px!important;z-index:3!important;width:34px!important;height:34px!important;padding:0!important;border:1px solid rgba(255,255,255,.34)!important;border-radius:50%!important;background:rgba(255,255,255,.12)!important;color:#fff!important;font-size:22px!important;cursor:pointer!important}#lcFeedbackNetwork{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;z-index:1!important;opacity:.62!important;pointer-events:none!important}
+.lc-feedback-body{padding:22px 24px 24px!important}.lc-feedback-intro{margin:0 0 15px!important;color:#33465b!important;font-size:13.5px!important;line-height:1.55!important}.lc-feedback-form{display:grid!important;gap:13px!important}.lc-field{display:grid!important;gap:6px!important}.lc-field label{color:#294966!important;font-size:12px!important;font-weight:750!important}.lc-field input,.lc-field select,.lc-field textarea{display:block!important;width:100%!important;box-sizing:border-box!important;margin:0!important;border:1px solid #cbd8e2!important;border-radius:11px!important;background:#fff!important;color:#203247!important;font:13.5px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif!important;padding:11px 12px!important;outline:none!important}.lc-field textarea{min-height:118px!important;resize:vertical!important}.lc-field input:focus,.lc-field select:focus,.lc-field textarea:focus{border-color:#4b91a8!important;box-shadow:0 0 0 3px rgba(75,145,168,.14)!important}
+.lc-optional{border:1px solid #D8E1E9!important;border-radius:12px!important;background:#F8FAFC!important;overflow:hidden!important}.lc-optional summary{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:10px!important;padding:12px 14px!important;color:#294966!important;font-size:12.5px!important;font-weight:750!important;cursor:pointer!important;list-style:none!important}.lc-optional summary::-webkit-details-marker{display:none!important}.lc-optional summary::after{content:'+'!important;display:grid!important;place-items:center!important;width:22px!important;height:22px!important;border-radius:50%!important;background:#E8EEF4!important;color:#31526E!important;font-size:16px!important;line-height:1!important}.lc-optional[open] summary::after{content:'−'!important}.lc-optional-grid{display:grid!important;gap:11px!important;padding:13px 14px 14px!important;border-top:1px solid #E4EAF0!important}
+.lc-feedback-submit{display:flex!important;align-items:center!important;justify-content:center!important;width:100%!important;box-sizing:border-box!important;margin:0!important;border:0!important;padding:14px 17px!important;border-radius:12px!important;background:#193F69!important;color:#fff!important;font-weight:780!important;font-size:14.5px!important;cursor:pointer!important}.lc-feedback-submit[disabled]{opacity:.68!important;cursor:wait!important}.lc-feedback-result{min-height:0!important;margin:0!important;text-align:center!important;font-size:12px!important;line-height:1.4!important;font-weight:650!important}.lc-feedback-result.is-success{padding:10px 12px!important;border:1px solid #CDE4DC!important;border-radius:10px!important;background:#EDF7F3!important;color:#0C6A5F!important}.lc-feedback-result.is-error{padding:10px 12px!important;border:1px solid #E9CFC7!important;border-radius:10px!important;background:#FCF2EF!important;color:#923F2D!important}
 @media(max-width:600px){#lcFeedbackTab{right:18px!important;bottom:18px!important;min-width:162px!important;min-height:56px!important;font-size:15px!important}#lcFeedbackPanel{right:18px!important;bottom:88px!important;width:calc(100vw - 36px)!important;max-height:calc(100vh - 112px)!important}}
 </style>`;
 
-      const feedbackMarkup=`
-<button id="lcFeedbackTab" type="button" aria-controls="lcFeedbackPanel" aria-expanded="false" onclick="var p=document.getElementById('lcFeedbackPanel'),o=!p.classList.contains('is-open');p.classList.toggle('is-open',o);p.setAttribute('aria-hidden',String(!o));this.setAttribute('aria-expanded',String(o));if(o)document.getElementById('lcFeedbackClose').focus();">
-  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h16v10H9l-5 4z"/></svg>Share feedback
-</button>
+    const feedbackMarkup=`
+<button id="lcFeedbackTab" type="button" aria-controls="lcFeedbackPanel" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h16v10H9l-5 4z"/></svg>Share feedback</button>
 <aside id="lcFeedbackPanel" role="dialog" aria-modal="false" aria-labelledby="lcFeedbackTitle" aria-hidden="true">
-  <div class="lc-feedback-hero">
-    <canvas id="lcFeedbackNetwork" aria-hidden="true"></canvas>
-    <button id="lcFeedbackClose" type="button" aria-label="Close feedback panel" onclick="var p=document.getElementById('lcFeedbackPanel'),t=document.getElementById('lcFeedbackTab');p.classList.remove('is-open');p.setAttribute('aria-hidden','true');t.setAttribute('aria-expanded','false');t.focus();">×</button>
-    <h3 id="lcFeedbackTitle">Help strengthen LeptoCOS</h3>
-    <p>Share suggestions on terminology, taxonomy, definitions, clinical relevance, evidence mapping, or website usability.</p>
-  </div>
-  <div class="lc-feedback-body">
-    <p class="lc-feedback-intro">Thank you for reviewing LeptoCOS. Your feedback will help improve the clarity, consistency, and usefulness of this resource.</p>
-    <form class="lc-feedback-form" id="lcFeedbackForm" onsubmit="event.preventDefault();var e=this.elements,a=String.fromCharCode(115,105,97,118,97,115,104,64,109,115,117,46,101,100,117),n=String.fromCharCode(10),b='Name: '+(e.name.value||'Not provided')+n+'Role or affiliation: '+(e.role.value||'Not provided')+n+'Reply email: '+(e.reply.value||'Not provided')+n+'Feedback area: '+e.area.value+n+n+'Feedback:'+n+e.message.value+n+n+'Relevant outcome, publication, page, or section: '+(e.reference.value||'Not provided');location.href='mailto:'+a+'?subject='+encodeURIComponent('LeptoCOS feedback — '+e.area.value)+'&body='+encodeURIComponent(b);return false;">
-      <div class="lc-field"><label for="lcArea">Feedback area</label><select id="lcArea" name="area" required><option value="">Select an area</option><option>Outcome terminology</option><option>Outcome taxonomy</option><option>Outcome definitions</option><option>Clinical relevance or missing concepts</option><option>Mappings or potentially overlooked evidence</option><option>Website clarity or usability</option><option>Other</option></select></div>
-      <div class="lc-field"><label for="lcMessage">Your feedback</label><textarea id="lcMessage" name="message" required placeholder="Please describe your suggestion, correction, question, or concern."></textarea></div>
-      <details class="lc-optional">
-        <summary>Add optional details</summary>
-        <div class="lc-optional-grid">
-          <div class="lc-field"><label for="lcName">Name</label><input id="lcName" name="name" type="text" autocomplete="name"></div>
-          <div class="lc-field"><label for="lcRole">Role or affiliation</label><input id="lcRole" name="role" type="text" autocomplete="organization"></div>
-          <div class="lc-field"><label for="lcEmail">Your email, for a reply</label><input id="lcEmail" name="reply" type="email" autocomplete="email"></div>
-          <div class="lc-field"><label for="lcReference">Relevant outcome, publication, page, or section</label><input id="lcReference" name="reference" type="text"></div>
-        </div>
-      </details>
-      <button class="lc-feedback-submit" type="submit">Send feedback</button>
-    </form>
-  </div>
-</aside>`;
+<div class="lc-feedback-hero"><canvas id="lcFeedbackNetwork" aria-hidden="true"></canvas><button id="lcFeedbackClose" type="button" aria-label="Close feedback panel">×</button><h3 id="lcFeedbackTitle">Help strengthen LeptoCOS</h3><p>Share suggestions on terminology, taxonomy, definitions, clinical relevance, evidence mapping, or website usability.</p></div>
+<div class="lc-feedback-body"><p class="lc-feedback-intro">Thank you for reviewing LeptoCOS. Your feedback will help improve the clarity, consistency, and usefulness of this resource.</p>
+<form class="lc-feedback-form" id="lcFeedbackForm">
+<div class="lc-field"><label for="lcArea">Feedback area</label><select id="lcArea" name="area" required><option value="">Select an area</option><option>Outcome terminology</option><option>Outcome taxonomy</option><option>Outcome definitions</option><option>Clinical relevance or missing concepts</option><option>Mappings or potentially overlooked evidence</option><option>Website clarity or usability</option><option>Other</option></select></div>
+<div class="lc-field"><label for="lcMessage">Your feedback</label><textarea id="lcMessage" name="message" required placeholder="Please describe your suggestion, correction, question, or concern."></textarea></div>
+<details class="lc-optional"><summary>Add optional details</summary><div class="lc-optional-grid"><div class="lc-field"><label for="lcName">Name</label><input id="lcName" name="name" type="text" autocomplete="name"></div><div class="lc-field"><label for="lcRole">Role or affiliation</label><input id="lcRole" name="role" type="text" autocomplete="organization"></div><div class="lc-field"><label for="lcEmail">Your email, for a reply</label><input id="lcEmail" name="reply" type="email" autocomplete="email"></div><div class="lc-field"><label for="lcReference">Relevant outcome, publication, page, or section</label><input id="lcReference" name="reference" type="text"></div></div></details>
+<input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden"><button class="lc-feedback-submit" type="submit">Send feedback</button><p class="lc-feedback-result" id="lcFeedbackResult" aria-live="polite"></p>
+</form></div></aside>`;
 
-      const feedbackMotion=`
-<script>
+    const feedbackScript=`<script>
 (function(){
-  var canvas=document.getElementById('lcFeedbackNetwork');
-  if(!canvas)return;
-  var ctx=canvas.getContext('2d'),hero=canvas.parentElement;
-  var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var particles=[],count=12;
-  function reset(){
-    var rect=hero.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,2);
-    canvas.width=Math.max(1,Math.round(rect.width*dpr));
-    canvas.height=Math.max(1,Math.round(rect.height*dpr));
-    canvas.style.width=rect.width+'px';canvas.style.height=rect.height+'px';
-    ctx.setTransform(dpr,0,0,dpr,0,0);particles=[];
-    for(var i=0;i<count;i++)particles.push({
-      x:rect.width*(.38+Math.random()*.66),y:8+Math.random()*Math.max(20,rect.height-16),
-      vx:(Math.random()-.5)*.42,vy:(Math.random()-.5)*.34,r:1.15+Math.random()*.85
-    });
-  }
-  function draw(move){
-    var w=hero.clientWidth,h=hero.clientHeight;ctx.clearRect(0,0,w,h);
-    if(move)particles.forEach(function(p){
-      p.x+=p.vx;p.y+=p.vy;
-      if(p.x<150||p.x>w+8){p.vx*=-1;p.x=Math.max(150,Math.min(w+8,p.x));}
-      if(p.y<5||p.y>h-5){p.vy*=-1;p.y=Math.max(5,Math.min(h-5,p.y));}
-    });
-    for(var i=0;i<particles.length;i++)for(var j=i+1;j<particles.length;j++){
-      var a=particles[i],b=particles[j],dx=a.x-b.x,dy=a.y-b.y,d=Math.sqrt(dx*dx+dy*dy),limit=88;
-      if(d<limit){ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.strokeStyle='rgba(255,255,255,'+(.26*(1-d/limit)).toFixed(3)+')';ctx.lineWidth=.75;ctx.stroke();}
-    }
-    particles.forEach(function(p){ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle='rgba(255,255,255,.58)';ctx.fill();});
-  }
-  function frame(){draw(true);requestAnimationFrame(frame);}
-  reset();draw(false);if(!reduced)requestAnimationFrame(frame);
-  window.addEventListener('resize',function(){reset();draw(false);});
+ const tab=document.getElementById('lcFeedbackTab'),panel=document.getElementById('lcFeedbackPanel'),close=document.getElementById('lcFeedbackClose'),form=document.getElementById('lcFeedbackForm'),result=document.getElementById('lcFeedbackResult');
+ function setOpen(open){panel.classList.toggle('is-open',open);panel.setAttribute('aria-hidden',String(!open));tab.setAttribute('aria-expanded',String(open));if(open)close.focus();}
+ tab.addEventListener('click',()=>setOpen(!panel.classList.contains('is-open')));close.addEventListener('click',()=>{setOpen(false);tab.focus();});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&panel.classList.contains('is-open'))setOpen(false);});
+ const canvas=document.getElementById('lcFeedbackNetwork'),ctx=canvas.getContext('2d'),hero=canvas.parentElement,reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;let particles=[];
+ function reset(){const r=hero.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(r.width*d);canvas.height=Math.round(r.height*d);canvas.style.width=r.width+'px';canvas.style.height=r.height+'px';ctx.setTransform(d,0,0,d,0,0);particles=Array.from({length:12},()=>({x:r.width*(.38+Math.random()*.66),y:8+Math.random()*Math.max(20,r.height-16),vx:(Math.random()-.5)*.42,vy:(Math.random()-.5)*.34,r:1.15+Math.random()*.85}));}
+ function draw(move){const w=hero.clientWidth,h=hero.clientHeight;ctx.clearRect(0,0,w,h);if(move)particles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<150||p.x>w+8)p.vx*=-1;if(p.y<5||p.y>h-5)p.vy*=-1;});for(let i=0;i<particles.length;i++)for(let j=i+1;j<particles.length;j++){const a=particles[i],b=particles[j],dx=a.x-b.x,dy=a.y-b.y,d=Math.hypot(dx,dy),limit=88;if(d<limit){ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.strokeStyle='rgba(255,255,255,'+(.26*(1-d/limit)).toFixed(3)+')';ctx.lineWidth=.75;ctx.stroke();}}particles.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle='rgba(255,255,255,.58)';ctx.fill();});}
+ function frame(){draw(true);requestAnimationFrame(frame);}reset();draw(false);if(!reduced)requestAnimationFrame(frame);addEventListener('resize',()=>{reset();draw(false);});
+ form.addEventListener('submit',async e=>{e.preventDefault();if(!form.reportValidity()||form.elements._honey.value)return;const button=form.querySelector('.lc-feedback-submit'),original=button.textContent,recipient=String.fromCharCode(115,105,97,118,97,115,104,64,109,115,117,46,101,100,117),area=form.elements.area.value,reply=form.elements.reply.value.trim();button.disabled=true;button.textContent='Sending…';result.className='lc-feedback-result';result.textContent='';const payload={name:form.elements.name.value.trim()||'Not provided',affiliation:form.elements.role.value.trim()||'Not provided',email:reply||'Not provided',_replyto:reply||'',feedback_area:area,feedback:form.elements.message.value.trim(),reference:form.elements.reference.value.trim()||'Not provided',_subject:'LeptoCOS feedback — '+area,_template:'table',_captcha:'false',_honey:'',_url:location.href};try{const r=await fetch('https://formsubmit.co/ajax/'+recipient,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)}),data=await r.json().catch(()=>({}));if(!r.ok||data.success===false)throw Error();form.reset();const optional=form.querySelector('.lc-optional');if(optional)optional.open=false;result.className='lc-feedback-result is-success';result.textContent='Thank you — your feedback has been sent.';}catch(err){result.className='lc-feedback-result is-error';result.textContent='We could not send your feedback. Please try again.';}finally{button.disabled=false;button.textContent=original;}});
 })();
 <\/script>`;
 
-      html=html.replace('</head>',layoutCss+feedbackCss+'</head>');
-      html=html.replace('</body>',feedbackMarkup+feedbackMotion+'</body>');
-      document.open();document.write(html);document.close();
-    }catch(error){status.className='loading error';status.textContent=error.message;}
-  })();
-  </script>
+    html=html.replace('</head>',layoutCss+feedbackCss+'</head>');
+    html=html.replace('</body>',feedbackMarkup+feedbackScript+'</body>');
+    document.open();document.write(html);document.close();
+  }catch(error){status.className='loading error';status.textContent=error.message;}
+})();
+</script>
 </body>
 </html>
