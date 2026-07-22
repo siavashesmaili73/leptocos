@@ -1,0 +1,36 @@
+name: Fix live response metric label
+
+on:
+  push:
+    paths:
+      - '.fix-response-rate-trigger'
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Change Response metric to Response rate
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          old="<td class=\"rl\">Response</td><td class=\"val\""
+          new="<td class=\"rl\">Response rate</td><td class=\"val\""
+          if old not in s:
+              raise SystemExit('target label not found')
+          s=s.replace(old,new,1)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit change
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Rename response metric to response rate"
+          git push
