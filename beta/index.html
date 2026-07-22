@@ -121,23 +121,11 @@ function renderCoreGapLarge(){
 .lc-feedback-hero h3{position:relative!important;z-index:2!important;margin:0 42px 8px 0!important;font-size:23px!important;line-height:1.2!important;color:#fff!important}
 .lc-feedback-hero p{position:relative!important;z-index:2!important;margin:0!important;max-width:310px!important;color:rgba(255,255,255,.88)!important;font-size:13.5px!important;line-height:1.5!important}
 #lcFeedbackClose{position:absolute!important;right:15px!important;top:14px!important;z-index:3!important;width:34px!important;height:34px!important;margin:0!important;padding:0!important;border:1px solid rgba(255,255,255,.34)!important;border-radius:50%!important;background:rgba(255,255,255,.12)!important;color:#fff!important;font-size:22px!important;cursor:pointer!important}
-.lc-feedback-network{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;opacity:.58!important;pointer-events:none!important}
-.lc-feedback-network .network-cluster{transform-origin:330px 62px;animation:lcNetworkDrift 9s ease-in-out infinite alternate!important}
-.lc-feedback-network line{stroke:rgba(255,255,255,.48)!important;stroke-width:1.1!important;stroke-dasharray:5 6!important;animation:lcLineFlow 5s linear infinite!important}
-.lc-feedback-network circle{fill:#fff!important;transform-box:fill-box!important;transform-origin:center!important}
-.lc-feedback-network .n1{animation:lcNode1 5.3s ease-in-out infinite!important}.lc-feedback-network .n2{animation:lcNode2 4.7s ease-in-out infinite!important}.lc-feedback-network .n3{animation:lcNode3 5.8s ease-in-out infinite!important}.lc-feedback-network .n4{animation:lcNode4 4.9s ease-in-out infinite!important}.lc-feedback-network .n5{animation:lcNode5 5.5s ease-in-out infinite!important}
-@keyframes lcNetworkDrift{0%{transform:translate(-4px,2px) rotate(-1deg)}100%{transform:translate(6px,-3px) rotate(1.4deg)}}
-@keyframes lcLineFlow{to{stroke-dashoffset:-44}}
-@keyframes lcNode1{0%,100%{transform:translate(0,0) scale(.9);opacity:.55}50%{transform:translate(4px,-5px) scale(1.35);opacity:1}}
-@keyframes lcNode2{0%,100%{transform:translate(0,0) scale(.86);opacity:.6}50%{transform:translate(-5px,4px) scale(1.28);opacity:1}}
-@keyframes lcNode3{0%,100%{transform:translate(0,0) scale(.9);opacity:.58}50%{transform:translate(5px,3px) scale(1.32);opacity:1}}
-@keyframes lcNode4{0%,100%{transform:translate(0,0) scale(.84);opacity:.55}50%{transform:translate(-4px,-4px) scale(1.3);opacity:1}}
-@keyframes lcNode5{0%,100%{transform:translate(0,0) scale(.88);opacity:.6}50%{transform:translate(3px,5px) scale(1.25);opacity:1}}
+#lcFeedbackNetwork{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;z-index:1!important;opacity:.62!important;pointer-events:none!important}
 .lc-feedback-body{padding:22px 24px 24px!important}.lc-feedback-intro{margin:0 0 15px!important;color:#33465b!important;font-size:13.5px!important;line-height:1.55!important}.lc-feedback-form{display:grid!important;gap:13px!important}.lc-field{display:grid!important;gap:6px!important}.lc-field label{color:#294966!important;font-size:12px!important;font-weight:750!important}.lc-field input,.lc-field select,.lc-field textarea{display:block!important;width:100%!important;box-sizing:border-box!important;margin:0!important;border:1px solid #cbd8e2!important;border-radius:11px!important;background:#fff!important;color:#203247!important;font:13.5px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif!important;padding:11px 12px!important;outline:none!important}.lc-field textarea{min-height:118px!important;resize:vertical!important}.lc-field input:focus,.lc-field select:focus,.lc-field textarea:focus{border-color:#4b91a8!important;box-shadow:0 0 0 3px rgba(75,145,168,.14)!important}
 .lc-optional{border:1px solid #D8E1E9!important;border-radius:12px!important;background:#F8FAFC!important;overflow:hidden!important}.lc-optional summary{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:10px!important;padding:12px 14px!important;color:#294966!important;font-size:12.5px!important;font-weight:750!important;cursor:pointer!important;list-style:none!important}.lc-optional summary::-webkit-details-marker{display:none!important}.lc-optional summary::after{content:'+'!important;display:grid!important;place-items:center!important;width:22px!important;height:22px!important;border-radius:50%!important;background:#E8EEF4!important;color:#31526E!important;font-size:16px!important;line-height:1!important;transition:transform .2s ease!important}.lc-optional[open] summary::after{content:'−'!important;transform:rotate(180deg)!important}.lc-optional-grid{display:grid!important;gap:11px!important;padding:13px 14px 14px!important;border-top:1px solid #E4EAF0!important}
 .lc-feedback-note{margin:1px 0 0!important;padding:11px 13px!important;border-left:3px solid #4b91a8!important;border-radius:0 9px 9px 0!important;background:#F7FAFB!important;color:#586B7E!important;font-size:11.5px!important;line-height:1.45!important}.lc-feedback-submit{display:flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;width:100%!important;box-sizing:border-box!important;margin:0!important;border:0!important;padding:14px 17px!important;border-radius:12px!important;background:#193F69!important;color:#fff!important;font-weight:780!important;font-size:14.5px!important;cursor:pointer!important}.lc-feedback-status{min-height:18px!important;margin:0!important;text-align:center!important;color:#566C80!important;font-size:11.5px!important;line-height:1.4!important}
 @media(max-width:600px){#lcFeedbackTab{right:18px!important;bottom:18px!important;min-width:162px!important;min-height:56px!important;font-size:15px!important}#lcFeedbackPanel{right:18px!important;bottom:88px!important;width:calc(100vw - 36px)!important;max-height:calc(100vh - 112px)!important}}
-@media(prefers-reduced-motion:reduce){#lcFeedbackTab,#lcFeedbackPanel,.lc-feedback-network .network-cluster,.lc-feedback-network line,.lc-feedback-network circle{transition:none!important;animation:none!important}}
 </style>`;
 
       const feedbackMarkup=`
@@ -146,12 +134,7 @@ function renderCoreGapLarge(){
 </button>
 <aside id="lcFeedbackPanel" role="dialog" aria-modal="false" aria-labelledby="lcFeedbackTitle" aria-hidden="true">
   <div class="lc-feedback-hero">
-    <svg class="lc-feedback-network" viewBox="0 0 430 124" aria-hidden="true" preserveAspectRatio="none">
-      <g class="network-cluster">
-        <line x1="295" y1="16" x2="365" y2="45"/><line x1="365" y1="45" x2="332" y2="101"/><line x1="332" y1="101" x2="255" y2="73"/><line x1="255" y1="73" x2="295" y2="16"/><line x1="255" y1="73" x2="405" y2="89"/><line x1="365" y1="45" x2="405" y2="89"/>
-        <circle class="n1" cx="295" cy="16" r="4"/><circle class="n2" cx="365" cy="45" r="5"/><circle class="n3" cx="332" cy="101" r="4"/><circle class="n4" cx="255" cy="73" r="5"/><circle class="n5" cx="405" cy="89" r="4"/>
-      </g>
-    </svg>
+    <canvas id="lcFeedbackNetwork" aria-hidden="true"></canvas>
     <button id="lcFeedbackClose" type="button" aria-label="Close feedback panel" onclick="var p=document.getElementById('lcFeedbackPanel'),t=document.getElementById('lcFeedbackTab');p.classList.remove('is-open');p.setAttribute('aria-hidden','true');t.setAttribute('aria-expanded','false');t.focus();">×</button>
     <h3 id="lcFeedbackTitle">Help strengthen LeptoCOS</h3>
     <p>Share suggestions on terminology, taxonomy, definitions, clinical relevance, evidence mapping, or website usability.</p>
@@ -177,8 +160,55 @@ function renderCoreGapLarge(){
   </div>
 </aside>`;
 
+      const feedbackMotion=`
+<script>
+(function(){
+  var canvas=document.getElementById('lcFeedbackNetwork');
+  if(!canvas)return;
+  var ctx=canvas.getContext('2d');
+  var hero=canvas.parentElement;
+  var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var particles=[];
+  var count=12;
+  function reset(){
+    var rect=hero.getBoundingClientRect();
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    canvas.width=Math.max(1,Math.round(rect.width*dpr));
+    canvas.height=Math.max(1,Math.round(rect.height*dpr));
+    canvas.style.width=rect.width+'px';canvas.style.height=rect.height+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    particles=[];
+    for(var i=0;i<count;i++)particles.push({
+      x:rect.width*(.38+Math.random()*.66),
+      y:8+Math.random()*Math.max(20,rect.height-16),
+      vx:(Math.random()-.5)*.42,
+      vy:(Math.random()-.5)*.34,
+      r:1.15+Math.random()*.85
+    });
+  }
+  function draw(move){
+    var w=hero.clientWidth,h=hero.clientHeight;
+    ctx.clearRect(0,0,w,h);
+    if(move){particles.forEach(function(p){
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<150||p.x>w+8){p.vx*=-1;p.x=Math.max(150,Math.min(w+8,p.x));}
+      if(p.y<5||p.y>h-5){p.vy*=-1;p.y=Math.max(5,Math.min(h-5,p.y));}
+    });}
+    for(var i=0;i<particles.length;i++)for(var j=i+1;j<particles.length;j++){
+      var a=particles[i],b=particles[j],dx=a.x-b.x,dy=a.y-b.y,d=Math.sqrt(dx*dx+dy*dy),limit=88;
+      if(d<limit){ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.strokeStyle='rgba(255,255,255,'+(.26*(1-d/limit)).toFixed(3)+')';ctx.lineWidth=.75;ctx.stroke();}
+    }
+    particles.forEach(function(p){ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle='rgba(255,255,255,.58)';ctx.fill();});
+  }
+  function frame(){draw(true);requestAnimationFrame(frame);}
+  reset();draw(false);
+  if(!reduced)requestAnimationFrame(frame);
+  window.addEventListener('resize',function(){reset();draw(false);});
+})();
+<\/script>`;
+
       html=html.replace('</head>',layoutCss+feedbackCss+'</head>');
-      html=html.replace('</body>',feedbackMarkup+'</body>');
+      html=html.replace('</body>',feedbackMarkup+feedbackMotion+'</body>');
       document.open();document.write(html);document.close();
     }catch(error){status.className='loading error';status.textContent=error.message;}
   })();
