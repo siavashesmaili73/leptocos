@@ -102,19 +102,18 @@ function renderCoreGapLarge(){
  function frame(){draw(true);requestAnimationFrame(frame);}reset();draw(false);if(!reduced)requestAnimationFrame(frame);addEventListener('resize',()=>{reset();draw(false);});
  const endpoint='https://script.google.com/macros/s/AKfycbyHTR893s06s0no_FzYth77-QI_EgHsX-a96_EI_0Z8A9HVtjW8naEbTsQa3atkPCoQ1w/exec';
  function setResult(kind,message){result.className='lc-feedback-result '+kind;result.textContent=message;}
- function cleanupFrame(frame){setTimeout(()=>{if(frame&&frame.parentNode)frame.parentNode.removeChild(frame);},0);}
  form.addEventListener('submit',e=>{
   e.preventDefault();
-  const submit=form.querySelector('.lc-feedback-submit'),nonce=Date.now().toString(36)+Math.random().toString(36).slice(2),frameName='lcFeedbackSubmit_'+nonce;
-  const data=new FormData(form);data.set('_nonce',nonce);data.set('page',location.href);data.set('userAgent',navigator.userAgent);
-  const frame=document.createElement('iframe');frame.name=frameName;frame.hidden=true;frame.style.display='none';
-  const relay=document.createElement('form');relay.method='POST';relay.action=endpoint;relay.target=frameName;relay.hidden=true;relay.style.display='none';
-  for(const [key,value] of data.entries()){const input=document.createElement('input');input.type='hidden';input.name=key;input.value=value;relay.appendChild(input);}
-  let finished=false;
-  const timeout=setTimeout(()=>{if(finished)return;finished=true;submit.disabled=false;setResult('is-error','Feedback could not be confirmed. Please try again or email siavash@msu.edu.');cleanupFrame(frame);relay.remove();},18000);
-  function onMessage(ev){const payload=ev.data||{};if(payload.source!=='leptocos-feedback'||payload.nonce!==nonce)return;finished=true;clearTimeout(timeout);removeEventListener('message',onMessage);submit.disabled=false;cleanupFrame(frame);relay.remove();if(payload.ok&&payload.stored){setResult('is-success',payload.message||'Feedback saved. Thank you for helping improve LeptoCOS.');form.reset();}else{setResult('is-error',payload.message||'Feedback could not be saved. Please try again or email siavash@msu.edu.');}}
-  addEventListener('message',onMessage);
-  submit.disabled=true;setResult('is-pending','Sending feedback...');document.body.appendChild(frame);document.body.appendChild(relay);relay.submit();
+  const submit=form.querySelector('.lc-feedback-submit'),nonce=Date.now().toString(36)+Math.random().toString(36).slice(2),callback='lcFeedbackCallback_'+nonce.replace(/\W/g,'');
+  const data=new URLSearchParams();
+  new FormData(form).forEach((value,key)=>data.set(key,value));
+  data.set('_nonce',nonce);data.set('callback',callback);data.set('page',location.href);data.set('userAgent',navigator.userAgent);
+  let finished=false,script=document.createElement('script');
+  const cleanup=()=>{delete window[callback];if(script&&script.parentNode)script.parentNode.removeChild(script);};
+  const timeout=setTimeout(()=>{if(finished)return;finished=true;submit.disabled=false;setResult('is-error','Feedback could not be confirmed. Please try again or email siavash@msu.edu.');cleanup();},18000);
+  window[callback]=payload=>{if(!payload||payload.source!=='leptocos-feedback'||payload.nonce!==nonce)return;finished=true;clearTimeout(timeout);submit.disabled=false;cleanup();if(payload.ok&&payload.stored){setResult('is-success',payload.message||'Feedback saved. Thank you for helping improve LeptoCOS.');form.reset();}else{setResult('is-error',payload.message||'Feedback could not be saved. Please try again or email siavash@msu.edu.');}};
+  script.onerror=()=>{if(finished)return;finished=true;clearTimeout(timeout);submit.disabled=false;setResult('is-error','Feedback could not be sent. Please try again or email siavash@msu.edu.');cleanup();};
+  submit.disabled=true;setResult('is-pending','Sending feedback...');script.src=endpoint+'?'+data.toString();document.body.appendChild(script);
  });
 })();
 <\/script>`;
