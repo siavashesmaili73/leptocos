@@ -117,19 +117,32 @@
   .t1 tr.total td{border-top:1.5px solid var(--line);font-weight:700;color:var(--ink);font-size:13px;padding-top:9px}
   .jump{color:var(--brand);font-weight:600;text-decoration:none;white-space:nowrap}.jump:hover{text-decoration:underline}
   .hint{font-size:12px;color:#6B7480;margin-top:10px}
-  .cmx-wrap{overflow-x:auto;margin:6px 0 0}
-  .cmx{border-collapse:collapse;width:100%;min-width:560px;font-size:13px}
-  .cmx th,.cmx td{position:static;top:auto;left:auto;z-index:auto}
-  .cmx thead th{font-weight:700;color:var(--ink);font-size:12px;padding:2px 8px 10px;text-align:center;line-height:1.2;vertical-align:bottom;border-bottom:1px solid var(--line)}
-  .cmx thead th small{display:block;font-weight:500;color:var(--muted);font-size:10px;margin-top:3px}
-  .cmx thead th.ncol{color:var(--muted)}
-  .cmx td{padding:11px 8px;text-align:center;border:2px solid #fff}
-  .cmx td.rl{text-align:left;color:var(--ink2);font-weight:600;white-space:nowrap;border:none;padding-left:6px;width:1%}
-  .cmx td.val{font-weight:700;font-variant-numeric:tabular-nums;border-radius:2px;min-width:64px}
-  .cmx td.ncol{color:var(--muted);font-weight:600;border:none;font-variant-numeric:tabular-nums;width:1%;padding-left:16px}
-  .cmx tr.ghdr td{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.13em;color:var(--muted);font-weight:700;padding:14px 6px 5px;border:none}
-  .cmx tfoot td{border:none;color:var(--ink2);font-weight:700;font-size:12px;padding:12px 8px 2px;font-variant-numeric:tabular-nums;border-top:1px solid var(--line)}
-  .cmx tfoot td.rl{text-align:left;padding-left:6px;color:var(--muted);font-weight:600}
+.cmx-card{position:relative;overflow:hidden;padding:0;border-radius:14px;background:#fff}
+.cmx-card::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--brand)}
+.cmx-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;padding:22px 24px 12px}
+.cmx-eyebrow{margin:0 0 6px;color:var(--brand);font-size:10.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.cmx-head .ct{font-size:16px;margin:0 0 4px;color:#1F2A36}
+.cmx-head .cn{font-size:13px;margin:0;color:#657184}
+.cmx-wrap{overflow-x:auto;margin:0;padding:0 24px 20px}
+.cmx{border-collapse:separate;border-spacing:0;width:100%;min-width:790px;font-size:13px;border:1px solid #DDE5EE;border-radius:10px;overflow:hidden;background:#fff}
+.cmx th,.cmx td{position:static;top:auto;left:auto;z-index:auto}
+.cmx thead th{font-weight:800;color:#2D3542;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;padding:11px 10px;text-align:center;line-height:1.2;vertical-align:bottom;border-bottom:1px solid #DDE5EE;background:var(--panel)}
+.cmx thead th+th{border-left:1px solid #E7ECF2}
+.cmx thead th small{display:block;font-weight:650;color:#667385;font-size:9.5px;letter-spacing:.10em;margin-top:5px}
+.cmx thead th.ncol{color:var(--muted)}
+.cmx td{padding:12px 10px;text-align:center;border:0;border-bottom:1px solid #E8EDF3}
+.cmx td+td{border-left:1px solid #EDF1F5}
+.cmx tbody tr:hover td{background-color:#FAFBFD}
+.cmx tbody tr:hover td.val{box-shadow:inset 0 0 0 999px rgba(255,255,255,.10)}
+.cmx td.rl{text-align:left;color:#222A36;font-weight:760;white-space:nowrap;border-left:none;padding-left:16px;width:1%;background:#fff}
+.cmx td.val{font-weight:850;font-variant-numeric:tabular-nums;border-radius:0;min-width:82px;box-shadow:none;background-image:none;transition:box-shadow .16s ease}
+.cmx td.val:hover{position:relative;z-index:1;box-shadow:inset 0 0 0 2px rgba(23,59,100,.22)}
+.cmx td.ncol{color:#4E5B6D;font-weight:850;border-right:none;font-variant-numeric:tabular-nums;width:1%;padding-left:14px;padding-right:14px;background:#F9FAFC}
+.cmx tr.ghdr td{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.13em;color:var(--muted);font-weight:800;padding:14px 16px 5px;border:none;background:#fff}
+.cmx tfoot td{border:none;color:#202733;font-weight:850;font-size:13px;padding:13px 10px;font-variant-numeric:tabular-nums;border-top:1px solid #DDE5EE;background:#F7F9FC}
+.cmx tfoot td+td{border-left:1px solid #E4EAF1}
+.cmx tfoot td.rl{text-align:left;padding-left:16px;color:#4E5B6D;font-weight:800}
+@media(max-width:760px){.cmx-head{display:block;padding:20px 18px 8px}.cmx-wrap{padding:0 18px 18px}.cmx{min-width:720px}}
 
   /* flowchart */
   .flow{display:flex;align-items:stretch;margin-top:14px}
@@ -367,10 +380,15 @@
     <p class="dek">Response and progression outcomes are reported for different anatomical compartments: leptomeningeal,
       intracranial (brain parenchyma), extracranial, or overall. The matrix maps the 164 response and progression outcomes
       by metric and by the compartment each assessment targets. Leptomeningeal is the most common compartment (71 of 164).</p>
-    <div class="card">
+<div class="card cmx-card">
+  <div class="cmx-head">
+    <div>
+      <p class="cmx-eyebrow">Compartment matrix</p>
       <p class="ct">Response and progression outcomes by compartment</p>
-      <p class="cn">Metric (rows) by the compartment each assessment targets (columns). Each cell counts outcomes; darker means more.</p>
-      <div class="cmx-wrap">
+      <p class="cn">Metric (rows) by the compartment each assessment targets (columns). Cell shade indicates relative count.</p>
+    </div>
+  </div>
+  <div class="cmx-wrap">
         <table class="cmx">
           <thead>
             <tr><th class="rl"></th><th>Leptomeningeal<small>LM</small></th><th>Intracranial<small>brain</small></th><th>Extracranial<small>systemic</small></th><th>Overall<small>IC + EC</small></th><th class="ncol">n</th></tr>
@@ -414,7 +432,7 @@
         <div class="defitem"><b>RANO-LM: Response Assessment in Neuro-Oncology, Leptomeningeal Metastases</b><span>Composite response combining a standardized neurological examination, CSF cytology (or flow cytometry in haematological cancers), and contrast-enhanced neuraxis MRI graded on a radiological LM response scorecard. Chamberlain et al., Neuro-Oncology 2017.</span></div>
         <div class="defitem"><b>Modified RANO-LM (radiographic only)</b><span>The radiographic (MRI) component of RANO-LM applied on its own, without the neurological-examination or CSF-cytology components.</span></div>
         <div class="defitem"><b>CSF cytology conversion</b><span>Conversion of cerebrospinal-fluid cytology from positive (malignant cells present) to negative (no malignant or equivocal cells). EANO-ESMO Clinical Practice Guideline, ESMO Open 2023.</span></div>
-        <div class="defitem"><b>RECIST 1.1 (LM as non-measurable disease)</b><span>Leptomeningeal disease is listed under RECIST 1.1 as truly non-measurable, so it is followed qualitatively as a non-target lesion rather than a measurable target lesion. Eisenhauer et al., 2009.</span></div>
+        <div class="defitem"><b>RECIST 1.1 (LM as non-measurable disease)</b><span>Leptomeningeal disease is listed under RECIST 1.1 as <b>“truly non-measurable”</b> disease. When captured in RECIST-based studies, it may be recorded as non-target disease rather than selected as a measurable target lesion; RECIST does not provide a dedicated quantitative LM response measure. Eisenhauer et al., 2009.</span></div>
       </div></div>
     <input id="search" type="hidden"><input id="f-pri" type="hidden">
   </section>
