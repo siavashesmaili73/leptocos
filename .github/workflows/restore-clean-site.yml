@@ -1,0 +1,54 @@
+name: Restore clean LeptoCOS page
+
+on:
+  push:
+    branches:
+      - restore-clean-site
+    paths:
+      - '.restore-clean-site-trigger'
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: restore-clean-site
+      - name: Remove beta wording only
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('beta/index.html')
+          text = path.read_text(encoding='utf-8')
+
+          text = text.replace('<title>LeptoCOS Beta</title>', '<title>LeptoCOS</title>')
+          text = text.replace('Loading the LeptoCOS beta preview…', 'Loading LeptoCOS…')
+
+          title_line = "    html=html.replace('<title>LeptoCOS · A core outcome set for leptomeningeal disease</title>','<title>LeptoCOS Beta · A core outcome set for leptomeningeal disease</title>');\n"
+          chip_line = "    html=html.replace('<span class=\"wm\"><span class=\"a\">Lepto</span><span class=\"b\">COS</span></span>','<span class=\"wm\"><span class=\"a\">Lepto</span><span class=\"b\">COS</span></span><span class=\"chip\">Beta preview</span>');\n"
+
+          if title_line not in text or chip_line not in text:
+              raise SystemExit('Expected beta markers not found')
+
+          text = text.replace(title_line, '', 1)
+          text = text.replace(chip_line, '', 1)
+
+          if 'Beta preview' in text or 'LeptoCOS Beta' in text or 'beta preview' in text:
+              raise SystemExit('Beta wording remains')
+
+          path.write_text(text, encoding='utf-8')
+          PY
+      - name: Clean temporary files and commit
+        shell: bash
+        run: |
+          rm -f .restore-clean-site-trigger .github/workflows/restore-clean-site.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Restore page without beta preview label"
+          git push origin HEAD:restore-clean-site
