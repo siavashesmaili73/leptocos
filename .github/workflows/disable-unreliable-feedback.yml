@@ -1,0 +1,41 @@
+name: Disable unreliable beta feedback relay
+
+on:
+  push:
+    paths:
+      - '.github/disable-unreliable-feedback-trigger'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Disable false delivery state
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          p = Path('beta/index.html')
+          s = p.read_text(encoding='utf-8')
+
+          old = "form.addEventListener('submit',async e=>{e.preventDefault();if(!form.reportValidity()||form.elements._honey.value)return;const button=form.querySelector('.lc-feedback-submit'),original=button.textContent,recipient=String.fromCharCode(115,105,97,118,97,115,104,101,115,109,97,105,108,105,55,51,64,103,109,97,105,108,46,99,111,109),area=form.elements.area.value,reply=form.elements.reply.value.trim();button.disabled=true;button.textContent='Sending…';result.className='lc-feedback-result';result.textContent='';const payload={name:form.elements.name.value.trim()||'Not provided',affiliation:form.elements.role.value.trim()||'Not provided',email:reply||'Not provided',_replyto:reply||'',feedback_area:area,feedback:form.elements.message.value.trim(),reference:form.elements.reference.value.trim()||'Not provided',_subject:'LeptoCOS feedback — '+area,_template:'table',_captcha:'false',_honey:'',_url:location.href};try{const r=await fetch('https://formsubmit.co/ajax/'+recipient,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)}),data=await r.json().catch(()=>({}));if(!r.ok||data.success===false)throw Error();const serviceMessage=String(data.message||'');form.reset();const optional=form.querySelector('.lc-optional');if(optional)optional.open=false;if(/activate|activation|confirm|confirmation|verify|verification/i.test(serviceMessage)){result.className='lc-feedback-result is-pending';result.textContent='Activation email sent to the project inbox. Direct delivery will begin after confirmation.';}else{result.className='lc-feedback-result is-success';result.textContent='Thank you — your feedback has been sent.';}}catch(err){result.className='lc-feedback-result is-error';result.textContent='We could not send your feedback. Please try again.';}finally{button.disabled=false;button.textContent=original;}});"
+          new = "form.addEventListener('submit',e=>{e.preventDefault();result.className='lc-feedback-result is-error';result.textContent='Direct feedback is temporarily unavailable while we connect a verified delivery service.';});"
+
+          if old not in s:
+              raise SystemExit('Expected feedback handler not found')
+          s = s.replace(old, new, 1)
+          p.write_text(s, encoding='utf-8')
+          PY
+      - name: Commit beta-only change
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add beta/index.html
+          git commit -m "Disable unreliable beta feedback relay"
+          git push
