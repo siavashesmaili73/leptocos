@@ -825,11 +825,11 @@ function legacyFullOutcomeMap(focusSubdomain){
   const scale=4,top=76,bottom=24,gaps={term:6,sub:10,core:34},subHeight=34;
   const height=(items,min,gap)=>items.reduce((sum,d)=>sum+Math.max(min,d.n*scale),0)+(items.length-1)*gap;
   const fixedHeight=(items,size,gap)=>items.length*size+(items.length-1)*gap;
-  const H=Math.ceil(top+Math.max(height(terms,13,gaps.term),fixedHeight(subs,subHeight,gaps.sub),height(cores,72,gaps.core))+bottom),W=1200;
+  const H=Math.ceil(top+Math.max(height(terms,13,gaps.term),height(subs,subHeight,gaps.sub),height(cores,72,gaps.core))+bottom),W=1200;
   const cols=[{x:14,w:292},{x:472,w:252},{x:962,w:220}];
   const place=(items,min,gap)=>{const used=height(items,min,gap);let y=top+(H-top-bottom-used)/2;return items.map(d=>{const raw=d.n*scale,h=Math.max(min,raw),p={...d,y,h,fy:y+(h-raw)/2,raw};y+=h+gap;return p;});};
   const placeFixed=(items,size,gap)=>{const used=fixedHeight(items,size,gap);let y=top+(H-top-bottom-used)/2;return items.map(d=>{const raw=d.n*scale,p={...d,y,h:size,fy:y+(size-raw)/2,raw};y+=size+gap;return p;});};
-  const ts=place(terms,13,gaps.term),ss=placeFixed(subs,subHeight,gaps.sub),cs=place(cores,72,gaps.core);
+  const ts=place(terms,13,gaps.term),ss=place(subs,subHeight,gaps.sub),cs=place(cores,72,gaps.core);
   const subIndex=Object.fromEntries(ss.map((s,i)=>[s.key,i])),coreIndex=Object.fromEntries(cs.map((c,i)=>[c.name,i]));
   const sIn=ss.map(s=>s.fy),sOut=ss.map(s=>s.fy),cIn=cs.map(c=>c.fy);let ribbons='',nodes='',heads='';
   const ribbon=(x1,y1,x2,y2,h,col,alpha,ids,label)=>{const mx=x1+(x2-x1)*.48;ribbons+=`<path class="fm-ribbon" data-node="${ids}" fill="${col}" fill-opacity="${alpha}" stroke="#fff" stroke-opacity=".58" stroke-width=".8" d="M${x1} ${y1} C${mx} ${y1} ${mx} ${y2} ${x2} ${y2} L${x2} ${y2+h} C${mx} ${y2+h} ${mx} ${y1+h} ${x1} ${y1+h} Z"><title>${esc(label)}</title></path>`;};
