@@ -20,10 +20,9 @@
     if(!response.ok)throw new Error('Could not load the current LeptoCOS page.');
     let html=await response.text();
 
-    html=html.replace('const total=21,W=2440,H=1120','const total=22,W=2440,H=1120');
     html=html.replace('Registered as <b style="color:var(--ink)">COMET Initiative Study 3224</b> · conducted in accordance with COMET, COS-STAD and PRISMA.','Registered as <a href="https://www.comet-initiative.org/Studies/Details/3224" rel="noopener" style="color:var(--ink)"><b style="color:var(--ink)">COMET Initiative Study 3224</b></a> · developed in accordance with COMET and COS-STAD guidance; the systematic review was reported in accordance with PRISMA.');
     html=html.replace('<h2>Methods and limitations</h2>','<h2>Methods and scope</h2>');
-    html=html.replace('<footer><b>LeptoCOS</b> · a core outcome set for leptomeningeal disease · generated <span id="gd"></span>.','<footer><b>LeptoCOS</b> · a core outcome set for leptomeningeal disease · Last updated August 15, 2026.');
+    html=html.replace('<footer><b>LeptoCOS</b> · a core outcome set for leptomeningeal disease · generated <span id="gd"></span>.','<footer><b>LeptoCOS</b> · a core outcome set for leptomeningeal disease · Last updated September 7, 2026.');
     html=html.replace("document.getElementById('gd').textContent=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});",'');
     html=html.replace("el.querySelectorAll('.tm').forEach(t=>t.addEventListener('click',()=>{setCore(t.getAttribute('data-k'));gotoTable();}));",'');
     html=html.replace("el.querySelectorAll('.bar').forEach(b=>b.addEventListener('click',()=>{state.search=b.getAttribute('data-k');document.getElementById('search').value=state.search;gotoTable();render();}));",'');
@@ -48,7 +47,7 @@ function renderCoreGapLarge(){
     html=html.replace('            <tr class="ghdr"><td colspan="6">Response</td></tr>\n            <tr><td class="rl">Response</td>','            <tr class="group-start response-start"><td class="groupcell group-response" rowspan="5"><div class="group-marker"><span class="group-name">Response</span>'+brace+'</div></td><td class="rl">Response rate</td>');
     html=html.replace('            <tr class="ghdr"><td colspan="6">Progression</td></tr>\n            <tr><td class="rl">PFS</td>','            <tr class="group-spacer"><td colspan="7"></td></tr>\n            <tr class="group-start progression-start"><td class="groupcell group-progression" rowspan="2"><div class="group-marker"><span class="group-name">Progression</span>'+brace+'</div></td><td class="rl">PFS</td>');
     html=html.replace('            <tr class="ghdr"><td colspan="6">Other</td></tr>\n            <tr><td class="rl">Other</td>','            <tr class="group-spacer"><td colspan="7"></td></tr>\n            <tr class="group-start other-start"><td class="groupcell group-other" rowspan="1"><div class="group-marker"><span class="group-name">Other</span>'+brace+'</div></td><td class="rl">Other</td>');
-    html=html.replace('<tr><td class="rl">All compartments</td><td>71</td><td>32</td><td>30</td><td>31</td><td class="ncol">164</td></tr>','<tr><td class="group-total"></td><td class="rl">All compartments</td><td>71</td><td>32</td><td>30</td><td>31</td><td class="ncol">164</td></tr>');
+    html=html.replace('<tr><td class="rl">All compartments</td><td>78</td><td>32</td><td>30</td><td>31</td><td class="ncol">171</td></tr>','<tr><td class="group-total"></td><td class="rl">All compartments</td><td>78</td><td>32</td><td>30</td><td>31</td><td class="ncol">171</td></tr>');
 
     const layoutCss=`<style id="lc-layout-fixes">
 #landscape #chart-gap{margin-top:18px;padding:4px 0 8px}#landscape #chart-gap svg{display:block!important;width:100%!important;min-height:350px!important}
