@@ -6,10 +6,12 @@
 <title>LeptoCOS · A core outcome set for leptomeningeal disease</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="no-referrer">
-<meta name="description" content="LeptoCOS is an international initiative developing a core outcome set for leptomeningeal disease. Companion evidence base for the Society for Neuro-Oncology stakeholder briefing. COMET Initiative Study 3224.">
+<meta name="description" content="LeptoCOS is an international initiative developing a core outcome set for leptomeningeal disease. Pre-Delphi evidence base from the systematic review of outcomes reported in leptomeningeal disease trials, and how to take part in the eDelphi. COMET Initiative Study 3224.">
 <meta property="og:title" content="LeptoCOS · A core outcome set for leptomeningeal disease">
 <meta property="og:description" content="An international initiative to standardise outcome reporting in leptomeningeal disease trials.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://leptocos.org/">
+<link rel="canonical" href="https://leptocos.org/">
 <style>
   :root{
     --bg:#FFFFFF; --panel:#F6F8FB; --panel2:#EEF2F7; --ink:#171B23; --muted:#5C6675; --line:#E4E8EF;
@@ -36,7 +38,7 @@
   header.top{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.9);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--line)}
   .top .in{display:flex;align-items:center;gap:18px;max-width:1200px;margin:0 auto;padding:0 30px;height:58px}
   .wm{font-family:Georgia,'Times New Roman',Times,serif;font-weight:700;font-size:22px;letter-spacing:0}.wm .a{color:var(--ink)}.wm .b{color:var(--brand)}
-  nav.links{display:flex;gap:15px;margin-left:auto;font-size:13.5px}nav.links a{color:var(--muted)}
+  nav.links{display:flex;gap:15px;margin-left:auto;font-size:13.5px}nav.links a{color:var(--muted);white-space:nowrap}.btn-print,.btn-cta{white-space:nowrap}
   .chip{display:inline-flex;align-items:center;gap:6px;background:#FFF4E5;color:#8A5200;border:1px solid #F2D8AE;border-radius:999px;padding:4px 11px;font-size:12px;font-weight:600;white-space:nowrap}
   .chip::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--res)}
   .btn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:7px 13px;font-size:13px;color:var(--ink);cursor:pointer;font-family:var(--sans);transition:border-color .15s var(--ease),box-shadow .15s var(--ease)}
@@ -60,8 +62,11 @@
     nav.links::-webkit-scrollbar{display:none}nav.links a{flex:none}
     .btn-print{display:none}.edelphi .in{padding:22px 18px;gap:18px}}
   @media(max-width:560px){.wm{font-size:19px}.top .in .btn-cta{padding:6px 9px;font-size:12px}}
+  .skip{position:absolute;left:-9999px;top:8px;z-index:1000;background:#fff;color:var(--ink);padding:8px 14px;border:2px solid var(--brand);border-radius:8px;font-weight:600;text-decoration:none}
+  .skip:focus{left:12px}
+  #main:focus{outline:none}
 
-  .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+  .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#F5F8FC 0%,#FFFFFF 78%)}
   #stars{position:absolute;inset:0;width:100%;height:100%;z-index:0}
   #sankey,#genome{overflow-x:auto}
   @media(max-width:760px){#sankey>svg{min-width:900px}#genome>svg{min-width:700px}}
@@ -308,27 +313,40 @@
 
   @media print{*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}#stars{display:none}header.top,thead th{position:static}nav.links,.btn,.controls,.chips,.achip,#tx-search,.tx-subwrap,.tx-sort{display:none!important}section{break-inside:avoid;padding:30px 0}.card,.kpi,.tcard,.fnode,.ask{box-shadow:none}.reveal{opacity:1!important;transform:none!important}}
 </style>
+<style id="prepublish-polish">
+html{scroll-padding-top:72px}
+@media(max-width:1100px){.btn-print{display:none}}
+.ph1{flex:2}.ph2{flex:3}
+.defitem span b{display:inline;font-size:inherit;margin:0}
+#kpis{display:none}
+html #lcFeedbackTab{min-width:0!important;min-height:40px!important;padding:9px 16px!important;right:20px!important;bottom:20px!important;font-size:13px!important;gap:8px!important;box-shadow:0 4px 14px rgba(20,44,73,.16)!important}
+html #lcFeedbackTab svg{width:16px!important;height:16px!important}
+@media(max-width:600px){html #lcFeedbackTab{width:44px!important;height:44px!important;min-height:44px!important;padding:0!important;right:14px!important;bottom:14px!important;font-size:0!important;gap:0!important}html #lcFeedbackTab svg{width:19px!important;height:19px!important}}
+@media(max-width:560px){header.top #edelphiNav{display:none}}
+@media(max-width:760px){.table1-card.is-map{width:auto!important;left:auto!important;translate:none!important}}
+@media(max-width:860px){html #landscape #chart-gap svg{min-height:0!important}}
+.edelphi .side,#edelphiBtn{max-width:100%;box-sizing:border-box}
+@media print{#lcFeedbackTab,#lcFeedbackPanel,.view-switch{display:none!important}.t1-wrap,.cmx-wrap,#sankey,#genome{overflow:visible!important}#compartment .cmx,#sankey>svg,#genome>svg{min-width:0!important;width:100%!important}}
+</style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to main content</a>
 <header class="top"><div class="in">
-  <a class="wm" href="/leptocos/" aria-label="LeptoCOS home"><span class="a">Lepto</span><span class="b">COS</span></a>
+  <a class="wm" href="/" aria-label="LeptoCOS home"><span class="a">Lepto</span><span class="b">COS</span></a>
   <nav class="links">
-    <a href="/leptocos/" aria-current="page">Home</a>
-    <a href="#taxonomy">Long list of outcomes</a>
-    <a href="#why">Rationale</a><a href="#landscape">Landscape</a><a href="#coverage">Coverage</a>
-    <a href="#hetero">Heterogeneity</a><a href="#table1">Full table</a><a href="#methods">Methods</a>
+    <a href="#taxonomy">Long list</a><a href="#why">Rationale</a><a href="#table1">Frequency</a>
+    <a href="#landscape">Findings</a><a href="#methods">Methods</a>
   </nav>
   <a class="btn btn-cta" id="edelphiNav" href="#edelphi">Take part in the eDelphi</a>
   <button class="btn btn-print" onclick="window.print()">Print / PDF</button>
 </div></header>
 
-<div class="hero">
-  <canvas id="stars" aria-hidden="true"></canvas>
+<div class="hero" id="main" tabindex="-1">
   <div class="wrap">
     <p class="eyebrow">Project summary</p>
     <h1>An international initiative to develop a core outcome set for leptomeningeal disease</h1>
-    <p class="lede">LeptoCOS is a multidisciplinary, international initiative developing a core outcome set for leptomeningeal disease (LMD): an agreed minimum set of outcomes every trial should measure and report. This companion presents the evidence base for that consensus and shows where the initiative now stands.</p>
-    <p style="font-size:12px;color:var(--muted);margin:12px 0 0;line-height:1.5">Registered as <b style="color:var(--ink)">COMET Initiative Study 3224</b> · conducted in accordance with COMET, COS-STAD and PRISMA.</p>
+    <p class="lede">LeptoCOS is a multidisciplinary, international initiative developing a core outcome set for leptomeningeal disease (LMD): an agreed minimum set of outcomes every trial should measure and report. This site presents the long list of candidate outcomes from the systematic review, the evidence behind it, and how to take part.</p>
+    <p style="font-size:12px;color:var(--muted);margin:12px 0 0;line-height:1.5">Registered as <b style="color:var(--ink)">COMET Initiative Study 3224</b> · informed by the COMET Handbook and the COS-STAD standards; the systematic review follows PRISMA reporting guidance.</p>
     <div class="prov">
       <span><b id="p-stud">44</b> included studies</span><span><b>1987 to 2025</b></span>
       <span><b id="p-out">332</b> reported outcomes</span><span><b id="p-term">55</b> standardised outcomes</span>
@@ -337,17 +355,36 @@
   </div>
 </div>
 
+<div class="wrap">
+  <section id="taxonomy">
+    <p class="lbl">The long list</p>
+    <h2>The long list of outcomes</h2>
+    <p class="dek">The 55 candidate outcomes to be rated in the eDelphi, each with a plain-language definition, its sub-domain and its COMET core area. Filter, search or sort.</p>
+    <p class="dek" style="margin-top:-8px;font-size:13.5px">Reporting frequency is shown separately (<a href="#table1">Table 1</a>) so that how often an outcome was measured does not anchor judgements of its importance.</p>
+    <p class="dek" style="margin-top:-8px;font-size:13.5px"><b>Pre-Delphi working document.</b> These are candidate outcomes, not a core outcome set; please do not cite them as a core outcome set.</p>
+    <div class="tx-bar">
+      <input id="tx-search" type="search" placeholder="Search outcomes, definitions, sub-domains…" aria-label="Search outcomes">
+      <div class="tx-row">
+        <div class="tx-chips" id="tx-chips"></div>
+        <div class="tx-subwrap"><button class="tx-subbtn" id="tx-subbtn" type="button">Sub-domain ▾</button><div class="tx-pop" id="tx-pop"></div></div>
+        <select id="tx-sort" class="tx-sort" aria-label="Sort outcomes"><option value="dom">Sort: by core area</option><option value="az">Sort: A-Z</option></select>
+      </div>
+      <div class="tx-meta"><span role="status" aria-live="polite">Showing <b id="tx-count">55</b> of 55 outcomes</span><span class="tx-active" id="tx-active"></span></div>
+    </div>
+    <div id="taxo"></div>
+  </section>
+</div>
+
 <div class="edelphi" id="edelphi"><div class="in">
   <div>
     <p class="eyebrow" style="margin:0 0 9px;color:var(--brand);font-size:12px">Take part</p>
     <h2>Help decide which of these outcomes belong in the core set</h2>
-    <p>Clinicians of any discipline, researchers and trialists, and patients and carers are invited to rate the
-      candidate outcomes below. Registration, consent and the survey rounds will run on a dedicated Delphi survey
-      platform, not on this website. Ratings are analysed separately for each stakeholder group, so who takes part
-      shapes the result.</p>
+    <p>Clinicians of any discipline, researchers and trialists, and patients and carers will be invited to rate the
+      candidate outcomes above when the eDelphi opens. Registration, consent and the survey rounds will run on a dedicated Delphi survey
+      platform, not on this website. Ratings will be analysed separately for each stakeholder group.</p>
   </div>
   <div class="side">
-    <a class="btn btn-cta" id="edelphiBtn" href="mailto:siavash@msu.edu?subject=LeptoCOS%20eDelphi%3A%20notify%20me&body=Please%20notify%20me%20when%20eDelphi%20registration%20opens.%0AName%3A%0ARole%3A%0ACountry%3A">Get notified when registration opens</a>
+    <a class="btn btn-cta" id="edelphiBtn" href="mailto:leptocos@gmail.com?subject=LeptoCOS%20eDelphi%3A%20notify%20me&body=Please%20notify%20me%20when%20eDelphi%20registration%20opens.%0AName%3A%0ARole%3A%0ACountry%3A">Get notified when registration opens</a>
     <p class="fine" id="edelphiFine">The eDelphi is in preparation. Leave your name, role and country and we will
       send you the registration link when the first round opens.</p>
   </div>
@@ -359,13 +396,13 @@
   <section id="why">
     <p class="lbl">Background</p>
     <h2>Why leptomeningeal disease needs a core outcome set</h2>
-    <p class="dek">Leptomeningeal disease is a late-stage complication of cancer. It carries a poor prognosis and is rising in incidence.
-      Trials are small and scattered over three decades. When they do not share an outcome language, their results
+    <p class="dek">Leptomeningeal disease is a late-stage complication of cancer. It carries a poor prognosis and is increasingly recognised.
+      Trials are small and scattered over nearly four decades. When they do not share an outcome language, their results
       cannot readily be pooled, compared, or graded for guidelines. A core outcome set is the agreed minimum set of outcomes
       every trial should measure and report, not a limit on what else may be reported.</p>
     <div class="callouts">
       <div class="call"><h3>Fragmented reporting</h3><p>332 outcomes reduce to 55 standardised outcomes; only 3 are reported by at least half of the trials.</p></div>
-      <div class="call b"><h3>Priority often unstated</h3><p>116 of 332 outcomes (35%) carry no stated priority.</p></div>
+      <div class="call b"><h3>Priority often unstated</h3><p>116 of 332 outcomes (35%) carry no recorded or assigned priority.</p></div>
       <div class="call c"><h3>Few patient or resource outcomes</h3><p>Quality of life reported by 8 of 44 trials; resource use by 1 of 44.</p></div>
     </div>
     <div class="card" style="margin-top:16px">
@@ -403,142 +440,15 @@
     </div>
   </section>
 
-  <section id="landscape">
-    <p class="lbl">Distribution</p>
-    <h2>Distribution of the 332 outcomes across COMET core areas</h2>
-    <p class="dek">Every outcome maps to one of five COMET core areas, and within them to 19 sub-domains. Reporting
-      concentrates on tumour response and survival; the areas most relevant to patients are least represented.</p>
-    <div class="grid2">
-      <div class="card"><p class="ct">Outcomes by COMET core area</p><p class="cn">Area = share of 332 outcomes. The Death area covers survival and progression endpoints (PFS/TTP), so roughly half of it is progression, not mortality.</p><div id="treemap"></div>
-        <div class="legend" id="core-leg"></div></div>
-      <div class="card"><p class="ct">Studies reporting each core area (of 44)</p><p class="cn">How many of the 44 trials report at least one outcome in each core area.</p><div id="chart-gap"></div></div>
-    </div>
-    <div class="card" style="margin-top:16px"><p class="ct">Outcomes by sub-domain</p><p class="cn">The 19 sub-domains beneath the five core areas (16 largest shown). <a class="jump" href="#table1">See the full table &#8594;</a></p><div id="chart-sub"></div></div>
-    <div class="card" style="margin-top:16px"><p class="ct">All 55 standardised outcomes, ranked by frequency</p><p class="cn">Number of trials reporting each standardised outcome, high to low, coloured by core area. Safety, survival and leptomeningeal response dominate; reporting then drops sharply, and 14 of the 55 appear in only one trial.</p><div id="chart-allfreq"></div></div>
-  </section>
-
-  <section id="coverage">
-    <p class="lbl">Coverage</p>
-    <h2>Outcomes reported by each trial</h2>
-    <p class="dek">This grid shows every standardised outcome (a row) against every trial (a column). A filled cell
-      means that trial reported that outcome. Outcomes are ordered most-reported at the top; the trials run left to right
-      by year (1987 to 2025), so you can also see when each outcome first appears.</p>
-    <div class="card">
-      <div class="cov-head">
-        <p class="ct" style="margin:0">Which of the 44 trials reported each outcome</p>
-        <div class="cov-toggle" role="group" aria-label="Row ordering">
-          <button type="button" class="cov-btn is-on" data-mode="freq">By frequency</button>
-          <button type="button" class="cov-btn" data-mode="first">By first appearance</button>
-        </div>
-      </div>
-      <p class="cn" id="genome-cap">Rows are the 55 standardised outcomes, ordered most-reported at the top; columns are the 44 trials, left to right by year (1987 to 2025). A filled cell means reported, coloured by COMET core area; the number at right is how many trials reported it. Hover a cell for details.</p>
-      <div id="genome"></div>
-    </div>
-  </section>
-
-
-
-  <section id="hetero">
-    <p class="lbl">Finding 1 · inconsistent definitions</p>
-    <h2>Leptomeningeal treatment response is defined inconsistently</h2>
-    <p class="dek">Even the most-reported response outcome is defined in many
-      different ways; survival is timed inconsistently; and most outcomes name no assessor.</p>
-    <div class="card"><p class="cn" style="font-size:14.5px;line-height:1.5">Reported by <b style="color:#B23A48">25 of 44 trials</b>; only <b style="color:#1F2A36">7 used a RANO-LM-based standard</b> (6 RANO-LM, 1 modified); the other <b style="color:#B23A48">18 were study-specific</b>.</p>
-      <div id="sankey"></div>
-      <p class="hint">&middot; N = number of trials using that definition; definitions without a number were each used by one trial.</p></div>
-  </section>
-
-  <section id="compartment">
-    <p class="lbl">Finding 2 &middot; response by compartment</p>
-    <h2>Where each response outcome is measured</h2>
-    <p class="dek">Response and progression outcomes are reported for different anatomical compartments: leptomeningeal,
-      intracranial (brain parenchyma), extracranial, or overall. The matrix maps the 171 response and progression outcomes
-      by metric and by the compartment each assessment targets. Leptomeningeal is the most common compartment (78 of 171).</p>
-<div class="card cmx-card">
-  <div class="cmx-head">
-    <div>
-      <p class="cmx-eyebrow">Compartment matrix</p>
-      <p class="ct">Response and progression outcomes by compartment</p>
-      <p class="cn">Metric (rows) by the compartment each assessment targets (columns). Cell shade indicates relative count.</p>
-    </div>
-  </div>
-  <div class="cmx-wrap">
-        <table class="cmx">
-          <thead>
-            <tr><th class="rl"></th><th>Leptomeningeal<small>LM</small></th><th>Intracranial<small>brain</small></th><th>Extracranial<small>systemic</small></th><th>Overall<small>IC + EC</small></th><th class="ncol">n</th></tr>
-          </thead>
-          <tbody>
-            <tr class="ghdr"><td colspan="6">Response</td></tr>
-            <tr><td class="rl">Response</td><td class="val" style="background:#1A4A80;color:#FFFFFF">26</td><td class="val" style="background:#7E9BBC;color:#FFFFFF">10</td><td class="val" style="background:#7090B4;color:#FFFFFF">12</td><td class="val" style="background:#9DB4CF;color:#12345E">6</td><td class="ncol">54</td></tr>
-            <tr><td class="rl">DCR</td><td class="val" style="background:#95AECA;color:#12345E">7</td><td class="val" style="background:#B7CADF;color:#12345E">3</td><td class="val" style="background:#A5BBD4;color:#12345E">5</td><td class="val" style="background:#AEC2D9;color:#12345E">4</td><td class="ncol">19</td></tr>
-            <tr><td class="rl">CBR</td><td class="val" style="background:#CDDBEC;color:#12345E">1</td><td class="val" style="background:#B7CADF;color:#12345E">3</td><td class="val" style="background:#C1D2E5;color:#12345E">2</td><td class="val" style="background:#C1D2E5;color:#12345E">2</td><td class="ncol">8</td></tr>
-            <tr><td class="rl">DoR</td><td class="val" style="background:#7E9BBC;color:#FFFFFF">10</td><td class="val" style="background:#AEC2D9;color:#12345E">4</td><td class="val" style="background:#B7CADF;color:#12345E">3</td><td class="val" style="background:#A5BBD4;color:#12345E">5</td><td class="ncol">22</td></tr>
-            <tr><td class="rl">TTR</td><td class="val" style="background:#AEC2D9;color:#12345E">4</td><td class="val" style="background:#C1D2E5;color:#12345E">2</td><td class="val" style="background:#C1D2E5;color:#12345E">2</td><td class="val" style="background:#B7CADF;color:#12345E">3</td><td class="ncol">11</td></tr>
-            <tr class="ghdr"><td colspan="6">Progression</td></tr>
-            <tr><td class="rl">PFS</td><td class="val" style="background:#7090B4;color:#FFFFFF">12</td><td class="val" style="background:#9DB4CF;color:#12345E">6</td><td class="val" style="background:#A5BBD4;color:#12345E">5</td><td class="val" style="background:#7E9BBC;color:#FFFFFF">10</td><td class="ncol">33</td></tr>
-            <tr><td class="rl">TTP</td><td class="val" style="background:#86A1C1;color:#FFFFFF">9</td><td class="val" style="background:#C1D2E5;color:#12345E">2</td><td class="val" style="background:#CDDBEC;color:#12345E">1</td><td class="val" style="background:#CDDBEC;color:#12345E">1</td><td class="ncol">13</td></tr>
-            <tr class="ghdr"><td colspan="6">Other</td></tr>
-            <tr><td class="rl">Other</td><td class="val" style="background:#86A1C1;color:#FFFFFF">9</td><td class="val" style="background:#C1D2E5;color:#12345E">2</td><td class="val" style="background:#EEF0F3;color:#B9C0CB">0</td><td class="val" style="background:#EEF0F3;color:#B9C0CB">0</td><td class="ncol">11</td></tr>
-          </tbody>
-          <tfoot>
-            <tr><td class="rl">All compartments</td><td>78</td><td>32</td><td>30</td><td>31</td><td class="ncol">171</td></tr>
-          </tfoot>
-        </table>
-      </div>
-      <p class="hint cmx-hint">Intracranial = brain parenchyma. The 161 whole-patient outcomes (survival, toxicity, neurological function, biomarkers, quality of life) are not compartment-specific and are not shown.</p>
-</div>
-  </section>
-
-  <section id="priority">
-    <p class="lbl">Reporting rigour</p>
-    <h2>Stated priority of reported outcomes</h2>
-    <p class="dek">Stated priority was recorded, not used to include or exclude outcomes. Nearly a third of outcomes carry no stated priority.</p>
-    <div class="card"><p class="ct">Outcomes by stated priority</p><p class="cn">Share of 332 outcomes.</p><div id="chart-pri"></div></div>
-  </section>
-
-  <section id="explore">
-    <p class="lbl">Reference</p>
-    <h2>Response-assessment criteria for leptomeningeal disease</h2>
-    <p class="dek">These are the response-assessment frameworks behind the leptomeningeal-response definitions used in this review,
-      drawn from published criteria. Study-specific composites combine two or more of these elements in a trial-defined way.</p>
-    <div class="card"><p class="ct">Response-assessment definitions</p>
-      <div class="defgrid">
-        <div class="defitem"><b>RANO-LM: Response Assessment in Neuro-Oncology, Leptomeningeal Metastases</b><span>Composite response combining a standardized neurological examination, CSF cytology (or flow cytometry in haematological cancers), and contrast-enhanced neuraxis MRI graded on a radiological LM response scorecard. Chamberlain et al., Neuro-Oncology 2017.</span></div>
-        <div class="defitem"><b>Modified RANO-LM (radiographic only)</b><span>The radiographic (MRI) component of RANO-LM applied on its own, without the neurological-examination or CSF-cytology components.</span></div>
-        <div class="defitem"><b>CSF cytology conversion</b><span>Conversion of cerebrospinal-fluid cytology from positive (malignant cells present) to negative (no malignant or equivocal cells). EANO-ESMO Clinical Practice Guideline, ESMO Open 2023.</span></div>
-        <div class="defitem"><b>RECIST 1.1 (LM as non-measurable disease)</b><span>Leptomeningeal disease is listed under RECIST 1.1 as <b>“truly non-measurable”</b> disease. When captured in RECIST-based studies, it may be recorded as non-target disease rather than selected as a measurable target lesion; RECIST does not provide a dedicated quantitative LM response measure. Eisenhauer et al., 2009.</span></div>
-      </div></div>
-    <input id="search" type="hidden"><input id="f-pri" type="hidden">
-  </section>
-
-  <section id="taxonomy">
-    <p class="lbl">The long list</p>
-    <h2>All 55 standardised outcomes, defined</h2>
-    <p class="dek">The candidate outcomes that stakeholders will prioritise in the eDelphi, each with a plain-language definition, its sub-domain and its COMET core area. Filter by core area or sub-domain, search, or sort.</p>
-    <p class="dek" style="margin-top:-8px;font-size:13.5px">How often each outcome was reported across the 44 trials is given in the <a href="#table1">full table below</a>. It is deliberately not shown here: how often an outcome has been measured in the past is not evidence of how important it is, and showing it beside a candidate outcome risks anchoring the eDelphi toward frequently reported outcomes and against under-reported ones.</p>
-    <div class="tx-bar">
-      <input id="tx-search" type="search" placeholder="Search outcomes, definitions, sub-domains…" aria-label="Search outcomes">
-      <div class="tx-row">
-        <div class="tx-chips" id="tx-chips"></div>
-        <div class="tx-subwrap"><button class="tx-subbtn" id="tx-subbtn" type="button">Sub-domain ▾</button><div class="tx-pop" id="tx-pop"></div></div>
-        <select id="tx-sort" class="tx-sort" aria-label="Sort outcomes"><option value="dom">Sort: by core area</option><option value="az">Sort: A-Z</option></select>
-      </div>
-      <div class="tx-meta"><span role="status" aria-live="polite">Showing <b id="tx-count">55</b> of 55 outcomes</span><span class="tx-active" id="tx-active"></span></div>
-    </div>
-    <div id="taxo"></div>
-  </section>
-
   <section id="table1">
-    <p class="lbl">Appendix</p>
-    <h2>Reported outcomes by core area, sub-domain and term</h2>
-    <p class="dek">The complete list of all 332 reported outcomes, grouped by COMET core area and sub-domain. “Studies” is the
-      number of the 44 trials reporting each term; percentages are of 332 outcomes and of 44 trials. This is the full table
-      behind the charts above.</p>
+    <p class="lbl">Long list &middot; reporting frequency</p>
+    <h2>Long list of outcomes by COMET core area and sub-domain, with reporting frequency</h2>
+    <p class="dek">The 55 standardised outcomes of the long list, grouped by COMET core area and sub-domain, with the number of the 332 extracted outcomes and of the 44 trials reporting each.</p>
     <div class="card table1-card">
       <div class="table1-head">
         <div>
-          <p class="ct">Table 1 &middot; all reported outcomes</p>
-          <p class="cn">Grouped by core area (shaded rows) and sub-domain. A trial can report several outcomes in one domain, so sub-domain and core-area totals exceed 44.</p>
+          <p class="ct">Table 1 &middot; long list of outcomes</p>
+          <p class="cn">Grouped by core area (shaded rows) and sub-domain. A trial can report several outcomes in one sub-domain, so outcome totals can exceed the number of trials reporting them.</p>
         </div>
         <div class="view-switch" role="tablist" aria-label="Table 1 view">
           <button type="button" role="tab" id="table-view-tab" aria-controls="table1-data-panel" aria-selected="true" data-table1-view="table">Table</button>
@@ -552,7 +462,7 @@
             <tr><th>LeptoCOS sub-domain</th><th>Standardised outcome term</th><th>Outcomes, N (%)</th><th>Studies, N (%)</th></tr>
           </thead>
           <tbody>
-            <tr class="core"><td colspan="2" style="background:#ECF0F5;border-left:3px solid #3E6D9C">Physiological / clinical</td><td class="out" style="background:#ECF0F5"><span class="g">155 <span class="p">(46.7%)</span></span></td><td style="background:#ECF0F5"></td></tr>
+            <tr class="core"><td colspan="2" style="background:#ECF0F5;border-left:3px solid #3E6D9C">Physiological/clinical</td><td class="out" style="background:#ECF0F5"><span class="g">155 <span class="p">(46.7%)</span></span></td><td style="background:#ECF0F5"></td></tr>
             <tr class="s0"><td class="sub" rowspan="14">Intra-CNS response</td><td class="term">LM response rate</td><td class="out"><span class="g">26 <span class="p">(7.8%)</span></span></td><td class="stud"><span class="fill" style="width:57%;background:#D5DFE9"></span><span class="lab">25 <span class="p">(57%)</span></span></td></tr>
             <tr><td class="term">Intracranial ORR</td><td class="out"><span class="g">10 <span class="p">(3.0%)</span></span></td><td class="stud"><span class="fill" style="width:18%;background:#D5DFE9"></span><span class="lab">8 <span class="p">(18%)</span></span></td></tr>
             <tr><td class="term">CSF Cytological Response</td><td class="out"><span class="g">9 <span class="p">(2.7%)</span></span></td><td class="stud"><span class="fill" style="width:20%;background:#D5DFE9"></span><span class="lab">9 <span class="p">(20%)</span></span></td></tr>
@@ -622,21 +532,131 @@
           <div class="map-title">
             <p class="cmx-eyebrow">Progressive alluvial map</p>
             <p class="ct">How reported outcomes converge</p>
-            <p class="cn" id="hierarchy-description">A focused example shows how differently reported Intra-CNS response outcomes converge into one disease-specific LeptoCOS subdomain and then one COMET core area.</p>
+            <p class="cn" id="hierarchy-description">A focused example shows how differently reported Intra-CNS response outcomes converge into one disease-specific LeptoCOS sub-domain and then one COMET core area.</p>
           </div>
-          <div class="map-summary" id="hierarchy-summary" aria-label="One COMET core area contains one disease-specific subdomain and fourteen standardized terms">
+          <div class="map-summary" id="hierarchy-summary" aria-label="One COMET core area contains one disease-specific sub-domain and fourteen standardised terms">
             <div class="map-stat"><b id="hierarchy-stat-cores">1</b><span id="hierarchy-label-cores">core area</span></div><span class="map-arrow" aria-hidden="true"></span>
-            <div class="map-stat"><b id="hierarchy-stat-subdomains">1</b><span id="hierarchy-label-subdomains">subdomain</span></div><span class="map-arrow" aria-hidden="true"></span>
+            <div class="map-stat"><b id="hierarchy-stat-subdomains">1</b><span id="hierarchy-label-subdomains">sub-domain</span></div><span class="map-arrow" aria-hidden="true"></span>
             <div class="map-stat"><b id="hierarchy-stat-terms">14</b><span id="hierarchy-label-terms">terms</span></div>
           </div>
         </div>
         <div class="map-stage"><div id="full-outcome-map"></div></div>
         <div class="map-actions"><button type="button" class="map-expand" id="map-expand" aria-expanded="false"><span class="expand-icon" aria-hidden="true">&#8599;</span><span class="expand-label">Expand all</span></button></div>
-        <div class="map-readout" id="full-map-readout"><span class="mark"></span><span><b>Focused view:</b> follow standardized outcomes through the Intra-CNS response subdomain to its COMET core area.</span></div>
-        <p class="map-note"><b>How LeptoCOS sub-domains relate to the COMET taxonomy.</b> The COMET taxonomy is a standardized, high-level framework that applies across all areas of health research. To capture distinctions that matter in leptomeningeal disease, such as leptomeningeal, intracranial and extracranial disease control, standardized outcomes were first grouped into more granular, disease-specific sub-domains, and each sub-domain was then mapped onto the COMET taxonomy and its five core areas. This sub-domain layer is an addition to the taxonomy rather than a substitute for it; it retains disease-specific detail while keeping the set comparable with the wider core outcome set literature.</p>
+        <div class="map-readout" id="full-map-readout"><span class="mark"></span><span><b>Focused view:</b> follow standardised outcomes through the Intra-CNS response sub-domain to its COMET core area.</span></div>
+        <p class="map-note"><b>How LeptoCOS sub-domains relate to the COMET taxonomy.</b> The COMET taxonomy is a standardised, high-level framework that applies across all areas of health research. To capture distinctions that matter in leptomeningeal disease, such as leptomeningeal, intracranial and extracranial disease control, standardised outcomes were first grouped into more granular, disease-specific sub-domains, and each sub-domain was then mapped onto the COMET taxonomy and its five core areas. This sub-domain layer is an addition to the taxonomy rather than a substitute for it; it retains disease-specific detail while keeping the set comparable with the wider core outcome set literature.</p>
       </div>
     </div>
   </section>
+
+  <section id="landscape">
+    <p class="lbl">Distribution</p>
+    <h2>Distribution of the 332 outcomes across COMET core areas</h2>
+    <p class="dek">Every outcome maps to one of five COMET core areas, and within them to 19 sub-domains. Reporting
+      concentrates on tumour response and survival; life-impact and resource-use outcomes are least represented.</p>
+    <div class="grid2">
+      <div class="card"><p class="ct">Outcomes by COMET core area</p><p class="cn">Area = share of 332 outcomes. The Death area covers survival and progression endpoints (PFS/TTP), so 42% of it is progression, not mortality.</p><div id="treemap"></div>
+        <div class="legend" id="core-leg"></div></div>
+      <div class="card"><p class="ct">Studies reporting each core area (of 44)</p><p class="cn">How many of the 44 trials report at least one outcome in each core area.</p><div id="chart-gap"></div></div>
+    </div>
+    <div class="card" style="margin-top:16px"><p class="ct">Outcomes by sub-domain</p><p class="cn">The 19 sub-domains beneath the five core areas (16 largest shown). <a class="jump" href="#table1">See the full table &#8594;</a></p><div id="chart-sub"></div></div>
+    <div class="card" style="margin-top:16px"><p class="ct">All 55 standardised outcomes, ranked by frequency</p><p class="cn">Number of trials reporting each standardised outcome, high to low, coloured by core area. Safety, survival and leptomeningeal response dominate; reporting then drops sharply, and 14 of the 55 appear in only one trial.</p><div id="chart-allfreq"></div></div>
+  </section>
+
+  <section id="coverage">
+    <p class="lbl">Coverage</p>
+    <h2>Outcomes reported by each trial</h2>
+    <p class="dek">This grid shows every standardised outcome (a row) against every trial (a column). A filled cell
+      means that trial reported that outcome. Outcomes are ordered most-reported at the top; the trials run left to right
+      by year (1987 to 2025), so you can also see when each outcome first appears.</p>
+    <div class="card">
+      <div class="cov-head">
+        <p class="ct" style="margin:0">Which of the 44 trials reported each outcome</p>
+        <div class="cov-toggle" role="group" aria-label="Row ordering">
+          <button type="button" class="cov-btn is-on" data-mode="freq">By frequency</button>
+          <button type="button" class="cov-btn" data-mode="first">By first appearance</button>
+        </div>
+      </div>
+      <p class="cn" id="genome-cap">Rows are the 55 standardised outcomes, ordered most-reported at the top; columns are the 44 trials, left to right by year (1987 to 2025). A filled cell means reported, coloured by COMET core area; the number at right is how many trials reported it. Hover a cell for details.</p>
+      <div id="genome"></div>
+    </div>
+  </section>
+
+
+
+  <section id="hetero">
+    <p class="lbl">Finding 1 · inconsistent definitions</p>
+    <h2>Leptomeningeal treatment response is defined inconsistently</h2>
+    <p class="dek">Even the most-reported response outcome is defined in many different ways.</p>
+    <div class="card"><p class="cn" style="font-size:14.5px;line-height:1.5">Reported by <b style="color:#B23A48">25 of 44 trials</b>; only <b style="color:#1F2A36">7 used a RANO-LM-based standard</b> (6 RANO-LM, 1 modified); the other <b style="color:#B23A48">18 did not</b>: 17 used study-specific criteria and 1 used RECIST v1.1 with the leptomeningeal lesion as a non-target lesion.</p>
+      <div id="sankey"></div>
+      <p class="hint">&middot; N = number of trials using that definition; definitions without a number were each used by one trial.</p></div>
+  </section>
+
+  <section id="explore">
+    <p class="lbl">Reference</p>
+    <h2>Response-assessment criteria for leptomeningeal disease</h2>
+    <p class="dek">These are the response-assessment frameworks behind the leptomeningeal-response definitions used in this review,
+      drawn from published criteria. Study-specific composites combine two or more of these elements in a trial-defined way.</p>
+    <div class="card"><p class="ct">Response-assessment definitions</p>
+      <div class="defgrid">
+        <div class="defitem"><b>RANO-LM: Response Assessment in Neuro-Oncology, Leptomeningeal Metastases</b><span>Composite response combining a standardised neurological examination, CSF cytology (or flow cytometry in haematological cancers), and contrast-enhanced neuraxis MRI graded on a radiological LM response scorecard. Chamberlain et al., Neuro-Oncology 2017.</span></div>
+        <div class="defitem"><b>Modified RANO-LM (radiographic only)</b><span>The radiographic (MRI) component of RANO-LM applied on its own, without the neurological-examination or CSF-cytology components.</span></div>
+        <div class="defitem"><b>CSF cytology conversion</b><span>Conversion of cerebrospinal-fluid cytology from positive (malignant cells present) to negative (no malignant or equivocal cells). EANO-ESMO Clinical Practice Guideline, ESMO Open 2023.</span></div>
+        <div class="defitem"><b>RECIST 1.1 (LM as non-measurable disease)</b><span>Leptomeningeal disease is listed under RECIST 1.1 as <b>“truly non-measurable”</b> disease. When captured in RECIST-based studies, it may be recorded as non-target disease rather than selected as a measurable target lesion; RECIST does not provide a dedicated quantitative LM response measure. Eisenhauer et al., 2009.</span></div>
+      </div></div>
+    <input id="search" type="hidden"><input id="f-pri" type="hidden">
+  </section>
+
+  <section id="compartment">
+    <p class="lbl">Finding 2 &middot; response by compartment</p>
+    <h2>Where each response and progression outcome is measured</h2>
+    <p class="dek">Response and progression outcomes are reported for different anatomical compartments: leptomeningeal,
+      intracranial (brain parenchyma), extracranial, or overall. The matrix maps the 171 response and progression outcomes
+      by metric and by the compartment each assessment targets. Leptomeningeal is the most common compartment (78 of 171).</p>
+<div class="card cmx-card">
+  <div class="cmx-head">
+    <div>
+      <p class="cmx-eyebrow">Compartment matrix</p>
+      <p class="ct">Response and progression outcomes by compartment</p>
+      <p class="cn">Metric (rows) by the compartment each assessment targets (columns). Cell shade indicates relative count.</p>
+    </div>
+  </div>
+  <div class="cmx-wrap">
+        <table class="cmx">
+          <thead>
+            <tr><th class="rl"></th><th>Leptomeningeal<small>LM</small></th><th>Intracranial<small>brain</small></th><th>Extracranial<small>systemic</small></th><th>Overall<small>IC + EC</small></th><th class="ncol">n</th></tr>
+          </thead>
+          <tbody>
+            <tr class="ghdr"><td colspan="6">Response</td></tr>
+            <tr><td class="rl">Response</td><td class="val" style="background:#1A4A80;color:#FFFFFF">26</td><td class="val" style="background:#7E9BBC;color:#FFFFFF">10</td><td class="val" style="background:#7090B4;color:#FFFFFF">12</td><td class="val" style="background:#9DB4CF;color:#12345E">6</td><td class="ncol">54</td></tr>
+            <tr><td class="rl">DCR</td><td class="val" style="background:#95AECA;color:#12345E">7</td><td class="val" style="background:#B7CADF;color:#12345E">3</td><td class="val" style="background:#A5BBD4;color:#12345E">5</td><td class="val" style="background:#AEC2D9;color:#12345E">4</td><td class="ncol">19</td></tr>
+            <tr><td class="rl">CBR</td><td class="val" style="background:#CDDBEC;color:#12345E">1</td><td class="val" style="background:#B7CADF;color:#12345E">3</td><td class="val" style="background:#C1D2E5;color:#12345E">2</td><td class="val" style="background:#C1D2E5;color:#12345E">2</td><td class="ncol">8</td></tr>
+            <tr><td class="rl">DoR</td><td class="val" style="background:#7E9BBC;color:#FFFFFF">10</td><td class="val" style="background:#AEC2D9;color:#12345E">4</td><td class="val" style="background:#B7CADF;color:#12345E">3</td><td class="val" style="background:#A5BBD4;color:#12345E">5</td><td class="ncol">22</td></tr>
+            <tr><td class="rl">TTR</td><td class="val" style="background:#AEC2D9;color:#12345E">4</td><td class="val" style="background:#C1D2E5;color:#12345E">2</td><td class="val" style="background:#C1D2E5;color:#12345E">2</td><td class="val" style="background:#B7CADF;color:#12345E">3</td><td class="ncol">11</td></tr>
+            <tr class="ghdr"><td colspan="6">Progression</td></tr>
+            <tr><td class="rl">PFS</td><td class="val" style="background:#7090B4;color:#FFFFFF">12</td><td class="val" style="background:#9DB4CF;color:#12345E">6</td><td class="val" style="background:#A5BBD4;color:#12345E">5</td><td class="val" style="background:#7E9BBC;color:#FFFFFF">10</td><td class="ncol">33</td></tr>
+            <tr><td class="rl">TTP</td><td class="val" style="background:#86A1C1;color:#FFFFFF">9</td><td class="val" style="background:#C1D2E5;color:#12345E">2</td><td class="val" style="background:#CDDBEC;color:#12345E">1</td><td class="val" style="background:#CDDBEC;color:#12345E">1</td><td class="ncol">13</td></tr>
+            <tr class="ghdr"><td colspan="6">Other</td></tr>
+            <tr><td class="rl">Other</td><td class="val" style="background:#86A1C1;color:#FFFFFF">9</td><td class="val" style="background:#C1D2E5;color:#12345E">2</td><td class="val" style="background:#EEF0F3;color:#B9C0CB">0</td><td class="val" style="background:#EEF0F3;color:#B9C0CB">0</td><td class="ncol">11</td></tr>
+          </tbody>
+          <tfoot>
+            <tr><td class="rl">All compartments</td><td>78</td><td>32</td><td>30</td><td>31</td><td class="ncol">171</td></tr>
+          </tfoot>
+        </table>
+      </div>
+      <p class="hint cmx-hint">Intracranial = brain parenchyma. 161 outcomes are not shown: 160 whole-patient outcomes that are not compartment-specific (such as survival, toxicity, neurological status, biomarkers and quality of life) and 1 all-sites response metric (best percentage change from baseline).</p>
+</div>
+  </section>
+
+  <section id="priority">
+    <p class="lbl">Reporting rigour</p>
+    <h2>Recorded or assigned priority of reported outcomes</h2>
+    <p class="dek">Priority (primary, secondary or exploratory) was recorded as each trial stated it. Where a trial gave no explicit label, an outcome was assigned primary only if it informed the sample-size calculation or was specified as an outcome objective; a general statement of purpose was not enough, and secondary or exploratory status was never assigned. Priority was not used to include or exclude outcomes. More than a third of outcomes (35%) carry no recorded or assigned priority.</p>
+    <div class="card"><p class="ct">Outcomes by recorded or assigned priority</p><p class="cn">Share of 332 outcomes.</p><div id="chart-pri"></div></div>
+  </section>
+
+
+
 
   <section id="methods">
     <p class="lbl">Transparency</p>
@@ -647,11 +667,6 @@
   </section>
 
   <section id="ask" style="border-bottom:none">
-    <div class="ask">
-      <p class="eyebrow" style="color:#9FB6D4">The ask</p>
-      <h2>An invitation to the Society for Neuro-Oncology</h2>
-      <p>LeptoCOS invites the Society for Neuro-Oncology to support the initiative and to help disseminate the resulting core outcome set to its members. A two-round eDelphi across all stakeholder groups will prioritise this long list, and a consensus meeting will agree the final set; this companion presents the evidence behind that process rather than carrying it out. For a high-mortality, under-served disease, SNO&#8217;s support would help turn this shared evidence base into a standard its members and patients can rely on, reflecting the community it serves before the set is fixed.</p>
-    </div>
     <footer><b>LeptoCOS</b> · a core outcome set for leptomeningeal disease · generated <span id="gd"></span>.
       Pre-Delphi working document; figures derived from the study dataset. Please do not cite as a core outcome set.</footer>
   </section>
@@ -684,9 +699,9 @@ document.getElementById('kpis').innerHTML=kpis.map(k=>`<div class="kpi ${k.f?'fl
 /* ---- matrix (Figure 2) ---- */
 
 /* ---------- SVG helpers ---------- */
-function hbars(el,items,{max,fmt,onClick,ref,padL:padLo}){
+function hbars(el,items,{max,fmt,onClick,ref,padL:padLo,aria}){
   const W=680,padL=padLo||190,padR=66,rowH=items.length>11?24:32,top=8,H=top*2+items.length*rowH,mx=max||Math.max(...items.map(i=>i.value),1),bw=W-padL-padR;
-  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Data figure; described in the caption above.">`;
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc(aria||('Horizontal bar chart: '+items.map(i=>i.label).join(', ')))}">`;
   items.forEach((it,i)=>{const y=top+i*rowH,bh=Math.min(19,rowH-6),w=Math.max(1,it.value/mx*bw);
     s+=`<text x="${padL-9}" y="${y+bh/2+4}" text-anchor="end" font-size="12" fill="#333">${esc(it.label)}</text>`;
     s+=`<rect class="bar" x="${padL}" y="${y}" width="${w}" height="${bh}" rx="2.5" fill="${it.color}" data-k="${esc(it.key||it.label)}"><title>${esc(it.label)}: ${fmt?fmt(it):it.value}</title></rect>`;
@@ -696,7 +711,7 @@ function hbars(el,items,{max,fmt,onClick,ref,padL:padLo}){
   if(onClick)el.querySelectorAll('.bar').forEach(b=>b.addEventListener('click',()=>onClick(b.getAttribute('data-k'))));
 }
 function stacked(el,segs,total,onClick){
-  const W=680,H=92,y=22,bh=34,bw=W-8;let x=4,s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Data figure; described in the caption above.">`;
+  const W=680,H=92,y=22,bh=34,bw=W-8;let x=4,s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc('Stacked bar of the share of outcomes by priority: '+segs.map(g=>g.label).join(', '))}">`;
   segs.forEach(sg=>{const w=sg.value/total*bw;s+=`<rect class="bar" x="${x}" y="${y}" width="${Math.max(0,w-1)}" height="${bh}" fill="${sg.color}" data-k="${esc(sg.key)}"><title>${esc(sg.label)}: ${sg.value} (${Math.round(sg.value/total*100)}%)</title></rect>`;
     if(w>42){s+=`<text x="${x+w/2}" y="${y+bh/2-1}" text-anchor="middle" font-size="12" font-weight="700" fill="${sg.dark?'#171B23':'#fff'}">${sg.value}</text><text x="${x+w/2}" y="${y+bh/2+13}" text-anchor="middle" font-size="10" fill="${sg.dark?'#5C6675':'rgba(255,255,255,.9)'}">${Math.round(sg.value/total*100)}%</text>`;}x+=w;});
   s+='</svg>';el.innerHTML=s;el.querySelectorAll('.bar').forEach(b=>b.addEventListener('click',()=>onClick(b.getAttribute('data-k'))));
@@ -715,7 +730,7 @@ function treemap(){
   while(i<items.length){const horiz=w<h?false:true;const len=horiz?h:w;let cur=[];
     while(i<items.length){const test=cur.concat(items[i]);if(cur.length===0||worst(test,len)<=worst(cur,len)){cur=test;i++;}else break;}
     layoutRow(cur,len,horiz);}
-  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Data figure; described in the caption above.">`;
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc('Treemap of the share of outcomes in each COMET core area: '+data.map(d=>d.k).join(', ')+'. Counts are in the full table.')}">`;
   rects.forEach(r=>{const pct=(r.v/total*100).toFixed(1);const big=r.w>90&&r.h>44;
     s+=`<rect class="tm" x="${r.x+1}" y="${r.y+1}" width="${Math.max(0,r.w-2)}" height="${Math.max(0,r.h-2)}" rx="3" fill="${CORE_COL[r.k]}" data-k="${esc(r.k)}"><title>${esc(r.k)}: ${r.v} (${pct}%)</title></rect>`;
     if(big){s+=`<text x="${r.x+10}" y="${r.y+22}" font-size="12.5" font-weight="700" fill="#fff">${esc(r.k)}</text><text x="${r.x+10}" y="${r.y+40}" font-size="13" fill="rgba(255,255,255,.9)">${r.v} · ${pct}%</text>`;}
@@ -727,8 +742,8 @@ function treemap(){
 /* heatmap */
 /* LM-response definitions sankey — teal/rose gradient (25 of 44 trials) */
 function sankey(){
-  const rano={label:'RANO-LM based',n:7,node:'#16897A',leaves:[['RANO-LM',6,'2020 to 2025'],['Modified RANO-LM · radiographic only',1,'2020']]};
-  const besp={label:'Study-specific',n:18,node:'#BE3A56',leaves:[['CSF cytology conversion + neurologic stability',4,'1999 to 2002'],['CSF cytology conversion',2,'1999, 2015'],['CSF cytology + neurologic status',1,'2006'],['CSF cytology + neurologic symptoms',1,'2002'],['CSF cytology + biochemistry + neurologic',2,'1987, 2000'],['Cytologic + biochemical + neurologic + radiographic composite',1,'1993'],['Clinical + MRI + CSF composite',1,'2020'],['CSF + radiographic + clinical composite',1,'2023'],['Cytologic + neurologic + radiographic',1,'2021'],['Radiologic + cytologic composite',1,'2021'],['RECIST (LM non-target lesion)',1,'2020'],['Neurologic exam + imaging composite',1,'1998'],['Cytologic + clinical + neuroimaging composite',1,'1998']]};
+  const rano={label:'RANO-LM based',n:7,node:'#16897A',leaves:[['RANO-LM',6,'2020 to 2025'],['Modified RANO-LM radiological criteria',1,'2020']]};
+  const besp={label:'Not RANO-LM based',n:18,node:'#BE3A56',leaves:[['CSF cytology conversion + neurologic stability',6,'1999 to 2015'],['CSF cytology + neurologic status',1,'2006'],['CSF cytology + neurologic symptoms',1,'2002'],['CSF cytology + biochemistry + neurologic',2,'1987, 2000'],['Cytologic + biochemical + neurologic + radiographic composite',1,'1993'],['Clinical + MRI + CSF composite',1,'2020'],['CSF + radiographic + clinical composite',1,'2023'],['Cytologic + neurologic + radiographic',1,'2021'],['Radiologic + cytologic + clinical composite',1,'2021'],['RECIST v1.1 (LM non-target lesion)',1,'2020'],['Neurologic exam + CSF cytology + imaging composite',1,'1998'],['Cytologic + clinical + neuroimaging composite',1,'1998']]};
   const total=25,W=2440,H=1120,top=40,bot=40,usable=H-top-bot;
   const aX=500,aW=22,bX=1010,bW=16,cX=1520,cW=16,groupGap=44,leafGap=20;
   const SLATE='#3D4453',TEAL='#1F9E8C',TEALL='#A7DBD1',ROSE='#C64A62',ROSEL='#ECBBC4';
@@ -757,7 +772,7 @@ function sankey(){
   nodes+=`<rect x="${bX}" y="${bRano.y}" width="${bW}" height="${bRano.h}" rx="3" fill="${bRano.node}"/>`;
   nodes+=`<text x="${bX+bW+18}" y="${bRano.y+bRano.h/2+9}" font-size="27" font-weight="700" fill="#12433D">RANO-LM based · 7</text>`;
   nodes+=`<rect x="${bX}" y="${bBesp.y}" width="${bW}" height="${bBesp.h}" rx="3" fill="${bBesp.node}"/>`;
-  nodes+=`<text x="${bX+bW+18}" y="${bBesp.y+bBesp.h/2+9}" font-size="27" font-weight="700" fill="#7A2436">Study-specific · 18</text>`;
+  nodes+=`<text x="${bX+bW+18}" y="${bBesp.y+bBesp.h/2+9}" font-size="27" font-weight="700" fill="#7A2436">Not RANO-LM based · 18</text>`;
   cpos.forEach(lf=>{nodes+=`<rect x="${cX}" y="${lf.y}" width="${cW}" height="${lf.h}" rx="3" fill="${lf.node}"/>`;
     nodes+=`<text x="${cX+cW+15}" y="${lf.y+lf.h/2+8}" font-size="25" fill="#26313D">${esc(lf.lab)}${lf.n>1?`<tspan font-weight="700"> ·${lf.n}</tspan>`:''}${lf.dt?`<tspan fill="#9AA3AD" font-size="19"> ${esc(lf.dt)}</tspan>`:''}</text>`;});
   const el=document.getElementById('sankey');
@@ -773,7 +788,7 @@ function allFreqChart(){
   const el=document.getElementById('chart-allfreq');if(!el)return;
   const items=Object.entries(studyPerTerm).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]));
   const W=1100,padL=300,padR=46,rowH=22,top=10,H=top*2+items.length*rowH,mx=Math.max(...items.map(i=>i[1]),1),bw=W-padL-padR;
-  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Data figure; described in the caption above.">`;
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Bar chart of the number of trials reporting each standardised outcome, from most to least reported, coloured by COMET core area. Counts are in the full table.">`;
   items.forEach(([t,v],i)=>{const y=top+i*rowH,bh=15,w=Math.max(1,v/mx*bw),col=CORE_COL[(TERM_META[t]||{}).core]||'#8894A2';
     s+=`<text x="${padL-9}" y="${y+bh/2+4}" text-anchor="end" font-size="12" fill="#2A303B">${esc(t)}</text>`;
     s+=`<rect class="bar" x="${padL}" y="${y}" width="${w}" height="${bh}" rx="2" fill="${col}" data-k="${esc(t)}"><title>${esc(t)}: ${v} trial${v===1?'':'s'}</title></rect>`;
@@ -797,7 +812,7 @@ function coverageMatrix(mode){
   const has=new Set();DATA.forEach(d=>has.add(d.study+'||'+d.std));
   const cell=11,gap=1.2,padL=256,padR=34,padT=10,cw=cell+gap,gridB=padT+rows.length*cw;
   const W=padL+cols.length*cw+padR,H=gridB+66;
-  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Data figure; described in the caption above.">`;
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Coverage grid: standardised outcomes in rows, trials in columns ordered by year; a filled cell means the trial reported that outcome.">`;
   rows.forEach((t,i)=>{const y=padT+i*cw,col=CORE_COL[(TERM_META[t]||{}).core]||'#8894A2';
     s+=`<text x="${padL-8}" y="${y+cell/2+3.5}" text-anchor="end" font-size="10.5" fill="#3A4150">${esc(t)}</text>`;
     cols.forEach((st,j)=>{const x=padL+j*cw,on=has.has(st+'||'+t);
@@ -811,7 +826,7 @@ function coverageMatrix(mode){
   el.insertAdjacentHTML('afterend','<div class="legend genome-legend" style="margin-top:12px">'+CORE_ORDER.map(c=>`<span class="s"><i style="background:${CORE_COL[c]}"></i>${esc(c)}</span>`).join('')+'</div>');
 }
 
-/* Full standardized-term -> LeptoCOS subdomain -> COMET core-area map */
+/* Full standardised-term -> LeptoCOS sub-domain -> COMET core-area map */
 function legacyFullOutcomeMap(focusSubdomain){
   const el=document.getElementById('full-outcome-map');if(!el)return;
   const tint={'Physiological/clinical':'#F2F6FB','Death':'#F3F4F6','Adverse events':'#FCF3EE','Life impact':'#EEF8F6','Resource use':'#FBF7EB'};
@@ -840,8 +855,8 @@ function legacyFullOutcomeMap(focusSubdomain){
   ss.forEach((s,i)=>{const cy=s.y+s.h/2;nodes+=`<g class="fm-node" data-id="s${i}" role="img" aria-label="${esc(s.name)} maps to ${esc(s.core)}"><rect x="${cols[1].x}" y="${s.y}" width="${cols[1].w}" height="${s.h}" rx="4" fill="${tint[s.core]}" stroke="${s.col}" stroke-opacity=".72"/><rect x="${cols[1].x}" y="${s.y}" width="4" height="${s.h}" rx="2" fill="${s.col}"/><text x="${cols[1].x+12}" y="${cy+3.5}" font-size="10.3" font-weight="720" fill="#25303C">${esc(trunc(s.name,32))}</text></g>`;});
   cs.forEach((c,i)=>{const cy=c.y+c.h/2;nodes+=`<g class="fm-node" data-id="c${i}" role="img" aria-label="${esc(c.name)} COMET core area"><rect x="${cols[2].x}" y="${c.y}" width="${cols[2].w}" height="${c.h}" rx="5" fill="${c.col}"/><text x="${cols[2].x+14}" y="${cy+4}" font-size="11.2" font-weight="800" fill="#fff">${esc(c.name)}</text></g>`;});
   const head=(x,title,sub)=>`<text x="${x}" y="24" font-size="10.5" font-weight="800" letter-spacing="1.3" fill="#2F6FB8">${title.toUpperCase()}</text><text x="${x}" y="44" font-size="11" fill="#727D8C">${sub}</text>`;
-  heads+=head(cols[0].x,'Standardized outcome terms','Reported outcome language');heads+=head(cols[1].x,'LeptoCOS subdomains','Disease-specific organization');heads+=head(cols[2].x,'COMET core areas','Broad outcome framework');
-  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Alluvial map of standardized outcomes through disease-specific LeptoCOS subdomains to COMET core areas">${heads}<g>${ribbons}</g><g>${nodes}</g></svg>`;
+  heads+=head(cols[0].x,'Standardised outcome terms','Reported outcome language');heads+=head(cols[1].x,'LeptoCOS sub-domains','Disease-specific organisation');heads+=head(cols[2].x,'COMET core areas','Broad outcome framework');
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Alluvial map of standardised outcomes through disease-specific LeptoCOS sub-domains to COMET core areas">${heads}<g>${ribbons}</g><g>${nodes}</g></svg>`;
   const stage=el.parentElement;if(stage)stage.scrollLeft=0;
   const read=document.getElementById('full-map-readout'),base='<span class="mark"></span><span><b>Complete map:</b> hover over any pathway to isolate its mapping.</span>';
   const reset=()=>{el.classList.remove('is-dim');el.querySelectorAll('.is-hot').forEach(x=>x.classList.remove('is-hot'));};
@@ -856,7 +871,7 @@ function legacyFullOutcomeMap(focusSubdomain){
     el.classList.add('is-dim');
     el.querySelectorAll('.fm-ribbon').forEach(p=>{if(p.dataset.node.split(' ').includes(`s${si}`))p.classList.add('is-hot');});
     [...termIds,`s${si}`,`c${ci}`].forEach(id=>{const n=el.querySelector(`.fm-node[data-id="${id}"]`);if(n)n.classList.add('is-hot');});
-    read.innerHTML=`<span class="mark"></span><span><b>Intra-CNS response outcomes</b> converge within the disease-specific subdomain before mapping to the ${esc(sub.core)} core area.</span>`;
+    read.innerHTML=`<span class="mark"></span><span><b>Intra-CNS response outcomes</b> converge within the disease-specific sub-domain before mapping to the ${esc(sub.core)} core area.</span>`;
   };
   const clear=()=>focusPath();
   el.querySelectorAll('.fm-ribbon').forEach(p=>{const msg=p.querySelector('title').textContent,ids=p.dataset.node.split(' ');p.addEventListener('mouseenter',()=>hot(ids,msg));p.addEventListener('mouseleave',clear);});
@@ -878,10 +893,10 @@ function legacyCompactOutcomeMap(){
   nodes+=`<g class="fm-node" data-id="s0" role="img" aria-label="Intra-CNS response maps to Physiological/clinical"><rect x="${cols[1].x}" y="${midY}" width="${cols[1].w}" height="${raw}" rx="5" fill="#F2F6FB" stroke="${CORE_COL['Physiological/clinical']}" stroke-opacity=".8"/><rect x="${cols[1].x}" y="${midY}" width="5" height="${raw}" rx="2.5" fill="${CORE_COL['Physiological/clinical']}"/><text x="${cols[1].x+16}" y="${cy+4}" font-size="12.5" font-weight="780" fill="#25303C">Intra-CNS response</text></g>`;
   nodes+=`<g class="fm-node" data-id="c0" role="img" aria-label="Physiological/clinical COMET core area"><rect x="${cols[2].x}" y="${midY}" width="${cols[2].w}" height="${raw}" rx="5" fill="${CORE_COL['Physiological/clinical']}"/><text x="${cols[2].x+16}" y="${cy+4}" font-size="12" font-weight="800" fill="#fff">Physiological/clinical</text></g>`;
   const head=(x,title,sub)=>`<text x="${x}" y="24" font-size="10.5" font-weight="800" letter-spacing="1.3" fill="#2F6FB8">${title.toUpperCase()}</text><text x="${x}" y="44" font-size="11" fill="#727D8C">${sub}</text>`;
-  heads+=head(cols[0].x,'Standardized outcomes','Reported outcome language');heads+=head(cols[1].x,'LeptoCOS subdomain','Disease-specific organization');heads+=head(cols[2].x,'COMET core area','Broad outcome framework');
-  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Focused alluvial map of fourteen standardized Intra-CNS response outcomes through one LeptoCOS subdomain to the Physiological/clinical COMET core area">${heads}<g>${ribbons}</g><g>${nodes}</g></svg>`;
+  heads+=head(cols[0].x,'Standardised outcomes','Reported outcome language');heads+=head(cols[1].x,'LeptoCOS sub-domain','Disease-specific organisation');heads+=head(cols[2].x,'COMET core area','Broad outcome framework');
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Focused alluvial map of fourteen standardised Intra-CNS response outcomes through one LeptoCOS sub-domain to the Physiological/clinical COMET core area">${heads}<g>${ribbons}</g><g>${nodes}</g></svg>`;
   const stage=el.parentElement;if(stage)stage.scrollLeft=0;
-  const read=document.getElementById('full-map-readout'),base='<span class="mark"></span><span><b>Focused view:</b> follow standardized outcomes through the Intra-CNS response subdomain to its COMET core area.</span>';
+  const read=document.getElementById('full-map-readout'),base='<span class="mark"></span><span><b>Focused view:</b> follow standardised outcomes through the Intra-CNS response sub-domain to its COMET core area.</span>';
   read.innerHTML=base;
   const reset=()=>{el.classList.remove('is-dim');el.querySelectorAll('.is-hot').forEach(x=>x.classList.remove('is-hot'));};
   const hot=(ids,msg)=>{reset();el.classList.add('is-dim');el.querySelectorAll('.fm-ribbon').forEach(p=>{const own=p.dataset.node.split(' ');if(ids.every(id=>own.includes(id)))p.classList.add('is-hot');});ids.forEach(id=>{const n=el.querySelector(`.fm-node[data-id="${id}"]`);if(n)n.classList.add('is-hot');});read.innerHTML=`<span class="mark"></span><span><b>${esc(msg)}</b></span>`;};
@@ -901,9 +916,9 @@ function setHierarchyDetail(expanded){
   const button=document.getElementById('map-expand');if(!button)return;
   button.setAttribute('aria-expanded',String(hierarchyExpanded));button.querySelector('.expand-icon').textContent=hierarchyExpanded?'↙':'↗';button.querySelector('.expand-label').textContent=hierarchyExpanded?'Focus example':'Expand all';
   document.getElementById('hierarchy-stat-terms').textContent=hierarchyExpanded?'55':'14';document.getElementById('hierarchy-stat-subdomains').textContent=hierarchyExpanded?'19':'1';document.getElementById('hierarchy-stat-cores').textContent=hierarchyExpanded?'5':'1';
-  document.getElementById('hierarchy-label-subdomains').textContent=hierarchyExpanded?'subdomains':'subdomain';document.getElementById('hierarchy-label-cores').textContent=hierarchyExpanded?'core areas':'core area';
-  document.getElementById('hierarchy-summary').setAttribute('aria-label',hierarchyExpanded?'Five COMET core areas contain 19 disease-specific subdomains and 55 standardized terms':'One COMET core area contains one disease-specific subdomain and fourteen standardized terms');
-  document.getElementById('hierarchy-description').textContent=hierarchyExpanded?'The complete map shows how standardized outcome language is retained within disease-specific LeptoCOS subdomains before mapping to the broad COMET core areas. Hover to isolate a pathway.':'A focused example shows how differently reported Intra-CNS response outcomes converge into one disease-specific LeptoCOS subdomain and then one COMET core area.';
+  document.getElementById('hierarchy-label-subdomains').textContent=hierarchyExpanded?'sub-domains':'sub-domain';document.getElementById('hierarchy-label-cores').textContent=hierarchyExpanded?'core areas':'core area';
+  document.getElementById('hierarchy-summary').setAttribute('aria-label',hierarchyExpanded?'Five COMET core areas contain 19 disease-specific sub-domains and 55 standardised terms':'One COMET core area contains one disease-specific sub-domain and fourteen standardised terms');
+  document.getElementById('hierarchy-description').textContent=hierarchyExpanded?'The complete map shows how standardised outcome language is retained within disease-specific LeptoCOS sub-domains before mapping to the broad COMET core areas. Hover to isolate a pathway.':'A focused example shows how differently reported Intra-CNS response outcomes converge into one disease-specific LeptoCOS sub-domain and then one COMET core area.';
 }
 
 /* LeptoCOS resolution -> proposed direct COMET-domain mapping */
@@ -959,7 +974,7 @@ document.getElementById('chart-pri').insertAdjacentHTML('afterend','<div class="
     document.getElementById('tx-count').textContent=res.length;
     if(!res.length)host.innerHTML='<div class="tx-empty">No outcomes match these filters.</div>';
     else if(idle)host.innerHTML=CORE_ORDER.map(c=>{const g=res.filter(r=>r.core===c);if(!g.length)return'';const p=PAL[c];
-      return `<div class="tx-grouphdr"><span class="gd" style="background:${p.ac}"></span>${esc(c)} <span class="gc">· ${g.length} outcomes</span></div><div class="tx-grid">${g.map(card).join('')}</div>`;}).join('');
+      return `<div class="tx-grouphdr"><span class="gd" style="background:${p.ac}"></span>${esc(c)} <span class="gc">· ${g.length} outcome${g.length===1?'':'s'}</span></div><div class="tx-grid">${g.map(card).join('')}</div>`;}).join('');
     else host.innerHTML=`<div class="tx-grid">${res.map(card).join('')}</div>`;
     chipsEl.querySelectorAll('.txchip').forEach(ch=>{const c=ch.getAttribute('data-c'),on=st.cores.has(c),p=PAL[c];ch.classList.toggle('on',on);ch.setAttribute('aria-pressed',on);
       ch.style.background=on?p.tint:'';ch.style.borderColor=on?p.ac:'';ch.style.color=on?p.lab:'';});
@@ -1007,7 +1022,7 @@ var EDELPHI_URL = "";
   btn.href=EDELPHI_URL;btn.rel='noopener';btn.textContent='Register for the eDelphi';
   nav.href=EDELPHI_URL;nav.rel='noopener';
   fine.innerHTML='Registration and consent are handled on the survey platform. Questions first? Email '+
-    '<a href="mailto:siavash@msu.edu?subject=LeptoCOS%20eDelphi">siavash@msu.edu</a>.';
+    '<a href="mailto:leptocos@gmail.com?subject=LeptoCOS%20eDelphi">leptocos@gmail.com</a>.';
 })();
 </script>
 </body>
