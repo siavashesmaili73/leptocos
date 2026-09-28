@@ -328,13 +328,57 @@ html #lcFeedbackTab svg{width:16px!important;height:16px!important}
 .edelphi .side,#edelphiBtn{max-width:100%;box-sizing:border-box}
 @media print{#lcFeedbackTab,#lcFeedbackPanel,.view-switch{display:none!important}.t1-wrap,.cmx-wrap,#sankey,#genome{overflow:visible!important}#compartment .cmx,#sankey>svg,#genome>svg{min-width:0!important;width:100%!important}}
 </style>
+<style id="final-pass">
+/* final pass 2026-09-28: design review (desktop) */
+@media (min-width:761px){#table1 .t1-wrap{overflow:visible}#table1 .t1 thead th{position:sticky;top:58px;z-index:3;background:#fff;padding-top:10px;border-bottom:0;box-shadow:inset 0 -1px 0 var(--line)}}
+.tx-sort{width:auto}
+#ask{padding-top:0}#ask footer{border-top:0;margin-top:0}
+.t1 td.sub{vertical-align:top}.t1 td.out .g{min-width:96px}.t1 tr.total td{font-size:12.5px}
+#taxonomy{border-bottom:0}.edelphi{border-top:1px solid var(--line)}@media (min-width:761px){.edelphi .in{padding:38px 30px}}.edelphi h2{margin-bottom:10px}
+#chart-sub svg{max-width:780px;margin:0 auto}
+.cov-toggle{gap:3px;padding:3px;border-color:#DDE5EE;background:#F4F7FA;border-radius:8px}.cov-btn{background:transparent;border-radius:6px;padding:8px 11px;font:750 11px/1 var(--sans);color:#667385}.cov-btn+.cov-btn{border-left:0}.cov-btn.is-on{background:#fff;color:#1A4A80;box-shadow:0 1px 3px rgba(28,43,61,.13)}.cov-btn:not(.is-on):hover{background:transparent;color:#243140}
+.hero .prov{margin-top:16px}.table1-card.is-map .table1-head .cn{display:none}
+/* final pass: mobile/tablet review (verified at 375/390/768/820/1024/1180) */
+.table1-card{transition:width .28s var(--ease)}
+@media(max-width:940px){nav.links{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent);padding-right:28px}}
+@media(max-width:1024px){#full-outcome-map{min-width:840px}}
+@media(max-width:1100px){#sankey>svg{min-width:1100px}}
+@media(max-width:900px){.t1 td.sub{white-space:normal}}
+@media(max-width:600px){
+  #chart-allfreq,#chart-gap,#chart-sub,#treemap,.method-tl{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .grid2>*{min-width:0}
+  #chart-allfreq>svg{min-width:760px}
+  #chart-gap>svg,#chart-sub>svg,#treemap>svg{min-width:560px}
+  .method-tl>svg{min-width:600px}
+  .t1-wrap,.map-stage,#genome,#sankey,.cmx-wrap,#chart-allfreq,#chart-gap,#chart-sub,#treemap,.method-tl{background:linear-gradient(90deg,#fff 30%,rgba(255,255,255,0)),linear-gradient(90deg,rgba(255,255,255,0),#fff 70%) 100% 0,radial-gradient(farthest-side at 0 50%,rgba(20,44,73,.16),transparent),radial-gradient(farthest-side at 100% 50%,rgba(20,44,73,.16),transparent) 100% 0;background-repeat:no-repeat;background-size:40px 100%,40px 100%,14px 100%,14px 100%;background-attachment:local,local,scroll,scroll}
+  input[type=search],select,textarea,html .lc-field input,html .lc-field select,html .lc-field textarea{font-size:16px!important}
+}
+@media(max-width:600px){
+  .wrap{padding-left:16px;padding-right:16px}
+  .hero .wrap{padding:44px 16px 28px}
+  .table1-card{padding-left:12px;padding-right:12px}
+  .t1{min-width:0;font-size:12px}
+  .t1 thead th{font-size:8px;letter-spacing:.03em;padding:0 5px 8px;white-space:normal;vertical-align:bottom}
+  .t1 thead th:first-child{padding-left:0}
+  .t1 td{padding:6px 5px}
+  .t1 td.sub{white-space:normal;width:76px;min-width:76px;max-width:76px;font-size:10.5px;line-height:1.2;padding:8px 5px 8px 0;vertical-align:top;overflow-wrap:anywhere;hyphens:auto}
+  .t1 td.term{width:auto;white-space:normal;line-height:1.25;font-size:11px;overflow-wrap:anywhere;hyphens:auto}
+  .t1 td.out .g{min-width:0}
+  .t1 tr:not(.core):not(.total) td.out .p{display:none}
+  .t1 tr.core td.out .p,.t1 tr.total td.out .p{display:block;margin:0;font-size:10px;line-height:1.1}
+  .t1 td.stud{width:62px;min-width:62px;padding:6px 0 6px 4px}
+  .t1 td.stud .lab{padding:0 3px;font-size:11px}
+  .t1 tr.core td{font-size:9.5px;letter-spacing:.04em;padding:7px 5px}
+  .t1 tr.total td,.t1 tr.total td.stud .lab{font-size:11.5px}
+}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to main content</a>
 <header class="top"><div class="in">
   <a class="wm" href="/" aria-label="LeptoCOS home"><span class="a">Lepto</span><span class="b">COS</span></a>
   <nav class="links">
-    <a href="#taxonomy">Long list</a><a href="#why">Rationale</a><a href="#table1">Frequency</a>
+    <a href="#table1">Long list</a><a href="#taxonomy">Definitions</a><a href="#why">Rationale</a>
     <a href="#landscape">Findings</a><a href="#methods">Methods</a>
   </nav>
   <a class="btn btn-cta" id="edelphiNav" href="#edelphi">Take part in the eDelphi</a>
@@ -343,12 +387,11 @@ html #lcFeedbackTab svg{width:16px!important;height:16px!important}
 
 <div class="hero" id="main" tabindex="-1">
   <div class="wrap">
-    <p class="eyebrow">Project summary</p>
     <h1>An international initiative to develop a core outcome set for leptomeningeal disease</h1>
     <p class="lede">LeptoCOS is a multidisciplinary, international initiative developing a core outcome set for leptomeningeal disease (LMD): an agreed minimum set of outcomes every trial should measure and report. This site presents the long list of candidate outcomes from the systematic review, the evidence behind it, and how to take part.</p>
     <p style="font-size:12px;color:var(--muted);margin:12px 0 0;line-height:1.5">Registered as <b style="color:var(--ink)">COMET Initiative Study 3224</b> · informed by the COMET Handbook and the COS-STAD standards; the systematic review follows PRISMA reporting guidance.</p>
     <div class="prov">
-      <span><b id="p-stud">44</b> included studies</span><span><b>1987 to 2025</b></span>
+      <span><b id="p-stud">44</b> included trials</span><span><b>1987 to 2025</b></span>
       <span><b id="p-out">332</b> reported outcomes</span><span><b id="p-term">55</b> standardised outcomes</span>
       <span><b>19</b> sub-domains</span><span><b>5</b> COMET core areas</span>
     </div>
@@ -356,98 +399,14 @@ html #lcFeedbackTab svg{width:16px!important;height:16px!important}
 </div>
 
 <div class="wrap">
-  <section id="taxonomy">
-    <p class="lbl">The long list</p>
-    <h2>The long list of outcomes</h2>
-    <p class="dek">The 55 candidate outcomes to be rated in the eDelphi, each with a plain-language definition, its sub-domain and its COMET core area. Filter, search or sort.</p>
-    <p class="dek" style="margin-top:-8px;font-size:13.5px">Reporting frequency is shown separately (<a href="#table1">Table 1</a>) so that how often an outcome was measured does not anchor judgements of its importance.</p>
-    <p class="dek" style="margin-top:-8px;font-size:13.5px"><b>Pre-Delphi working document.</b> These are candidate outcomes, not a core outcome set; please do not cite them as a core outcome set.</p>
-    <div class="tx-bar">
-      <input id="tx-search" type="search" placeholder="Search outcomes, definitions, sub-domains…" aria-label="Search outcomes">
-      <div class="tx-row">
-        <div class="tx-chips" id="tx-chips"></div>
-        <div class="tx-subwrap"><button class="tx-subbtn" id="tx-subbtn" type="button">Sub-domain ▾</button><div class="tx-pop" id="tx-pop"></div></div>
-        <select id="tx-sort" class="tx-sort" aria-label="Sort outcomes"><option value="dom">Sort: by core area</option><option value="az">Sort: A-Z</option></select>
-      </div>
-      <div class="tx-meta"><span role="status" aria-live="polite">Showing <b id="tx-count">55</b> of 55 outcomes</span><span class="tx-active" id="tx-active"></span></div>
-    </div>
-    <div id="taxo"></div>
-  </section>
-</div>
-
-<div class="edelphi" id="edelphi"><div class="in">
-  <div>
-    <p class="eyebrow" style="margin:0 0 9px;color:var(--brand);font-size:12px">Take part</p>
-    <h2>Help decide which of these outcomes belong in the core set</h2>
-    <p>Clinicians of any discipline, researchers and trialists, and patients and carers will be invited to rate the
-      candidate outcomes above when the eDelphi opens. Registration, consent and the survey rounds will run on a dedicated Delphi survey
-      platform, not on this website. Ratings will be analysed separately for each stakeholder group.</p>
-  </div>
-  <div class="side">
-    <a class="btn btn-cta" id="edelphiBtn" href="mailto:leptocos@gmail.com?subject=LeptoCOS%20eDelphi%3A%20notify%20me&body=Please%20notify%20me%20when%20eDelphi%20registration%20opens.%0AName%3A%0ARole%3A%0ACountry%3A">Get notified when registration opens</a>
-    <p class="fine" id="edelphiFine">The eDelphi is in preparation. Leave your name, role and country and we will
-      send you the registration link when the first round opens.</p>
-  </div>
-</div></div>
-
-<div class="wrap">
-  <div class="kpis" id="kpis"></div>
-
-  <section id="why">
-    <p class="lbl">Background</p>
-    <h2>Why leptomeningeal disease needs a core outcome set</h2>
-    <p class="dek">Leptomeningeal disease is a late-stage complication of cancer. It carries a poor prognosis and is increasingly recognised.
-      Trials are small and scattered over nearly four decades. When they do not share an outcome language, their results
-      cannot readily be pooled, compared, or graded for guidelines. A core outcome set is the agreed minimum set of outcomes
-      every trial should measure and report, not a limit on what else may be reported.</p>
-    <div class="callouts">
-      <div class="call"><h3>Fragmented reporting</h3><p>332 outcomes reduce to 55 standardised outcomes; only 3 are reported by at least half of the trials.</p></div>
-      <div class="call b"><h3>Priority often unstated</h3><p>116 of 332 outcomes (35%) carry no recorded or assigned priority.</p></div>
-      <div class="call c"><h3>Few patient or resource outcomes</h3><p>Quality of life reported by 8 of 44 trials; resource use by 1 of 44.</p></div>
-    </div>
-    <div class="card" style="margin-top:16px">
-      <p class="ct">The LeptoCOS method</p><p class="cn">Phase I establishes what is reported; Phase II decides what should be reported.</p>
-      <div class="method-tl">
-       <svg viewBox="0 0 800 122" width="100%" role="img" aria-label="LeptoCOS method timeline: systematic review and long list complete, Phase I complete, eDelphi in preparation, then consensus meeting and core outcome set.">
-        <line x1="60" y1="46" x2="230" y2="46" stroke="#12897B" stroke-width="4"/>
-        <line x1="230" y1="46" x2="740" y2="46" stroke="#CBD9EA" stroke-width="4"/>
-        <text x="315" y="16" text-anchor="middle" font-size="10.5" font-weight="700" fill="#B23A48" letter-spacing=".04em">PHASE I COMPLETE</text>
-        <line x1="315" y1="22" x2="315" y2="37" stroke="#B23A48" stroke-width="1.5"/>
-        <path d="M311 36.5 L319 36.5 L315 43 Z" fill="#B23A48"/>
-        <circle cx="60" cy="46" r="16" fill="#12897B"/>
-        <path d="M54 46 L58 51 L67 40" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-        <text x="60" y="80" text-anchor="middle" font-size="11.5" font-weight="700" fill="#171B23">Systematic review</text>
-        <text x="60" y="95" text-anchor="middle" font-size="8.5" font-weight="700" fill="#12897B" letter-spacing=".05em">COMPLETE</text>
-        <circle cx="230" cy="46" r="16" fill="#12897B"/>
-        <path d="M224 46 L228 51 L237 40" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-        <text x="230" y="80" text-anchor="middle" font-size="11.5" font-weight="700" fill="#171B23">Long list of outcomes</text>
-        <text x="230" y="95" text-anchor="middle" font-size="8.5" font-weight="700" fill="#12897B" letter-spacing=".05em">COMPLETE</text>
-        <circle cx="400" cy="46" r="16" fill="#fff" stroke="#2F6FB8" stroke-width="3.5"/>
-        <text x="400" y="51" text-anchor="middle" font-size="14" font-weight="800" fill="#2F6FB8">3</text>
-        <text x="400" y="80" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1E4F86">eDelphi · 2 rounds</text>
-        <text x="400" y="95" text-anchor="middle" font-size="8.5" font-weight="700" fill="#2F6FB8" letter-spacing=".05em">IN PREPARATION</text>
-        <circle cx="570" cy="46" r="15" fill="#fff" stroke="#C7D0DB" stroke-width="2.5"/>
-        <text x="570" y="51" text-anchor="middle" font-size="13" font-weight="700" fill="#95A0AD">4</text>
-        <text x="570" y="80" text-anchor="middle" font-size="11.5" font-weight="700" fill="#4A525E">Consensus meeting</text>
-        <text x="570" y="95" text-anchor="middle" font-size="8.5" font-weight="700" fill="#95A0AD" letter-spacing=".05em">TO FOLLOW</text>
-        <circle cx="740" cy="46" r="16" fill="#1A1F28"/>
-        <text x="740" y="51" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">5</text>
-        <text x="740" y="80" text-anchor="middle" font-size="11.5" font-weight="700" fill="#171B23">Core outcome set</text>
-        <text x="740" y="95" text-anchor="middle" font-size="8.5" font-weight="700" fill="#1A1F28" letter-spacing=".05em">FINAL OUTPUT</text>
-       </svg>
-      </div>
-      <div class="phases"><div class="ph ph1"><span>Phase I</span></div><div class="ph ph2"><span>Phase II</span></div></div>
-    </div>
-  </section>
-
   <section id="table1">
-    <p class="lbl">Long list &middot; reporting frequency</p>
-    <h2>Long list of outcomes by COMET core area and sub-domain, with reporting frequency</h2>
+    <p class="lbl">The long list</p>
+    <h2>Long list of outcomes</h2>
     <p class="dek">The 55 standardised outcomes of the long list, grouped by COMET core area and sub-domain, with the number of the 332 extracted outcomes and of the 44 trials reporting each.</p>
     <div class="card table1-card">
       <div class="table1-head">
         <div>
-          <p class="ct">Table 1 &middot; long list of outcomes</p>
+          
           <p class="cn">Grouped by core area (shaded rows) and sub-domain. A trial can report several outcomes in one sub-domain, so outcome totals can exceed the number of trials reporting them.</p>
         </div>
         <div class="view-switch" role="tablist" aria-label="Table 1 view">
@@ -459,7 +418,7 @@ html #lcFeedbackTab svg{width:16px!important;height:16px!important}
         <div class="t1-wrap">
         <table class="t1">
           <thead>
-            <tr><th>LeptoCOS sub-domain</th><th>Standardised outcome term</th><th>Outcomes, N (%)</th><th>Studies, N (%)</th></tr>
+            <tr><th>LeptoCOS sub-domain</th><th>Standardised outcome</th><th>Reported outcomes, N (%)</th><th>Trials, N (%)</th></tr>
           </thead>
           <tbody>
             <tr class="core"><td colspan="2" style="background:#ECF0F5;border-left:3px solid #3E6D9C">Physiological/clinical</td><td class="out" style="background:#ECF0F5"><span class="g">155 <span class="p">(46.7%)</span></span></td><td style="background:#ECF0F5"></td></tr>
@@ -548,6 +507,90 @@ html #lcFeedbackTab svg{width:16px!important;height:16px!important}
     </div>
   </section>
 
+  <section id="taxonomy">
+    <p class="lbl">Long list &middot; definitions</p>
+    <h2>Definitions of the 55 long-list outcomes</h2>
+    <p class="dek">The 55 candidate outcomes proposed for rating in the eDelphi, each with a plain-language definition, its sub-domain and its COMET core area. Filter, search or sort.</p>
+    <p class="dek" style="margin-top:-8px;font-size:13.5px">How often an outcome was reported is not evidence of its importance; the eDelphi will ask how important each outcome is, not how common it is.</p>
+    <p class="dek" style="margin-top:-8px;font-size:13.5px"><b>Pre-Delphi working document.</b> These are candidate outcomes, not a core outcome set; please do not cite them as a core outcome set.</p>
+    <div class="tx-bar">
+      <input id="tx-search" type="search" placeholder="Search outcomes, definitions, sub-domains…" aria-label="Search outcomes">
+      <div class="tx-row">
+        <div class="tx-chips" id="tx-chips"></div>
+        <div class="tx-subwrap"><button class="tx-subbtn" id="tx-subbtn" type="button">Sub-domain ▾</button><div class="tx-pop" id="tx-pop"></div></div>
+        <select id="tx-sort" class="tx-sort" aria-label="Sort outcomes"><option value="dom">Sort: by core area</option><option value="az">Sort: A–Z</option></select>
+      </div>
+      <div class="tx-meta"><span role="status" aria-live="polite">Showing <b id="tx-count">55</b> of 55 outcomes</span><span class="tx-active" id="tx-active"></span></div>
+    </div>
+    <div id="taxo"></div>
+  </section>
+</div>
+
+<div class="edelphi" id="edelphi"><div class="in">
+  <div>
+    <p class="eyebrow" style="margin:0 0 9px;color:var(--brand);font-size:12px">Take part</p>
+    <h2>Help decide which of these outcomes belong in the core set</h2>
+    <p>Clinicians of any discipline, researchers and trialists, and patients and carers will be invited to rate the
+      candidate outcomes above when the eDelphi opens. Registration, consent and the survey rounds will run on a dedicated Delphi survey
+      platform, not on this website. Ratings will be analysed separately for each stakeholder group.</p>
+  </div>
+  <div class="side">
+    <a class="btn btn-cta" id="edelphiBtn" href="mailto:leptocos@gmail.com?subject=LeptoCOS%20eDelphi%3A%20notify%20me&body=Please%20notify%20me%20when%20eDelphi%20registration%20opens.%0AName%3A%0ARole%3A%0ACountry%3A">Get notified when registration opens</a>
+    <p class="fine" id="edelphiFine">The eDelphi is in preparation. Email us your name, role and country and we will
+      send you the registration link when the first round opens.</p>
+  </div>
+</div></div>
+
+<div class="wrap">
+  <div class="kpis" id="kpis"></div>
+
+  <section id="why">
+    <p class="lbl">Background</p>
+    <h2>Why leptomeningeal disease needs a core outcome set</h2>
+    <p class="dek">Leptomeningeal disease is a late-stage complication of cancer. It carries a poor prognosis and is increasingly recognised.
+      Trials are small and scattered over nearly four decades. When they do not share an outcome language, their results
+      cannot readily be pooled, compared or graded for guidelines. A core outcome set is the agreed minimum set of outcomes
+      every trial should measure and report, not a limit on what else may be reported.</p>
+    <div class="callouts">
+      <div class="call"><h3>Fragmented reporting</h3><p>332 outcomes reduce to 55 standardised outcomes; only 3 are reported by at least half of the trials.</p></div>
+      <div class="call b"><h3>Priority often unstated</h3><p>116 of 332 outcomes (35%) carry no recorded or assigned priority.</p></div>
+      <div class="call c"><h3>Few patient or resource outcomes</h3><p>Quality of life reported by 8 of 44 trials; resource use by 1 of 44.</p></div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <p class="ct">The LeptoCOS method</p><p class="cn">Phase I establishes what is reported; Phase II decides what should be reported.</p>
+      <div class="method-tl">
+       <svg viewBox="0 0 800 122" width="100%" role="img" aria-label="LeptoCOS method timeline: systematic review and long list complete, Phase I complete, eDelphi in preparation, then consensus meeting and core outcome set.">
+        <line x1="60" y1="46" x2="230" y2="46" stroke="#12897B" stroke-width="4"/>
+        <line x1="230" y1="46" x2="740" y2="46" stroke="#CBD9EA" stroke-width="4"/>
+        <text x="315" y="16" text-anchor="middle" font-size="10.5" font-weight="700" fill="#12897B" letter-spacing=".04em">PHASE I COMPLETE</text>
+        <line x1="315" y1="22" x2="315" y2="37" stroke="#12897B" stroke-width="1.5"/>
+        <path d="M311 36.5 L319 36.5 L315 43 Z" fill="#12897B"/>
+        <circle cx="60" cy="46" r="16" fill="#12897B"/>
+        <path d="M54 46 L58 51 L67 40" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="60" y="80" text-anchor="middle" font-size="11.5" font-weight="700" fill="#171B23">Systematic review</text>
+        <text x="60" y="95" text-anchor="middle" font-size="8.5" font-weight="700" fill="#12897B" letter-spacing=".05em">COMPLETE</text>
+        <circle cx="230" cy="46" r="16" fill="#12897B"/>
+        <path d="M224 46 L228 51 L237 40" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="230" y="80" text-anchor="middle" font-size="11.5" font-weight="700" fill="#171B23">Long list of outcomes</text>
+        <text x="230" y="95" text-anchor="middle" font-size="8.5" font-weight="700" fill="#12897B" letter-spacing=".05em">COMPLETE</text>
+        <circle cx="400" cy="46" r="16" fill="#fff" stroke="#2F6FB8" stroke-width="3.5"/>
+        <text x="400" y="51" text-anchor="middle" font-size="14" font-weight="800" fill="#2F6FB8">3</text>
+        <text x="400" y="80" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1E4F86">eDelphi · 2 rounds</text>
+        <text x="400" y="95" text-anchor="middle" font-size="8.5" font-weight="700" fill="#2F6FB8" letter-spacing=".05em">IN PREPARATION</text>
+        <circle cx="570" cy="46" r="15" fill="#fff" stroke="#C7D0DB" stroke-width="2.5"/>
+        <text x="570" y="51" text-anchor="middle" font-size="13" font-weight="700" fill="#95A0AD">4</text>
+        <text x="570" y="80" text-anchor="middle" font-size="11.5" font-weight="700" fill="#4A525E">Consensus meeting</text>
+        <text x="570" y="95" text-anchor="middle" font-size="8.5" font-weight="700" fill="#95A0AD" letter-spacing=".05em">TO FOLLOW</text>
+        <circle cx="740" cy="46" r="16" fill="#1A1F28"/>
+        <text x="740" y="51" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">5</text>
+        <text x="740" y="80" text-anchor="middle" font-size="11.5" font-weight="700" fill="#171B23">Core outcome set</text>
+        <text x="740" y="95" text-anchor="middle" font-size="8.5" font-weight="700" fill="#1A1F28" letter-spacing=".05em">FINAL OUTPUT</text>
+       </svg>
+      </div>
+      <div class="phases"><div class="ph ph1"><span>Phase I</span></div><div class="ph ph2"><span>Phase II</span></div></div>
+    </div>
+  </section>
+
   <section id="landscape">
     <p class="lbl">Distribution</p>
     <h2>Distribution of the 332 outcomes across COMET core areas</h2>
@@ -556,18 +599,16 @@ html #lcFeedbackTab svg{width:16px!important;height:16px!important}
     <div class="grid2">
       <div class="card"><p class="ct">Outcomes by COMET core area</p><p class="cn">Area = share of 332 outcomes. The Death area covers survival and progression endpoints (PFS/TTP), so 42% of it is progression, not mortality.</p><div id="treemap"></div>
         <div class="legend" id="core-leg"></div></div>
-      <div class="card"><p class="ct">Studies reporting each core area (of 44)</p><p class="cn">How many of the 44 trials report at least one outcome in each core area.</p><div id="chart-gap"></div></div>
+      <div class="card"><p class="ct">Trials reporting each core area (of 44)</p><p class="cn">How many of the 44 trials report at least one outcome in each core area.</p><div id="chart-gap"></div></div>
     </div>
-    <div class="card" style="margin-top:16px"><p class="ct">Outcomes by sub-domain</p><p class="cn">The 19 sub-domains beneath the five core areas (16 largest shown). <a class="jump" href="#table1">See the full table &#8594;</a></p><div id="chart-sub"></div></div>
+    <div class="card" style="margin-top:16px"><p class="ct">Outcomes by sub-domain</p><p class="cn">The 19 sub-domains beneath the five core areas (16 largest shown). <a class="jump" href="#table1">Full counts are in the long list at the top &#8593;</a></p><div id="chart-sub"></div></div>
     <div class="card" style="margin-top:16px"><p class="ct">All 55 standardised outcomes, ranked by frequency</p><p class="cn">Number of trials reporting each standardised outcome, high to low, coloured by core area. Safety, survival and leptomeningeal response dominate; reporting then drops sharply, and 14 of the 55 appear in only one trial.</p><div id="chart-allfreq"></div></div>
   </section>
 
   <section id="coverage">
     <p class="lbl">Coverage</p>
     <h2>Outcomes reported by each trial</h2>
-    <p class="dek">This grid shows every standardised outcome (a row) against every trial (a column). A filled cell
-      means that trial reported that outcome. Outcomes are ordered most-reported at the top; the trials run left to right
-      by year (1987 to 2025), so you can also see when each outcome first appears.</p>
+    <p class="dek">Each row is a standardised outcome and each column a trial, ordered by year.</p>
     <div class="card">
       <div class="cov-head">
         <p class="ct" style="margin:0">Which of the 44 trials reported each outcome</p>
@@ -576,7 +617,7 @@ html #lcFeedbackTab svg{width:16px!important;height:16px!important}
           <button type="button" class="cov-btn" data-mode="first">By first appearance</button>
         </div>
       </div>
-      <p class="cn" id="genome-cap">Rows are the 55 standardised outcomes, ordered most-reported at the top; columns are the 44 trials, left to right by year (1987 to 2025). A filled cell means reported, coloured by COMET core area; the number at right is how many trials reported it. Hover a cell for details.</p>
+      <p class="cn" id="genome-cap">Rows are the 55 standardised outcomes, ordered most-reported at the top; columns are the 44 trials, left to right by year (1987 to 2025). A filled cell means reported, coloured by COMET core area; the number at right is how many trials reported it. Hover over or tap a cell for details.</p>
       <div id="genome"></div>
     </div>
   </section>
@@ -661,14 +702,13 @@ html #lcFeedbackTab svg{width:16px!important;height:16px!important}
   <section id="methods">
     <p class="lbl">Transparency</p>
     <h2>Methods and limitations</h2>
-    <p class="dek" style="margin-bottom:0">This work follows COMET and COS-STAD for core outcome set development, and PRISMA for the systematic review.
-      Outcomes were extracted from published leptomeningeal disease trials, standardised to defined terms and mapped to
-      COMET core areas. This is a descriptive catalogue of reported outcomes, not the final core outcome set.</p>
+    <p class="dek" style="margin-bottom:0">This work is informed by the COMET Handbook and COS-STAD; the systematic review is reported according to PRISMA.
+      Outcomes were extracted from published leptomeningeal disease trials, grouped into 55 standardised outcomes and mapped to 19 LeptoCOS sub-domains and the five COMET core areas. This is a descriptive catalogue of reported outcomes, not a core outcome set.</p>
   </section>
 
   <section id="ask" style="border-bottom:none">
     <footer><b>LeptoCOS</b> · a core outcome set for leptomeningeal disease · generated <span id="gd"></span>.
-      Pre-Delphi working document; figures derived from the study dataset. Please do not cite as a core outcome set.</footer>
+      Pre-Delphi working document; Please do not cite as a core outcome set.</footer>
   </section>
 </div>
 
@@ -693,7 +733,7 @@ const studyPerTerm=(()=>{const m={};DATA.forEach(r=>{(m[r.std]=m[r.std]||new Set
 document.getElementById('gd').textContent=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
 const coreOfSub={};DATA.forEach(d=>{if(d.sub&&!coreOfSub[d.sub])coreOfSub[d.sub]=d.core;});
 
-const kpis=[{n:N,l:'reported outcomes'},{n:studies.length,l:'included studies'},{n:terms.length,l:'standardised outcomes'}];
+const kpis=[{n:N,l:'reported outcomes'},{n:studies.length,l:'included trials'},{n:terms.length,l:'standardised outcomes'}];
 document.getElementById('kpis').innerHTML=kpis.map(k=>`<div class="kpi ${k.f?'flag':''}"><div class="n">${k.n}</div><div class="l">${k.l}</div></div>`).join('');
 
 /* ---- matrix (Figure 2) ---- */
@@ -730,7 +770,7 @@ function treemap(){
   while(i<items.length){const horiz=w<h?false:true;const len=horiz?h:w;let cur=[];
     while(i<items.length){const test=cur.concat(items[i]);if(cur.length===0||worst(test,len)<=worst(cur,len)){cur=test;i++;}else break;}
     layoutRow(cur,len,horiz);}
-  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc('Treemap of the share of outcomes in each COMET core area: '+data.map(d=>d.k).join(', ')+'. Counts are in the full table.')}">`;
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc('Treemap of the share of outcomes in each COMET core area: '+data.map(d=>d.k).join(', ')+'. Counts are in the long list at the top of the page.')}">`;
   rects.forEach(r=>{const pct=(r.v/total*100).toFixed(1);const big=r.w>90&&r.h>44;
     s+=`<rect class="tm" x="${r.x+1}" y="${r.y+1}" width="${Math.max(0,r.w-2)}" height="${Math.max(0,r.h-2)}" rx="3" fill="${CORE_COL[r.k]}" data-k="${esc(r.k)}"><title>${esc(r.k)}: ${r.v} (${pct}%)</title></rect>`;
     if(big){s+=`<text x="${r.x+10}" y="${r.y+22}" font-size="12.5" font-weight="700" fill="#fff">${esc(r.k)}</text><text x="${r.x+10}" y="${r.y+40}" font-size="13" fill="rgba(255,255,255,.9)">${r.v} · ${pct}%</text>`;}
@@ -788,7 +828,7 @@ function allFreqChart(){
   const el=document.getElementById('chart-allfreq');if(!el)return;
   const items=Object.entries(studyPerTerm).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]));
   const W=1100,padL=300,padR=46,rowH=22,top=10,H=top*2+items.length*rowH,mx=Math.max(...items.map(i=>i[1]),1),bw=W-padL-padR;
-  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Bar chart of the number of trials reporting each standardised outcome, from most to least reported, coloured by COMET core area. Counts are in the full table.">`;
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Bar chart of the number of trials reporting each standardised outcome, from most to least reported, coloured by COMET core area. Counts are in the long list at the top of the page.">`;
   items.forEach(([t,v],i)=>{const y=top+i*rowH,bh=15,w=Math.max(1,v/mx*bw),col=CORE_COL[(TERM_META[t]||{}).core]||'#8894A2';
     s+=`<text x="${padL-9}" y="${y+bh/2+4}" text-anchor="end" font-size="12" fill="#2A303B">${esc(t)}</text>`;
     s+=`<rect class="bar" x="${padL}" y="${y}" width="${w}" height="${bh}" rx="2" fill="${col}" data-k="${esc(t)}"><title>${esc(t)}: ${v} trial${v===1?'':'s'}</title></rect>`;
@@ -938,7 +978,7 @@ function setTable1View(view){
 document.querySelectorAll('[data-table1-view]').forEach(button=>{button.addEventListener('click',()=>setTable1View(button.dataset.table1View));button.addEventListener('keydown',event=>{if(!['ArrowLeft','ArrowRight'].includes(event.key))return;event.preventDefault();const next=button.dataset.table1View==='table'?'map':'table';setTable1View(next);document.querySelector(`[data-table1-view="${next}"]`).focus();});});
 document.getElementById('map-expand').addEventListener('click',()=>setHierarchyDetail(!hierarchyExpanded));
 if(location.hash==='#full-outcome-map'){setTable1View('map');[100,500,1200].forEach(delay=>setTimeout(()=>document.querySelector('#table1')?.scrollIntoView({block:'start'}),delay));}
-const covCap={freq:"Rows are the 55 standardised outcomes, ordered most-reported at the top; columns are the 44 trials, left to right by year (1987 to 2025). A filled cell means reported, coloured by COMET core area; the number at right is how many trials reported it. Hover a cell for details.",first:"Rows are ordered by first appearance: the outcome reported earliest sits at the bottom and the most recently introduced at the top, so the leading edge of filled cells traces when each outcome first entered the trial literature. Columns are the 44 trials, left to right by year (1987 to 2025); the number at right is how many trials reported it. Hover a cell for details."};
+const covCap={freq:"Rows are the 55 standardised outcomes, ordered most-reported at the top; columns are the 44 trials, left to right by year (1987 to 2025). A filled cell means reported, coloured by COMET core area; the number at right is how many trials reported it. Hover over or tap a cell for details.",first:"Rows are ordered by first appearance: the outcome reported earliest sits at the bottom and the most recently introduced at the top, so the leading edge of filled cells traces when each outcome first entered the trial literature. Columns are the 44 trials, left to right by year (1987 to 2025); the number at right is how many trials reported it. Hover over or tap a cell for details."};
 document.querySelectorAll('.cov-btn').forEach(b=>b.addEventListener('click',()=>{const m=b.getAttribute('data-mode');document.querySelectorAll('.cov-btn').forEach(x=>x.classList.toggle('is-on',x===b));const cap=document.getElementById('genome-cap');if(cap)cap.textContent=covCap[m];coverageMatrix(m);}));
 stacked(document.getElementById('chart-pri'),PRI_ORDER.map(t=>({label:PRI_LABEL[t],key:t,value:priCounts[t]||0,color:PRI_COL[t],dark:t==='ns'})),N,t=>{document.getElementById('f-pri').value=t;state.tier=t;gotoTable();render();});
 document.getElementById('chart-pri').insertAdjacentHTML('afterend','<div class="legend">'+PRI_ORDER.map(t=>`<span class="s"><i style="background:${PRI_COL[t]}"></i>${PRI_LABEL[t]}: ${priCounts[t]||0}</span>`).join('')+'</div>');

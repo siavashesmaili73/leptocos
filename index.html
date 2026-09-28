@@ -39,14 +39,14 @@ function renderCoreGapLarge(){
   const el=document.getElementById('chart-gap');if(!el)return;
   const items=CORE_ORDER.map(c=>({label:c,value:coreStudies[c]||0,color:CORE_COL[c]}));
   const W=760,padL=214,padR=64,rowH=62,top=20,H=top*2+items.length*rowH,mx=studies.length,bw=W-padL-padR;
-  let s='<svg viewBox="0 0 '+W+' '+H+'" width="100%" role="img" aria-label="Studies reporting each COMET core area">';
+  let s='<svg viewBox="0 0 '+W+' '+H+'" width="100%" role="img" aria-label="Trials reporting each COMET core area">';
   items.forEach((it,i)=>{const y=top+i*rowH,bh=31,w=Math.max(2,it.value/mx*bw);s+='<text x="'+(padL-13)+'" y="'+(y+21)+'" text-anchor="end" font-size="15" font-weight="600" fill="#333">'+esc(it.label)+'</text><rect x="'+padL+'" y="'+y+'" width="'+w+'" height="'+bh+'" rx="4" fill="'+it.color+'"><title>'+esc(it.label)+': '+it.value+' studies</title></rect><text x="'+(padL+w+10)+'" y="'+(y+21)+'" font-size="14" font-weight="600" fill="#555">'+it.value+'</text>';});
   s+='</svg>';el.innerHTML=s;
 }
 `;
     html=html.replace('/* ---- charts ---- */',coreChartFn+'/* ---- charts ---- */');
     html=html.replace("hbars(document.getElementById('chart-gap'),CORE_ORDER.map(c=>({label:c,key:c,value:coreStudies[c]||0,color:CORE_COL[c]})),{max:studies.length,onClick:c=>{setCore(c);gotoTable();}});",'renderCoreGapLarge();');
-    html=html.replace("hbars(document.getElementById('chart-sub'),subTop.map(([s,v])=>({label:s,key:s,value:v,color:CORE_COL[coreOfSub[s]]||'#889'})),\n  {onClick:s=>{state.search=s;document.getElementById('search').value=s;gotoTable();render();}});","hbars(document.getElementById('chart-sub'),subTop.map(([s,v])=>({label:s,key:s,value:v,color:CORE_COL[coreOfSub[s]]||'#889'})),{padL:250,aria:'Horizontal bar chart of the number of outcomes in each of the largest LeptoCOS sub-domains, coloured by COMET core area. Counts are in the full table.'});");
+    html=html.replace("hbars(document.getElementById('chart-sub'),subTop.map(([s,v])=>({label:s,key:s,value:v,color:CORE_COL[coreOfSub[s]]||'#889'})),\n  {onClick:s=>{state.search=s;document.getElementById('search').value=s;gotoTable();render();}});","hbars(document.getElementById('chart-sub'),subTop.map(([s,v])=>({label:s,key:s,value:v,color:CORE_COL[coreOfSub[s]]||'#889'})),{padL:250,aria:'Horizontal bar chart of the number of outcomes in each of the largest LeptoCOS sub-domains, coloured by COMET core area. Counts are in the long list at the top of the page.'});");
     html=html.replace("s+='</svg>';el.innerHTML=s;el.querySelectorAll('.bar').forEach(b=>b.addEventListener('click',()=>onClick(b.getAttribute('data-k'))));","s+='</svg>';el.innerHTML=s;");
 
     const brace='<svg class="group-brace" viewBox="0 0 18 100" preserveAspectRatio="none" aria-hidden="true"><path d="M16 2 C8 2 7 14 7 27 V39 C7 47 3 50 1 50 C3 50 7 53 7 61 V73 C7 86 8 98 16 98"/></svg>';
@@ -106,11 +106,11 @@ function renderCoreGapLarge(){
     const feedbackMarkup=`
 <button id="lcFeedbackTab" type="button" aria-controls="lcFeedbackPanel" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h16v10H9l-5 4z"/></svg>Share feedback</button>
 <aside id="lcFeedbackPanel" role="dialog" aria-modal="false" aria-labelledby="lcFeedbackTitle" aria-hidden="true">
-<div class="lc-feedback-hero"><canvas id="lcFeedbackNetwork" aria-hidden="true"></canvas><button id="lcFeedbackClose" type="button" aria-label="Close feedback panel">×</button><h3 id="lcFeedbackTitle">Help strengthen LeptoCOS</h3><p>Share suggestions on terminology, taxonomy, definitions, clinical relevance, evidence mapping, or website usability.</p></div>
-<div class="lc-feedback-body"><p class="lc-feedback-intro">Thank you for reviewing LeptoCOS. Your feedback will help improve the clarity, consistency, and usefulness of this resource. What you write here is sent to the study team only; your email is optional and used only to reply.</p>
+<div class="lc-feedback-hero"><canvas id="lcFeedbackNetwork" aria-hidden="true"></canvas><button id="lcFeedbackClose" type="button" aria-label="Close feedback panel">×</button><h3 id="lcFeedbackTitle">Help strengthen LeptoCOS</h3><p>Share suggestions on terminology, taxonomy, definitions, clinical relevance, evidence mapping or website usability.</p></div>
+<div class="lc-feedback-body"><p class="lc-feedback-intro">Thank you for reviewing LeptoCOS. Your feedback will help improve the clarity, consistency and usefulness of this resource. What you write here is sent to the study team only; your email is optional and used only to reply.</p>
 <form class="lc-feedback-form" id="lcFeedbackForm">
 <div class="lc-field"><label for="lcArea">Feedback area</label><select id="lcArea" name="area" required><option value="">Select an area</option><option>Outcome terminology</option><option>Outcome taxonomy</option><option>Outcome definitions</option><option>Clinical relevance or missing concepts</option><option>Mappings or potentially overlooked evidence</option><option>Website clarity or usability</option><option>Other</option></select></div>
-<div class="lc-field"><label for="lcMessage">Your feedback</label><textarea id="lcMessage" name="message" required placeholder="Please describe your suggestion, correction, question, or concern."></textarea></div>
+<div class="lc-field"><label for="lcMessage">Your feedback</label><textarea id="lcMessage" name="message" required placeholder="Please describe your suggestion, correction, question or concern."></textarea></div>
 <details class="lc-optional"><summary>Add optional details</summary><div class="lc-optional-grid"><div class="lc-field"><label for="lcName">Name</label><input id="lcName" name="name" type="text" autocomplete="name"></div><div class="lc-field"><label for="lcRole">Role or affiliation</label><input id="lcRole" name="role" type="text" autocomplete="organization"></div><div class="lc-field"><label for="lcEmail">Your email, for a reply</label><input id="lcEmail" name="reply" type="email" autocomplete="email"></div><div class="lc-field"><label for="lcReference">Relevant outcome, publication, page, or section</label><input id="lcReference" name="reference" type="text"></div></div></details>
 <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden"><button class="lc-feedback-submit" type="submit">Send feedback</button><p class="lc-feedback-result" id="lcFeedbackResult" aria-live="polite"></p>
 </form></div></aside>`;
@@ -137,10 +137,10 @@ function renderCoreGapLarge(){
   data.set('_nonce',nonce);data.set('callback',callback);data.set('page',location.href);data.set('userAgent',navigator.userAgent);
   let finished=false,script=document.createElement('script');
   const cleanup=()=>{delete window[callback];if(script&&script.parentNode)script.parentNode.removeChild(script);};
-  const timeout=setTimeout(()=>{if(finished)return;finished=true;submit.disabled=false;setResult('is-pending','Still sending feedback...');},18000);
+  const timeout=setTimeout(()=>{if(finished)return;finished=true;submit.disabled=false;setResult('is-pending','Still sending feedback…');},18000);
   window[callback]=payload=>{if(!payload||payload.source!=='leptocos-feedback'||payload.nonce!==nonce)return;finished=true;clearTimeout(timeout);submit.disabled=false;cleanup();if(payload.ok&&payload.stored){setResult('is-success',payload.message||'Feedback saved. Thank you for helping improve LeptoCOS.');form.reset();}else{setResult('is-error',payload.message||'Feedback could not be saved. Please try again or email leptocos@gmail.com.');}};
   script.onerror=()=>{if(finished)return;finished=true;clearTimeout(timeout);submit.disabled=false;setResult('is-error','Feedback could not be sent. Please try again or email leptocos@gmail.com.');cleanup();};
-  clearResult();submit.disabled=true;setResult('is-pending','Sending feedback...');script.src=endpoint+'?'+data.toString();document.body.appendChild(script);
+  clearResult();submit.disabled=true;setResult('is-pending','Sending feedback…');script.src=endpoint+'?'+data.toString();document.body.appendChild(script);
  });
 })();
 <\/script>`;
