@@ -371,6 +371,129 @@ html #lcFeedbackTab svg{width:16px!important;height:16px!important}
   .t1 tr.core td{font-size:9.5px;letter-spacing:.04em;padding:7px 5px}
   .t1 tr.total td,.t1 tr.total td.stud .lab{font-size:11.5px}
 }
+/* Table 1 is the page's lead element (Siavash 2026-09-28): compact hero, table directly under it */
+.hero .wrap{padding:30px 30px 22px}
+.hero h1{font-size:clamp(24px,3.4vw,32px);margin-bottom:10px}
+.hero .lede{font-size:clamp(15px,1.6vw,16.5px);margin-bottom:12px}
+#table1{padding-top:26px}
+.t1title{font-family:var(--serif);font-size:24px!important;font-weight:600;color:var(--ink);letter-spacing:-.01em;margin:0 0 4px!important}
+@media(max-width:600px){.hero .wrap{padding:24px 16px 18px}.t1title{font-size:20px!important}}
+</style>
+<style id="lcs-shell-css">
+/* LeptoCOS navigation shell - sidebar + hash-routed pages.
+   Self-contained; pairs with shell.js. All rules are scoped to html.lcs
+   (set by shell.js) so the page renders exactly as before if the script fails. */
+:root{--lcs-w:240px;--lcs-bar:58px}
+
+/* ---------- removed from view ---------- */
+html.lcs header.top,html.lcs #edelphi,html.lcs #edelphiNav,html.lcs #kpis{display:none!important}
+
+/* ---------- routing ---------- */
+html.lcs .lcs-off{display:none!important}
+/* instant page switches: neutralise reveal-on-scroll */
+html.lcs .reveal{opacity:1!important;transform:none!important;transition:none!important}
+
+/* ---------- sidebar ---------- */
+.lcs-side{position:fixed;top:0;left:0;bottom:0;width:var(--lcs-w);z-index:900;display:flex;flex-direction:column;
+  background:var(--panel,#F6F8FB);border-right:1px solid var(--line,#E4E8EF);font-family:var(--sans,system-ui,sans-serif);
+  overflow-y:auto;overscroll-behavior:contain}
+.lcs-brand{display:block;padding:24px 24px 6px;text-decoration:none!important;font-family:Georgia,'Times New Roman',Times,serif;font-weight:700;font-size:24px;line-height:1}
+.lcs-brand .a{color:var(--ink,#171B23)}.lcs-brand .b{color:var(--brand,#2F6FB8)}
+.lcs-tag{margin:6px 24px 0;padding-bottom:18px;border-bottom:1px solid var(--line,#E4E8EF);color:var(--muted,#5C6675);font-size:12px;line-height:1.45}
+.lcs-nav{padding:14px 12px;flex:1 0 auto}
+.lcs-nav p{margin:0 12px 8px;color:var(--muted,#5C6675);font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.lcs-nav ul{list-style:none;margin:0;padding:0}
+.lcs-nav li{margin:0 0 2px}
+.lcs-nav a{position:relative;display:block;padding:9px 12px;border-radius:8px;color:var(--ink2,#2A303B);font-size:14px;font-weight:550;line-height:1.3;text-decoration:none!important;transition:background-color .15s,color .15s}
+.lcs-nav a small{display:block;margin-top:2px;color:var(--muted,#5C6675);font-size:11.5px;font-weight:400}
+.lcs-nav a:hover{background:var(--panel2,#EEF2F7);color:var(--ink,#171B23)}
+.lcs-nav a[aria-current="page"]{background:#fff;color:var(--brand-d,#1E4F86);font-weight:700;box-shadow:0 1px 2px rgba(16,24,40,.06),inset 0 0 0 1px var(--line,#E4E8EF)}
+.lcs-nav a[aria-current="page"]::before{content:"";position:absolute;left:0;top:9px;bottom:9px;width:3px;border-radius:2px;background:var(--brand,#2F6FB8)}
+.lcs-nav a:focus-visible,.lcs-foot a:focus-visible,.lcs-foot button:focus-visible,.lcs-burger:focus-visible,.lcs-close:focus-visible,.lcs-bar .lcs-brand:focus-visible{outline:none;box-shadow:0 0 0 2px #fff,0 0 0 4px rgba(47,111,184,.45)}
+.lcs-foot{padding:14px 24px 20px;border-top:1px solid var(--line,#E4E8EF);color:var(--muted,#5C6675);font-size:11.5px;line-height:1.5}
+.lcs-foot a{color:var(--ink2,#2A303B);font-weight:600}
+.lcs-foot button{margin:0 0 10px;padding:6px 11px;border:1px solid var(--line,#E4E8EF);border-radius:7px;background:#fff;color:var(--ink2,#2A303B);font:600 12px/1 var(--sans,system-ui,sans-serif);cursor:pointer}
+.lcs-foot button:hover{border-color:var(--muted,#5C6675)}
+.lcs-close{display:none}
+
+/* ---------- top bar (tablet / phone) ---------- */
+.lcs-bar{display:none}
+.lcs-overlay{display:none}
+
+/* ---------- desktop ---------- */
+@media (min-width:1024px){
+  html.lcs body{padding-left:var(--lcs-w)}
+  /* map view was centred against the full viewport; re-centre inside the content column */
+  html.lcs .table1-card.is-map{width:min(1320px,calc(100vw - var(--lcs-w) - 32px))!important}
+  html.lcs #table1 .t1 thead th{top:0!important}
+}
+/* small laptops: give the long-list table the room it had before */
+@media (min-width:1024px) and (max-width:1199.98px){
+  :root{--lcs-w:216px}
+  html.lcs .wrap{padding-left:22px;padding-right:22px}
+  html.lcs .t1 td.sub{white-space:normal}
+}
+
+/* ---------- tablet / phone: off-canvas ---------- */
+@media (max-width:1023.98px){
+  .lcs-bar{position:sticky;top:0;z-index:850;display:flex;align-items:center;gap:10px;height:var(--lcs-bar);padding:0 16px;
+    background:rgba(255,255,255,.94);-webkit-backdrop-filter:saturate(180%) blur(8px);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--line,#E4E8EF);font-family:var(--sans,system-ui,sans-serif)}
+  .lcs-bar .lcs-brand{padding:0;font-size:21px}
+  .lcs-bar .lcs-cur{margin-left:auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--muted,#5C6675);font-size:13px;font-weight:600}
+  .lcs-burger{flex:none;display:inline-grid;place-items:center;width:40px;height:40px;margin-left:-8px;padding:0;border:0;border-radius:9px;background:transparent;color:var(--ink,#171B23);cursor:pointer}
+  .lcs-burger:hover{background:var(--panel2,#EEF2F7)}
+  .lcs-burger svg,.lcs-close svg{width:22px;height:22px;stroke:currentColor;stroke-width:2;stroke-linecap:round;fill:none}
+  .lcs-side{width:min(300px,86vw);transform:translateX(-102%);visibility:hidden;box-shadow:none;
+    transition:transform .26s cubic-bezier(.22,.61,.36,1),visibility 0s linear .26s,box-shadow .26s}
+  html.lcs-open .lcs-side{transform:none;visibility:visible;box-shadow:0 20px 60px rgba(16,24,40,.28);transition:transform .26s cubic-bezier(.22,.61,.36,1),visibility 0s,box-shadow .26s}
+  .lcs-close{position:absolute;top:14px;right:12px;display:inline-grid;place-items:center;width:36px;height:36px;padding:0;border:0;border-radius:9px;background:transparent;color:var(--muted,#5C6675);cursor:pointer}
+  .lcs-close:hover{background:var(--panel2,#EEF2F7);color:var(--ink,#171B23)}
+  .lcs-overlay{position:fixed;inset:0;z-index:890;display:block;background:rgba(17,24,39,.42);opacity:0;visibility:hidden;transition:opacity .26s,visibility 0s linear .26s}
+  html.lcs-open .lcs-overlay{opacity:1;visibility:visible;transition:opacity .26s,visibility 0s}
+  html.lcs-open,html.lcs-open body{overflow:hidden!important}
+  html.lcs #table1 .t1 thead th{top:var(--lcs-bar)!important}
+  html.lcs .edelphi,html.lcs section{scroll-margin-top:calc(var(--lcs-bar) + 8px)}
+}
+@media (prefers-reduced-motion:reduce){.lcs-side,.lcs-overlay{transition:none!important}}
+
+/* ---------- feedback button: small and unobtrusive ---------- */
+html.lcs body #lcFeedbackTab{right:18px!important;bottom:18px!important;min-width:0!important;min-height:0!important;height:38px!important;width:auto!important;padding:0 14px!important;gap:7px!important;
+  font-size:12.5px!important;font-weight:650!important;border-radius:999px!important;background:var(--brand-d,#1E4F86)!important;box-shadow:0 4px 14px rgba(20,44,73,.18)!important;opacity:.92!important}
+html.lcs body #lcFeedbackTab:hover{opacity:1!important;transform:none!important}
+html.lcs body #lcFeedbackTab svg{width:16px!important;height:16px!important}
+html.lcs body #lcFeedbackPanel{right:18px!important;bottom:66px!important}
+@media (max-width:600px){
+  html.lcs body #lcFeedbackTab{width:40px!important;height:40px!important;min-width:40px!important;min-height:40px!important;padding:0!important;font-size:0!important;right:12px!important;bottom:12px!important;border-radius:50%!important}
+  html.lcs body #lcFeedbackPanel{right:12px!important;bottom:60px!important}
+}
+html.lcs-open body #lcFeedbackTab{visibility:hidden!important}
+
+/* ---------- print: every page, no chrome ---------- */
+@media print{
+  html.lcs body{padding-left:0!important}
+  .lcs-side,.lcs-bar,.lcs-overlay{display:none!important}
+  html.lcs .lcs-off{display:block!important}
+  html.lcs .table1-card.is-map{width:auto!important}
+}
+/* 2026-09-28: floating feedback tab replaced by the sidebar "Send feedback" button (panel still opens) */
+html.lcs body #lcFeedbackTab{opacity:0!important;pointer-events:none!important;width:1px!important;height:1px!important;min-width:0!important;min-height:0!important;padding:0!important;overflow:hidden!important;border:0!important;box-shadow:none!important}
+html.lcs .lbl{display:none}
+html.lcs #why .callouts{display:none}
+html.lcs #table1 .view-switch{display:none}
+html.lcs .hero .lede,html.lcs .hero .prov{display:none}
+html.lcs .hero .reg-line{display:none}
+/* final QA fixes (design agent, 2026-09-28) */
+html.lcs{scroll-padding-top:0}
+@media (min-width:1024px) and (max-width:1279.98px){html.lcs #landscape .grid2{grid-template-columns:1fr}}
+html.lcs #landscape #chart-gap svg{min-height:0!important;height:auto!important}html.lcs #landscape #chart-gap{margin-top:8px}
+@media (max-width:760px){html.lcs #why .phases{display:none}}
+html.lcs body #lcFeedbackPanel.is-open{transition:transform .25s ease,opacity .2s ease,visibility 0s!important}
+html.lcs #sankey{background:linear-gradient(90deg,#fff 30%,rgba(255,255,255,0)),linear-gradient(90deg,rgba(255,255,255,0),#fff 70%) 100% 0,radial-gradient(farthest-side at 0 50%,rgba(20,44,73,.16),transparent),radial-gradient(farthest-side at 100% 50%,rgba(20,44,73,.16),transparent) 100% 0;background-repeat:no-repeat;background-size:40px 100%,40px 100%,14px 100%,14px 100%;background-attachment:local,local,scroll,scroll}
+@media(max-width:600px){html.lcs .t1 td.sub{width:92px;min-width:92px;max-width:92px;overflow-wrap:break-word}}
+@media(max-width:600px){html.lcs #chart-pri{overflow-x:auto}html.lcs #chart-pri>svg{min-width:560px}}
+
+html.lcs .hero .wrap>p{display:none}
+.hsub{font-size:14px;color:var(--muted);margin:2px 0 0}
 </style>
 </head>
 <body>
@@ -387,7 +510,8 @@ html #lcFeedbackTab svg{width:16px!important;height:16px!important}
 
 <div class="hero" id="main" tabindex="-1">
   <div class="wrap">
-    <h1>An international initiative to develop a core outcome set for leptomeningeal disease</h1>
+    <h1>LeptoCOS: core outcome set for leptomeningeal disease</h1>
+    <div class="hsub">Long list of candidate outcomes from a systematic review of 44 trials (1987 to 2025) &middot; <a href="https://www.comet-initiative.org/Studies/Details/3224" rel="noopener">COMET Initiative Study 3224</a></div>
     <p class="lede">LeptoCOS is a multidisciplinary, international initiative developing a core outcome set for leptomeningeal disease (LMD): an agreed minimum set of outcomes every trial should measure and report. This site presents the long list of candidate outcomes from the systematic review, the evidence behind it, and how to take part.</p>
     <p style="font-size:12px;color:var(--muted);margin:12px 0 0;line-height:1.5">Registered as <b style="color:var(--ink)">COMET Initiative Study 3224</b> · informed by the COMET Handbook and the COS-STAD standards; the systematic review follows PRISMA reporting guidance.</p>
     <div class="prov">
@@ -400,13 +524,10 @@ html #lcFeedbackTab svg{width:16px!important;height:16px!important}
 
 <div class="wrap">
   <section id="table1">
-    <p class="lbl">The long list</p>
-    <h2>Long list of outcomes</h2>
-    <p class="dek">The 55 standardised outcomes of the long list, grouped by COMET core area and sub-domain, with the number of the 332 extracted outcomes and of the 44 trials reporting each.</p>
-    <div class="card table1-card">
+        <div class="card table1-card">
       <div class="table1-head">
         <div>
-          
+          <p class="ct t1title">Table 1 &middot; Long list of outcomes</p>
           <p class="cn">Grouped by core area (shaded rows) and sub-domain. A trial can report several outcomes in one sub-domain, so outcome totals can exceed the number of trials reporting them.</p>
         </div>
         <div class="view-switch" role="tablist" aria-label="Table 1 view">
@@ -512,7 +633,6 @@ html #lcFeedbackTab svg{width:16px!important;height:16px!important}
     <h2>Definitions of the 55 long-list outcomes</h2>
     <p class="dek">The 55 candidate outcomes proposed for rating in the eDelphi, each with a plain-language definition, its sub-domain and its COMET core area. Filter, search or sort.</p>
     <p class="dek" style="margin-top:-8px;font-size:13.5px">How often an outcome was reported is not evidence of its importance; the eDelphi will ask how important each outcome is, not how common it is.</p>
-    <p class="dek" style="margin-top:-8px;font-size:13.5px"><b>Pre-Delphi working document.</b> These are candidate outcomes, not a core outcome set; please do not cite them as a core outcome set.</p>
     <div class="tx-bar">
       <input id="tx-search" type="search" placeholder="Search outcomes, definitions, sub-domains…" aria-label="Search outcomes">
       <div class="tx-row">
@@ -593,7 +713,7 @@ html #lcFeedbackTab svg{width:16px!important;height:16px!important}
 
   <section id="landscape">
     <p class="lbl">Distribution</p>
-    <h2>Distribution of the 332 outcomes across COMET core areas</h2>
+    <h2>Outcomes by COMET core area and sub-domain</h2>
     <p class="dek">Every outcome maps to one of five COMET core areas, and within them to 19 sub-domains. Reporting
       concentrates on tumour response and survival; life-impact and resource-use outcomes are least represented.</p>
     <div class="grid2">
@@ -601,13 +721,13 @@ html #lcFeedbackTab svg{width:16px!important;height:16px!important}
         <div class="legend" id="core-leg"></div></div>
       <div class="card"><p class="ct">Trials reporting each core area (of 44)</p><p class="cn">How many of the 44 trials report at least one outcome in each core area.</p><div id="chart-gap"></div></div>
     </div>
-    <div class="card" style="margin-top:16px"><p class="ct">Outcomes by sub-domain</p><p class="cn">The 19 sub-domains beneath the five core areas (16 largest shown). <a class="jump" href="#table1">Full counts are in the long list at the top &#8593;</a></p><div id="chart-sub"></div></div>
+    <div class="card" style="margin-top:16px"><p class="ct">Outcomes by sub-domain</p><p class="cn">The 19 sub-domains beneath the five core areas (16 largest shown). <a class="jump" href="#table1">Full counts are in the long list (Table 1) &#8594;</a></p><div id="chart-sub"></div></div>
     <div class="card" style="margin-top:16px"><p class="ct">All 55 standardised outcomes, ranked by frequency</p><p class="cn">Number of trials reporting each standardised outcome, high to low, coloured by core area. Safety, survival and leptomeningeal response dominate; reporting then drops sharply, and 14 of the 55 appear in only one trial.</p><div id="chart-allfreq"></div></div>
   </section>
 
   <section id="coverage">
     <p class="lbl">Coverage</p>
-    <h2>Outcomes reported by each trial</h2>
+    <h2>Outcome reporting by trial</h2>
     <p class="dek">Each row is a standardised outcome and each column a trial, ordered by year.</p>
     <div class="card">
       <div class="cov-head">
@@ -635,7 +755,7 @@ html #lcFeedbackTab svg{width:16px!important;height:16px!important}
 
   <section id="explore">
     <p class="lbl">Reference</p>
-    <h2>Response-assessment criteria for leptomeningeal disease</h2>
+    <h2>Response-assessment criteria</h2>
     <p class="dek">These are the response-assessment frameworks behind the leptomeningeal-response definitions used in this review,
       drawn from published criteria. Study-specific composites combine two or more of these elements in a trial-defined way.</p>
     <div class="card"><p class="ct">Response-assessment definitions</p>
@@ -650,7 +770,7 @@ html #lcFeedbackTab svg{width:16px!important;height:16px!important}
 
   <section id="compartment">
     <p class="lbl">Finding 2 &middot; response by compartment</p>
-    <h2>Where each response and progression outcome is measured</h2>
+    <h2>Response and progression outcomes by anatomical compartment</h2>
     <p class="dek">Response and progression outcomes are reported for different anatomical compartments: leptomeningeal,
       intracranial (brain parenchyma), extracranial, or overall. The matrix maps the 171 response and progression outcomes
       by metric and by the compartment each assessment targets. Leptomeningeal is the most common compartment (78 of 171).</p>
@@ -691,7 +811,7 @@ html #lcFeedbackTab svg{width:16px!important;height:16px!important}
 
   <section id="priority">
     <p class="lbl">Reporting rigour</p>
-    <h2>Recorded or assigned priority of reported outcomes</h2>
+    <h2>Outcome priority as reported</h2>
     <p class="dek">Priority (primary, secondary or exploratory) was recorded as each trial stated it. Where a trial gave no explicit label, an outcome was assigned primary only if it informed the sample-size calculation or was specified as an outcome objective; a general statement of purpose was not enough, and secondary or exploratory status was never assigned. Priority was not used to include or exclude outcomes. More than a third of outcomes (35%) carry no recorded or assigned priority.</p>
     <div class="card"><p class="ct">Outcomes by recorded or assigned priority</p><p class="cn">Share of 332 outcomes.</p><div id="chart-pri"></div></div>
   </section>
@@ -708,7 +828,7 @@ html #lcFeedbackTab svg{width:16px!important;height:16px!important}
 
   <section id="ask" style="border-bottom:none">
     <footer><b>LeptoCOS</b> · a core outcome set for leptomeningeal disease · generated <span id="gd"></span>.
-      Pre-Delphi working document; Please do not cite as a core outcome set.</footer>
+      Pre-Delphi working document: candidate outcomes, not a core outcome set. Please do not cite as a core outcome set.</footer>
   </section>
 </div>
 
@@ -1063,6 +1183,247 @@ var EDELPHI_URL = "";
   nav.href=EDELPHI_URL;nav.rel='noopener';
   fine.innerHTML='Registration and consent are handled on the survey platform. Questions first? Email '+
     '<a href="mailto:leptocos@gmail.com?subject=LeptoCOS%20eDelphi">leptocos@gmail.com</a>.';
+})();
+</script>
+<script id="lcs-shell-js">
+/* LeptoCOS navigation shell: fixed sidebar (desktop) / off-canvas drawer
+   (tablet, phone) + hash-routed pages. Self-contained, no dependencies.
+   Inject as an inline script at the end of the page body, after the page's
+   own scripts. It only toggles classes on existing elements: no content
+   is moved, rewritten or removed from the DOM. */
+(function () {
+  'use strict';
+  if (window.__lcsShell) return;
+  window.__lcsShell = true;
+
+  /* ===== Edit the page list here =====
+     id: used in the URL (#/id).  label: link text.  desc: small grey line.
+     sections: CSS selectors of the existing blocks shown on that page.
+     Anything not listed in any page (e.g. the footer in #ask) is always shown. */
+  var PAGES = [
+    { id: 'home',        label: 'Long list',            desc: 'Table 1 \u00b7 candidate outcomes', sections: ['.hero', '#table1'] },
+    { id: 'definitions', label: 'Definitions',          desc: 'The 55 outcomes defined',         sections: ['#taxonomy'] },
+    { id: 'landscape',   label: 'Reporting landscape',  desc: 'Core areas, coverage, priority',  sections: ['#landscape', '#coverage', '#priority'] },
+    { id: 'response',    label: 'Response assessment',  desc: 'Definitions and compartments',    sections: ['#hetero', '#explore', '#compartment'] },
+    { id: 'about',       label: 'Background & methods', desc: 'Rationale and methods',     sections: ['#why', '#methods'] }
+  ];
+  /* Old anchors whose target is hidden or not inside a page: anchor -> page id */
+  var LEGACY = { edelphi: 'home', edelphiNav: 'home', kpis: 'home', main: 'home' };
+  var COMET_URL = 'https://www.comet-initiative.org/Studies/Details/3224';
+  var DESKTOP = window.matchMedia('(min-width: 1024px)');
+
+  var doc = document, root = doc.documentElement, body = doc.body;
+  var baseTitle = doc.title;
+  var current = null, burger, side, overlay, curLabel, lastFocus = null, userNav = false;
+
+  function $(sel) { try { return Array.prototype.slice.call(doc.querySelectorAll(sel)); } catch (e) { return []; } }
+  function el(tag, attrs, html) {
+    var n = doc.createElement(tag);
+    for (var k in attrs) if (Object.prototype.hasOwnProperty.call(attrs, k)) n.setAttribute(k, attrs[k]);
+    if (html != null) n.innerHTML = html;
+    return n;
+  }
+  function pageById(id) { for (var i = 0; i < PAGES.length; i++) if (PAGES[i].id === id) return PAGES[i]; return null; }
+  function pageOf(node) {
+    for (var i = 0; i < PAGES.length; i++)
+      for (var j = 0; j < PAGES[i].els.length; j++)
+        if (PAGES[i].els[j] === node || PAGES[i].els[j].contains(node)) return PAGES[i];
+    return null;
+  }
+  function jump(y) { try { window.scrollTo({ top: y, left: 0, behavior: 'instant' }); } catch (e) { window.scrollTo(0, y); } }
+  function scrollToEl(node, smooth) {
+    try { node.scrollIntoView({ block: 'start', behavior: smooth ? 'smooth' : 'instant' }); } catch (e) { node.scrollIntoView(true); }
+  }
+  function focusQuiet(node) {
+    if (!node) return;
+    if (!node.hasAttribute('tabindex')) { node.setAttribute('tabindex', '-1'); node.style.outline = 'none'; }
+    try { node.focus({ preventScroll: true }); } catch (e) { node.focus(); }
+  }
+  function mainTarget(page) {
+    var first = page.els[0];
+    if (!first) return null;
+    if (first.id === 'main') return first;
+    return first.querySelector('h1,h2') || first;
+  }
+
+  /* ---------- build chrome ---------- */
+  var ICON_MENU = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
+  var ICON_X = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+  var BRAND = '<span class="a">Lepto</span><span class="b">COS</span>';
+
+  function build() {
+    PAGES.forEach(function (p) {
+      p.els = [];
+      p.sections.forEach(function (s) { p.els = p.els.concat($(s)); });
+    });
+
+    var bar = el('div', { 'class': 'lcs-bar' });
+    burger = el('button', { type: 'button', 'class': 'lcs-burger', 'aria-controls': 'lcsSide', 'aria-expanded': 'false', 'aria-label': 'Open navigation' }, ICON_MENU);
+    bar.appendChild(burger);
+    bar.appendChild(el('a', { 'class': 'lcs-brand', href: '#/' + PAGES[0].id, 'aria-label': 'LeptoCOS home' }, BRAND));
+    curLabel = el('span', { 'class': 'lcs-cur', 'aria-hidden': 'true' });
+    bar.appendChild(curLabel);
+
+    side = el('aside', { 'class': 'lcs-side', id: 'lcsSide', 'aria-label': 'Site navigation' });
+    side.appendChild(el('button', { type: 'button', 'class': 'lcs-close', 'aria-label': 'Close navigation' }, ICON_X));
+    side.appendChild(el('a', { 'class': 'lcs-brand', href: '#/' + PAGES[0].id, 'aria-label': 'LeptoCOS home' }, BRAND));
+    side.appendChild(el('p', { 'class': 'lcs-tag' }, 'A core outcome set for leptomeningeal disease'));
+    var nav = el('nav', { 'class': 'lcs-nav', 'aria-label': 'Pages' }, '<p>Contents</p>');
+    var ul = el('ul');
+    PAGES.forEach(function (p) {
+      var li = el('li');
+      li.appendChild(el('a', { href: '#/' + p.id, 'data-lcs-page': p.id }, p.label + (p.desc ? '<small>' + p.desc + '</small>' : '')));
+      ul.appendChild(li);
+    });
+    nav.appendChild(ul);
+    side.appendChild(nav);
+    var foot = el('div', { 'class': 'lcs-foot' },
+      '<button type="button" class="lcs-print">Print / PDF</button>' +
+      '<div>Registered as <a href="' + COMET_URL + '" rel="noopener">COMET Initiative Study 3224</a></div>' +
+      '<button type="button" class="lcs-print lcs-fb">Send feedback</button>' +
+      '<div>Contact <a href="mailto:leptocos@gmail.com">leptocos@gmail.com</a></div>' +
+      '<div>Pre-Delphi working document</div>');
+    side.appendChild(foot);
+
+    overlay = el('div', { 'class': 'lcs-overlay', 'aria-hidden': 'true' });
+
+    var skip = doc.querySelector('a.skip');
+    var anchor = skip ? skip.nextSibling : body.firstChild;
+    body.insertBefore(bar, anchor);
+    body.insertBefore(side, anchor);
+    body.insertBefore(overlay, anchor);
+    root.classList.add('lcs');
+
+    /* events */
+    burger.addEventListener('click', function () { root.classList.contains('lcs-open') ? closeDrawer(true) : openDrawer(); });
+    side.querySelector('.lcs-close').addEventListener('click', function () { closeDrawer(true); });
+    overlay.addEventListener('click', function () { closeDrawer(true); });
+    foot.querySelector('.lcs-print').addEventListener('click', function () { window.print(); });
+    var fbb = foot.querySelector('.lcs-fb');
+    if (fbb) fbb.addEventListener('click', function () { var t = doc.getElementById('lcFeedbackTab'); if (!t) { location.href = 'mailto:leptocos@gmail.com'; return; } if (root.classList.contains('lcs-open')) { try { closeDrawer(false); } catch (e) {} } t.click(); });
+    side.addEventListener('click', function (e) {
+      var a = e.target.closest ? e.target.closest('a[href^="#/"]') : null;
+      if (!a) return;
+      userNav = true;
+      if (a.getAttribute('href') === location.hash) { e.preventDefault(); jump(0); userNav = false; }
+      closeDrawer(false);
+    });
+    bar.querySelector('.lcs-brand').addEventListener('click', function () { userNav = true; });
+    if (skip) skip.addEventListener('click', function (e) {
+      if (!current) return;
+      e.preventDefault();
+      var t = mainTarget(current);
+      if (t) { scrollToEl(t, false); focusQuiet(t); }
+    });
+    doc.addEventListener('keydown', onKey);
+    var mq = function () { if (DESKTOP.matches) closeDrawer(false); };
+    if (DESKTOP.addEventListener) DESKTOP.addEventListener('change', mq); else if (DESKTOP.addListener) DESKTOP.addListener(mq);
+    window.addEventListener('hashchange', function () { route(location.hash, false); });
+    window.addEventListener('beforeprint', function () {
+      /* the response Sankey is clipped until it scrolls into view; show it whole in print */
+      var r = doc.getElementById('sk-rect'), svg = r && r.ownerSVGElement;
+      if (svg && svg.viewBox && svg.viewBox.baseVal) r.setAttribute('width', svg.viewBox.baseVal.width);
+    });
+  }
+
+  /* ---------- drawer ---------- */
+  function focusables() {
+    return Array.prototype.filter.call(side.querySelectorAll('a[href],button'), function (n) { return n.offsetParent !== null || n === doc.activeElement; });
+  }
+  function openDrawer() {
+    if (DESKTOP.matches) return;
+    lastFocus = doc.activeElement;
+    root.classList.add('lcs-open');
+    burger.setAttribute('aria-expanded', 'true');
+    burger.setAttribute('aria-label', 'Close navigation');
+    var cur = side.querySelector('a[aria-current="page"]') || focusables()[0];
+    requestAnimationFrame(function () { if (cur) cur.focus(); });
+  }
+  function closeDrawer(returnFocus) {
+    if (!root.classList.contains('lcs-open')) return;
+    root.classList.remove('lcs-open');
+    burger.setAttribute('aria-expanded', 'false');
+    burger.setAttribute('aria-label', 'Open navigation');
+    if (returnFocus) burger.focus();
+  }
+  function onKey(e) {
+    if (!root.classList.contains('lcs-open')) return;
+    if (e.key === 'Escape' || e.key === 'Esc') { e.preventDefault(); closeDrawer(true); return; }
+    if (e.key === 'Tab') {
+      var f = focusables(); if (!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && (doc.activeElement === first || !side.contains(doc.activeElement))) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && (doc.activeElement === last || !side.contains(doc.activeElement))) { e.preventDefault(); first.focus(); }
+    }
+  }
+
+  /* ---------- routing ---------- */
+  function resolve(hash) {
+    var h = hash ? hash.replace(/^#/, '') : '';
+    try { h = decodeURIComponent(h); } catch (e) {}
+    if (!h || h === '/') return { page: PAGES[0], anchor: null, canonical: false };
+    if (h.charAt(0) === '/') {
+      var parts = h.slice(1).split('/');
+      var p = pageById(parts[0]);
+      var a = parts[1] ? doc.getElementById(parts[1]) : null;
+      return { page: p || PAGES[0], anchor: a && pageOf(a) === (p || PAGES[0]) ? a : null, canonical: !!p };
+    }
+    if (LEGACY[h]) return { page: pageById(LEGACY[h]) || PAGES[0], anchor: null, legacy: h };
+    var t = doc.getElementById(h);
+    if (t) { var pg = pageOf(t); if (pg) return { page: pg, anchor: t, legacy: h }; }
+    return null; /* unknown hash: not ours, leave the view alone */
+  }
+
+  function show(page) {
+    var on = page.els;
+    PAGES.forEach(function (p) {
+      p.els.forEach(function (n) { n.classList.toggle('lcs-off', on.indexOf(n) === -1); });
+    });
+    $('[data-lcs-page]').forEach(function (a) {
+      if (a.getAttribute('data-lcs-page') === page.id) a.setAttribute('aria-current', 'page');
+      else a.removeAttribute('aria-current');
+    });
+    curLabel.textContent = page.label;
+    doc.title = page === PAGES[0] ? baseTitle : page.label + ' · LeptoCOS';
+  }
+
+  function route(hash, initial) {
+    var r = resolve(hash);
+    if (!r) { if (!current) { show(PAGES[0]); current = PAGES[0]; } return; }
+    var changed = r.page !== current;
+    if (changed) { show(r.page); current = r.page; }
+    if (r.legacy) {
+      var canon = '#/' + r.page.id + (r.anchor && r.anchor.id ? '/' + r.anchor.id : '');
+      try { history.replaceState(history.state, '', canon); } catch (e) {}
+    }
+    if (r.anchor) {
+      scrollToEl(r.anchor, !changed && !initial);
+      if (initial) window.addEventListener('load', function () { scrollToEl(r.anchor, false); });
+    } else if (changed || r.legacy === 'main') {
+      jump(0);
+    }
+    if (r.legacy === 'main') focusQuiet(mainTarget(r.page));
+    else if (userNav && changed) focusQuiet(r.anchor || mainTarget(r.page));
+    userNav = false;
+    if (changed && !initial) {
+      /* charts that measure their container get a chance to re-measure */
+      requestAnimationFrame(function () { try { window.dispatchEvent(new Event('resize')); } catch (e) {} });
+    }
+  }
+
+  function init() {
+    if (!body) return;
+    build();
+    route(location.hash, true);
+    window.addEventListener('load', function () { try { window.dispatchEvent(new Event('resize')); } catch (e) {} });
+  }
+
+  try { init(); } catch (err) {
+    /* fail open: show the whole page as before */
+    root.classList.remove('lcs', 'lcs-open');
+    [side, overlay, burger && burger.parentNode].forEach(function (n) { if (n && n.parentNode) n.parentNode.removeChild(n); });
+    if (window.console) console.error('LeptoCOS shell:', err);
+  }
 })();
 </script>
 </body>
