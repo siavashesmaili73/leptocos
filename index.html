@@ -26,10 +26,11 @@
     const response=await fetch('production-source.html',{cache:'no-store'});
     if(!response.ok)throw new Error('Could not load the current LeptoCOS page.');
     let html=await response.text();
+    html=html.replace('<meta name="robots" content="noindex, nofollow">','<meta name="robots" content="index, follow">');
 
     html=html.replace('Registered as <b style="color:var(--ink)">COMET Initiative Study 3224</b> · informed by the COMET Handbook and the COS-STAD standards; the systematic review follows PRISMA reporting guidance.','Registered as <a href="https://www.comet-initiative.org/Studies/Details/3224" rel="noopener" style="color:var(--ink)"><b style="color:var(--ink)">COMET Initiative Study 3224</b></a> · informed by the COMET Handbook and the COS-STAD standards; the systematic review follows PRISMA reporting guidance.');
     html=html.replace('<h2>Methods and limitations</h2>','<h2>Methods and scope</h2>');
-    html=html.replace('<footer><b>LeptoCOS</b> · a core outcome set for leptomeningeal disease · generated <span id="gd"></span>.','<footer><b>LeptoCOS</b> · a core outcome set for leptomeningeal disease · Last updated 27 September 2026.');
+    html=html.replace('<footer><b>LeptoCOS</b> · a core outcome set for leptomeningeal disease · generated <span id="gd"></span>.','<footer><b>LeptoCOS</b> · a core outcome set for leptomeningeal disease · Last updated October 6, 2026.');
     html=html.replace("document.getElementById('gd').textContent=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});",'');
     html=html.replace("el.querySelectorAll('.tm').forEach(t=>t.addEventListener('click',()=>{setCore(t.getAttribute('data-k'));gotoTable();}));",'');
     html=html.replace("el.querySelectorAll('.bar').forEach(b=>b.addEventListener('click',()=>{state.search=b.getAttribute('data-k');document.getElementById('search').value=state.search;gotoTable();render();}));",'');
@@ -40,13 +41,13 @@ function renderCoreGapLarge(){
   const items=CORE_ORDER.map(c=>({label:c,value:coreStudies[c]||0,color:CORE_COL[c]}));
   const W=760,padL=214,padR=64,rowH=62,top=20,H=top*2+items.length*rowH,mx=studies.length,bw=W-padL-padR;
   let s='<svg viewBox="0 0 '+W+' '+H+'" width="100%" role="img" aria-label="Trials reporting each COMET core area">';
-  items.forEach((it,i)=>{const y=top+i*rowH,bh=31,w=Math.max(2,it.value/mx*bw);s+='<text x="'+(padL-13)+'" y="'+(y+21)+'" text-anchor="end" font-size="15" font-weight="600" fill="#333">'+esc(it.label)+'</text><rect x="'+padL+'" y="'+y+'" width="'+w+'" height="'+bh+'" rx="4" fill="'+it.color+'"><title>'+esc(it.label)+': '+it.value+' studies</title></rect><text x="'+(padL+w+10)+'" y="'+(y+21)+'" font-size="14" font-weight="600" fill="#555">'+it.value+'</text>';});
+  items.forEach((it,i)=>{const y=top+i*rowH,bh=31,w=Math.max(2,it.value/mx*bw);s+='<text x="'+(padL-13)+'" y="'+(y+21)+'" text-anchor="end" font-size="15" font-weight="600" fill="#333">'+esc(it.label)+'</text><rect x="'+padL+'" y="'+y+'" width="'+w+'" height="'+bh+'" rx="4" fill="'+it.color+'"><title>'+esc(it.label)+': '+it.value+' trial'+(it.value===1?'':'s')+'</title></rect><text x="'+(padL+w+10)+'" y="'+(y+21)+'" font-size="14" font-weight="600" fill="#555">'+it.value+'</text>';});
   s+='</svg>';el.innerHTML=s;
 }
 `;
     html=html.replace('/* ---- charts ---- */',coreChartFn+'/* ---- charts ---- */');
     html=html.replace("hbars(document.getElementById('chart-gap'),CORE_ORDER.map(c=>({label:c,key:c,value:coreStudies[c]||0,color:CORE_COL[c]})),{max:studies.length,onClick:c=>{setCore(c);gotoTable();}});",'renderCoreGapLarge();');
-    html=html.replace("hbars(document.getElementById('chart-sub'),subTop.map(([s,v])=>({label:s,key:s,value:v,color:CORE_COL[coreOfSub[s]]||'#889'})),\n  {onClick:s=>{state.search=s;document.getElementById('search').value=s;gotoTable();render();}});","hbars(document.getElementById('chart-sub'),subTop.map(([s,v])=>({label:s,key:s,value:v,color:CORE_COL[coreOfSub[s]]||'#889'})),{padL:250,aria:'Horizontal bar chart of the number of outcomes in each of the largest LeptoCOS sub-domains, coloured by COMET core area. Counts are in the long list at the top of the page.'});");
+    html=html.replace("hbars(document.getElementById('chart-sub'),subTop.map(([s,v])=>({label:s,key:s,value:v,color:CORE_COL[coreOfSub[s]]||'#889'})),\n  {onClick:s=>{state.search=s;document.getElementById('search').value=s;gotoTable();render();}});","hbars(document.getElementById('chart-sub'),subTop.map(([s,v])=>({label:s,key:s,value:v,color:CORE_COL[coreOfSub[s]]||'#889'})),{padL:250,aria:'Horizontal bar chart of the number of outcomes in each of the largest LeptoCOS sub-domains, coloured by COMET core area. Counts are in Table 1 on the Long list page.'});");
     html=html.replace("s+='</svg>';el.innerHTML=s;el.querySelectorAll('.bar').forEach(b=>b.addEventListener('click',()=>onClick(b.getAttribute('data-k'))));","s+='</svg>';el.innerHTML=s;");
 
     const brace='<svg class="group-brace" viewBox="0 0 18 100" preserveAspectRatio="none" aria-hidden="true"><path d="M16 2 C8 2 7 14 7 27 V39 C7 47 3 50 1 50 C3 50 7 53 7 61 V73 C7 86 8 98 16 98"/></svg>';
@@ -54,7 +55,7 @@ function renderCoreGapLarge(){
     html=html.replace('            <tr class="ghdr"><td colspan="6">Response</td></tr>\n            <tr><td class="rl">Response</td>','            <tr class="group-start response-start"><td class="groupcell group-response" rowspan="5"><div class="group-marker"><span class="group-name">Response</span>'+brace+'</div></td><td class="rl">Response rate</td>');
     html=html.replace('            <tr class="ghdr"><td colspan="6">Progression</td></tr>\n            <tr><td class="rl">PFS</td>','            <tr class="group-spacer"><td colspan="7"></td></tr>\n            <tr class="group-start progression-start"><td class="groupcell group-progression" rowspan="2"><div class="group-marker"><span class="group-name">Progression</span>'+brace+'</div></td><td class="rl">PFS</td>');
     html=html.replace('            <tr class="ghdr"><td colspan="6">Other</td></tr>\n            <tr><td class="rl">Other</td>','            <tr class="group-spacer"><td colspan="7"></td></tr>\n            <tr class="group-start other-start"><td class="groupcell group-other" rowspan="1"><div class="group-marker"><span class="group-name">Other</span>'+brace+'</div></td><td class="rl">Other</td>');
-    html=html.replace('<tr><td class="rl">All compartments</td><td>78</td><td>32</td><td>30</td><td>31</td><td class="ncol">171</td></tr>','<tr><td class="group-total"></td><td class="rl">All compartments</td><td>78</td><td>32</td><td>30</td><td>31</td><td class="ncol">171</td></tr>');
+    html=html.replace('<tr><td class="rl">All compartments</td><td>84</td><td>35</td><td>33</td><td>34</td><td class="ncol">186</td></tr>','<tr><td class="group-total"></td><td class="rl">All compartments</td><td>84</td><td>35</td><td>33</td><td>34</td><td class="ncol">186</td></tr>');
 
     const layoutCss=`<style id="lc-layout-fixes">
 #landscape #chart-gap{margin-top:18px;padding:4px 0 8px}#landscape #chart-gap svg{display:block!important;width:100%!important;min-height:350px!important}
@@ -137,8 +138,8 @@ function renderCoreGapLarge(){
   data.set('_nonce',nonce);data.set('callback',callback);data.set('page',location.href);data.set('userAgent',navigator.userAgent);
   let finished=false,script=document.createElement('script');
   const cleanup=()=>{delete window[callback];if(script&&script.parentNode)script.parentNode.removeChild(script);};
-  const timeout=setTimeout(()=>{if(finished)return;finished=true;submit.disabled=false;setResult('is-pending','Still sending feedback…');},18000);
-  window[callback]=payload=>{if(!payload||payload.source!=='leptocos-feedback'||payload.nonce!==nonce)return;finished=true;clearTimeout(timeout);submit.disabled=false;cleanup();if(payload.ok&&payload.stored){setResult('is-success',payload.message||'Feedback saved. Thank you for helping improve LeptoCOS.');form.reset();}else{setResult('is-error',payload.message||'Feedback could not be saved. Please try again or email leptocos@gmail.com.');}};
+  const timeout=setTimeout(()=>{if(finished)return;finished=true;submit.disabled=false;cleanup();setResult('is-error','Could not confirm receipt. Your feedback may already have been saved. Please email leptocos@gmail.com before resending.');},18000);
+  window[callback]=payload=>{if(finished||!payload||payload.source!=='leptocos-feedback'||payload.nonce!==nonce)return;finished=true;clearTimeout(timeout);submit.disabled=false;cleanup();if(payload.ok&&payload.stored){setResult('is-success',payload.message||'Feedback saved. Thank you for helping improve LeptoCOS.');form.reset();}else{setResult('is-error',payload.message||'Feedback could not be saved. Please try again or email leptocos@gmail.com.');}};
   script.onerror=()=>{if(finished)return;finished=true;clearTimeout(timeout);submit.disabled=false;setResult('is-error','Feedback could not be sent. Please try again or email leptocos@gmail.com.');cleanup();};
   clearResult();submit.disabled=true;setResult('is-pending','Sending feedback…');script.src=endpoint+'?'+data.toString();document.body.appendChild(script);
  });
