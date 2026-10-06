@@ -11,6 +11,11 @@
 <meta property="og:description" content="An international initiative to standardise outcome reporting in leptomeningeal disease trials.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://leptocos.org/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LeptoCOS · A core outcome set for leptomeningeal disease">
+<meta name="twitter:description" content="An international initiative to standardise outcome reporting in leptomeningeal disease trials.">
+<meta name="twitter:url" content="https://leptocos.org/">
+
 <link rel="canonical" href="https://leptocos.org/">
 <style>
   :root{
@@ -243,11 +248,6 @@
   .stat .big{font-family:var(--sans);font-weight:800;font-size:34px;color:var(--brand-d);line-height:1;letter-spacing:-.02em}
   .stat .t{font-weight:700;font-size:14px;margin:8px 0 4px}.stat p{margin:0;font-size:12.5px;color:var(--muted)}
 
-  /* taxonomy cards */
-  .grp-h{display:flex;align-items:center;gap:9px;margin:18px 0 9px;font-weight:700;font-size:14px}.grp-h i{width:12px;height:12px;border-radius:3px}.grp-h span{color:var(--muted);font-weight:500;font-size:12.5px}
-  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:11px}
-  .tc{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px}
-  .tc .t{font-weight:700;font-size:13.5px}.tc .m{font-size:11px;color:#6B7480;margin:1px 0 6px}.tc .d{font-size:12px;color:var(--muted)}
   /* taxonomy browser */
   .tx-bar{margin:8px 0 18px}
   .tx-bar #tx-search{width:100%;margin-bottom:12px}
@@ -268,20 +268,6 @@
   .tx-active{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
   .tx-apill{background:#F6F8FB;border:1px solid var(--line);border-radius:999px;padding:3px 9px;font-size:11.5px;color:var(--muted);cursor:pointer}.tx-apill::after{content:" ✕"}
   .tx-clear{border:none;background:none;color:var(--brand);font-size:12.5px;cursor:pointer;font-weight:600;padding:3px 4px}
-  .tx-grouphdr{display:flex;align-items:center;gap:9px;margin:22px 0 11px;font-weight:700;font-size:14.5px;color:#1F2A36}
-  .tx-grouphdr .gd{width:11px;height:11px;border-radius:3px}.tx-grouphdr .gc{color:#6B7480;font-weight:500;font-size:12.5px}
-  .tx-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
-  .tcard{border:1px solid;border-left-width:3px;border-radius:12px;padding:14px 16px;cursor:pointer;transition:box-shadow .18s var(--ease),transform .18s var(--ease)}
-  .tcard:hover{transform:translateY(-1px);box-shadow:var(--sh-h)}
-  .tcard:focus-visible{outline:none;box-shadow:0 0 0 2px #fff,0 0 0 4px rgba(47,111,184,.55)}
-  .tcard-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
-  .tcard-pill{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.03em}.tcard-pill .pd{width:8px;height:8px;border-radius:50%;flex:none}
-  .tcard-badge{font-size:11px;font-weight:600;color:#5C6675;background:rgba(255,255,255,.72);border-radius:999px;padding:2px 8px;white-space:nowrap}
-  .tcard-name{font-size:15px;font-weight:600;color:var(--ink);line-height:1.32;letter-spacing:-.01em}
-  .tcard-sub{font-size:12px;color:#5C6675;margin:3px 0 8px}
-  .tcard-def{font-size:13px;color:#3A4150;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-  .tcard.exp .tcard-def{-webkit-line-clamp:unset;overflow:visible}
-  .tx-empty{text-align:center;color:var(--muted);padding:32px;background:#F6F8FB;border:1px solid var(--line);border-radius:12px}
   @media(max-width:560px){.tx-sort{margin-left:0}.tx-pop{width:260px}}
 
   /* table */
@@ -311,7 +297,7 @@
   .drift{background:#FFF9F0;border:1px solid #F2E0C0;border-radius:12px;padding:12px 16px;font-size:12.5px;color:#7A5310;margin-top:14px}
   footer{padding:24px 0 64px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);margin-top:6px}
 
-  @media print{*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}#stars{display:none}header.top,thead th{position:static}nav.links,.btn,.controls,.chips,.achip,#tx-search,.tx-subwrap,.tx-sort{display:none!important}section{break-inside:avoid;padding:30px 0}.card,.kpi,.tcard,.fnode,.ask{box-shadow:none}.reveal{opacity:1!important;transform:none!important}}
+  @media print{*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}#stars{display:none}header.top,thead th{position:static}nav.links,.btn,.controls,.chips,.achip,#tx-search,.tx-subwrap,.tx-sort{display:none!important}section{break-inside:avoid;padding:30px 0}.card,.kpi,.fnode,.ask{box-shadow:none}.reveal{opacity:1!important;transform:none!important}}
 </style>
 <style id="prepublish-polish">
 html{scroll-padding-top:72px}
@@ -476,7 +462,7 @@ html.lcs-open body #lcFeedbackTab{visibility:hidden!important}
   html.lcs .table1-card.is-map{width:auto!important}
 }
 /* 2026-09-28: floating feedback tab replaced by the sidebar "Send feedback" button (panel still opens) */
-html.lcs body #lcFeedbackTab{opacity:0!important;pointer-events:none!important;width:1px!important;height:1px!important;min-width:0!important;min-height:0!important;padding:0!important;overflow:hidden!important;border:0!important;box-shadow:none!important}
+html.lcs body #lcFeedbackTab{display:none!important;opacity:0!important;pointer-events:none!important;width:1px!important;height:1px!important;min-width:0!important;min-height:0!important;padding:0!important;overflow:hidden!important;border:0!important;box-shadow:none!important}
 html.lcs .lbl{display:none}
 html.lcs #why .callouts{display:none}
 html.lcs #table1 .view-switch{display:none}
@@ -511,8 +497,132 @@ html.lcs .hero .wrap>p{display:none}
   html #compartment .cmx .group-name{white-space:normal!important;overflow-wrap:anywhere}
 }
 </style>
+<style id="v8-professional-design">
+:root{--text-body:16px;--text-table:14px;--text-caption:13px;--text-small:12px;--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-6:24px;--space-8:32px;--space-12:48px;--radius:6px;--line:#DDE2E8;--muted:#566171;--panel:#F7F8FA;--sh:none;--sh-h:none}
+html body{font-size:var(--text-body);line-height:1.65}
+html body h1{font-size:32px;line-height:1.2}html body h2,html body .t1title{font-size:26px!important;line-height:1.25}
+html body h3{font-size:20px;line-height:1.35}html body .wrap{max-width:1200px;padding-inline:var(--space-8)}
+html body section{padding-block:var(--space-12)}html body #table1{padding-top:var(--space-8)}
+html body .hero .wrap{padding-block:var(--space-8)}html body .hero h1{margin-bottom:var(--space-4)}
+html body .dek,html body .hero .lede,html body .lim li,html body .ask p{max-width:72ch;font-size:var(--text-body);line-height:1.65}
+html body .dek{margin-bottom:var(--space-6)}html body .hero,html body .edelphi{background:#fff}
+html body #stars{display:none}html body .hero{border-bottom:1px solid var(--line)}
+html body .card,html body .kpi,html body .lim,html body .defitem,html body .fnode{border-radius:var(--radius);box-shadow:none}
+html body .card{padding:var(--space-6)}html body .card .ct,html body .call h3{font:650 var(--text-body)/1.45 var(--sans)}
+html body .card .cn,html body .hint,html body .map-note,html body .lim li,html body .fm-key,html body .legend{font-size:var(--text-caption);line-height:1.6;color:var(--muted)}
+html body .grid2,html body .callouts,html body .defgrid{gap:var(--space-6)}
+html body .grid2>*{min-width:0}
+html body .fnode.here{background:var(--panel);box-shadow:none}html body .fnode.fin,html body .ask{background:var(--ink2);box-shadow:none;border-radius:var(--radius)}
+html body .fnode,html body .phases,html body .ph{box-shadow:none}html body .map-arrow::before{background:#6E8EAF}
+html body .fnode .ft{font-size:var(--text-body);line-height:1.45}html body .fnode .fs,html body .ph,html body .cov-btn{font-size:var(--text-caption);line-height:1.5}
+html body .fgate .g-sub,html body .fgate .g-chip,html body .here-pill{font-size:var(--text-small);line-height:1.5;border-radius:var(--radius);box-shadow:none}
+html body .defitem b{font-size:var(--text-table)}html body .defitem span{font-size:15px;line-height:1.6}html body .call,html body .drift{border-radius:var(--radius)}
+html body .view-switch button[aria-selected="true"],html body .cov-btn.is-on{box-shadow:none}
+html body .table1-card.is-map::before{display:none}html body .lcs-side{background:#FAFBFC}
+html body .lcs-nav a{border-radius:var(--radius)}html body .lcs-nav a[aria-current="page"]{box-shadow:none;background:#EDF2F7}
+html body .lcs-nav a small,html body .lcs-tag,html body .lcs-foot{font-size:var(--text-small);line-height:1.55}
+html body .btn,html body input,html body select,html body textarea,html body .view-switch,html body .map-expand,html body .tx-subbtn,html body .tx-sort{border-radius:var(--radius)}
+html.lcs body #table1 .view-switch{display:inline-flex;align-self:flex-start;flex-shrink:0;margin-top:0}
+html body .table1-head{gap:var(--space-6);flex-wrap:wrap}html body .view-switch button,html body .map-expand{font-size:var(--text-caption);font-weight:600}
+html body .map-expand{box-shadow:none}html body .map-expand .expand-icon{border-radius:0;background:none}
+html body .lc-feedback-hero,html body #lcFeedbackTab{background:var(--brand-d)!important;box-shadow:none!important}
+html body .lc-feedback-hero::before,html body .lc-feedback-hero::after{display:none!important}
+html body #lcFeedbackPanel{border-radius:var(--radius)!important;box-shadow:0 8px 28px rgba(16,24,40,.12)!important}
+html body :is(a,button,input,select,textarea,[tabindex]):focus-visible{outline:3px solid var(--brand-d)!important;outline-offset:3px!important;box-shadow:none!important}
+html body #lcFeedbackClose:focus-visible{outline-color:#fff!important}
+html body .skip:focus{position:fixed;left:12px;top:12px}html body .skip{z-index:2000}
+.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+html body .noscript-notice{max-width:72ch;margin:var(--space-6) auto;padding:var(--space-4);border:1px solid var(--line);font-size:var(--text-body)}
+html body :is(#table1,#compartment,#taxonomy) :is(.t1,.cmx,.definitions-index){border-collapse:collapse!important;border-spacing:0!important;border:0!important;border-radius:0!important;font-size:var(--text-table)!important;line-height:1.6;box-shadow:none}
+html body :is(#table1,#compartment,#taxonomy) :is(.t1,.cmx,.definitions-index) :is(th,td){padding:var(--space-3) 14px!important;font-size:var(--text-table)!important;line-height:1.6!important;border-left:0!important;border-right:0!important;vertical-align:top!important;font-variant-numeric:tabular-nums}
+html body :is(#table1,#compartment,#taxonomy) :is(.t1,.cmx,.definitions-index) thead th{font-weight:650!important;color:var(--ink2)!important;text-transform:none!important;letter-spacing:0!important;background:var(--panel)!important;border-bottom:1px solid #9CA8B5!important;white-space:normal!important;cursor:default!important}
+html body :is(#table1,#compartment,#taxonomy) :is(.t1,.cmx,.definitions-index) tbody :is(th,td){border-bottom:1px solid var(--line)!important}
+html body :is(#table1,#compartment) :is(.t1,.cmx) tfoot td,html body #table1 .t1 tr.total td{border-top:1px solid #9CA8B5!important;font-weight:650!important;font-size:var(--text-table)!important;background:var(--panel)!important}
+html body #table1 .t1{min-width:680px!important}html body #table1 .t1 td.term{width:auto!important;font-size:var(--text-table)!important}
+html body #table1 .t1 td.sub{font-size:var(--text-table)!important;min-width:150px;max-width:none;white-space:normal;line-height:1.6!important;hyphens:none}
+html body #table1 .t1 tr.core td{font-size:var(--text-table)!important;text-transform:none;letter-spacing:0}
+html body #table1 .t1 :is(td.out,td.stud){text-align:right;white-space:nowrap}html body #table1 .t1 td.stud .lab{font-size:var(--text-table)!important;display:inline-block;min-width:88px;padding:2px 4px 2px 8px!important;background:#fff}
+html body #table1 .t1 tr.total td.stud .lab{background:var(--panel)}
+html body #table1 .t1 thead th:nth-child(n+3),html body #compartment .cmx thead th:nth-child(n+3){text-align:right!important}
+html body #table1 .t1 .p{font-size:var(--text-caption)!important;display:inline!important}html body #table1 .t1 td.stud .fill{opacity:.45;top:6px;bottom:6px}
+html body #compartment .cmx-card{border:0!important;border-radius:0!important;overflow:visible!important}html body #compartment .cmx-card::before{display:none!important}
+html body #compartment .cmx :is(td.val,td.ncol,tfoot td:not(.rl):not(.group-total)){text-align:right!important;font-weight:600!important;height:auto!important}
+html body #compartment .cmx :is(td.val,td.rl,td.ncol,tfoot td){font-size:var(--text-table)!important;padding:var(--space-3) 14px!important;line-height:1.6!important}
+html body #compartment .cmx td.rl{height:auto!important;font-weight:600!important;white-space:normal!important}html body #compartment .cmx thead th small{font-size:var(--text-small)!important;letter-spacing:0}
+html body #compartment .cmx .group-name{font-size:var(--text-small)!important;letter-spacing:0!important;text-transform:none!important;color:var(--muted)!important}
+html body #compartment .cmx .group-marker{border-left-width:2px!important;background:var(--panel)!important}
+html body #compartment .cmx-head{padding:0 0 var(--space-4)!important}html body #compartment .cmx-wrap{padding:0 0 var(--space-4)!important}
+html body #compartment .cmx-hint{padding:0!important}html body #compartment .cmx-eyebrow{font-size:var(--text-small)!important}html body #compartment .cmx-head .ct{font-size:var(--text-body)!important;font-weight:650!important}html body #compartment .cmx-head .cn{font-size:var(--text-caption)!important;color:var(--muted)!important}
+html body #taxonomy .definitions-wrap{width:100%;overflow:visible}html body #taxonomy .definitions-index{table-layout:fixed;width:100%}
+.def-outcome-col{width:23%}.def-sub-col{width:17%}.def-core-col{width:17%}.def-text-col{width:43%}
+html body #taxonomy .definitions-index thead th{position:sticky;top:58px;z-index:6;text-align:left}
+html.lcs body #taxonomy .definitions-index thead th{top:0}html body #taxonomy .definition-row{scroll-margin-top:96px}
+html body #taxonomy .definition-row th{text-align:left;font-weight:650}html body #taxonomy .definition-link{color:var(--ink);text-decoration:none;overflow-wrap:anywhere}
+html body #taxonomy .definition-link:hover{text-decoration:underline;color:var(--brand-d)}html body #taxonomy .definition-sub,html body #taxonomy .definition-core{color:var(--muted)}
+html body #taxonomy .definition-core .core-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:7px;vertical-align:1px;flex-shrink:0}
+html body #taxonomy .definition-text{color:var(--ink2);overflow-wrap:anywhere}html body #taxonomy .definition-row:target{background:#F1F5F9}
+html body .tx-bar{margin:var(--space-6) 0}html body .tx-row{gap:var(--space-3)}html body .txchip,html body .tx-apill{border-radius:var(--radius);background:#fff;font-size:var(--text-caption);color:var(--ink2);font-family:var(--sans);box-shadow:none}
+html body .txchip.on{background:#EDF2F7;border-color:var(--brand-d)}html body .txchip .cnt,html body .tx-pop .c{color:var(--muted);font-size:var(--text-small)}
+html body .tx-pop{max-width:calc(100vw - 48px);border-radius:var(--radius);box-shadow:0 4px 16px rgba(16,24,40,.1)}html body .tx-pop label{font-size:var(--text-table)}
+html body .tx-pop label:has(input:disabled){color:var(--muted);opacity:.65}html body .tx-meta{font-size:var(--text-caption);line-height:1.6}
+html body .tx-empty{padding:var(--space-8);border:1px solid var(--line);background:var(--panel);border-radius:var(--radius);font-size:var(--text-body);color:var(--muted)}
+html body .chart-port{overflow:visible!important;min-width:0;max-width:100%;background:none!important}
+html body .chart-port svg{min-width:0!important;width:100%!important;max-width:100%!important;height:auto!important;display:block!important}
+html body #chart-sub>svg{max-width:736px!important;margin-inline:auto}
+html body #chart-gap>svg{min-height:0!important}html body #full-outcome-map{min-width:0!important;max-width:100%}
+html body #core-leg .core-value{display:none}
+html body :is(.t1-wrap,.cmx-wrap,.map-stage){background:none!important}html body svg :is(text,tspan)[fill="#9AA3AD"],html body svg text[fill="#95A0AD"],html body svg text[fill="#8A93A0"]{fill:var(--muted)}
+html body svg text[fill="#12897B"]{fill:#0C6A5F}html body svg text[fill="#C65D2E"]{fill:#9A431B}
+html body svg text[fill="#727D8C"]{fill:var(--muted)}
+html body .view-switch button:not([aria-selected="true"]),html body .cov-btn:not(.is-on){color:var(--muted)}
+@media screen and (max-width:1023.98px){html.lcs body #taxonomy .definitions-index thead th{top:var(--lcs-bar)}}
+@media screen and (max-width:759.98px){
+  html body .wrap{padding-inline:var(--space-4)}html body .hero .wrap{padding:var(--space-6) var(--space-4)}html body section{padding-block:var(--space-8)}
+  html body h1{font-size:28px}html body h2,html body .t1title{font-size:24px!important}html body .card{padding:var(--space-4)}html body .grid2>*{min-width:0}
+  html body .chart-port{overflow-x:auto!important;overscroll-behavior-inline:contain;scrollbar-width:thin}
+  html body .chart-port svg{max-width:none!important}
+  html body #chart-sub>svg{min-width:680px!important}html body #chart-gap>svg{min-width:760px!important}
+  html body #chart-allfreq>svg{min-width:1100px!important}html body #chart-pri>svg{min-width:750px!important}
+  html body #genome>svg{min-width:1250px!important}html body #sankey>svg{min-width:1500px!important}
+  html body .method-tl>svg{min-width:1040px!important}html body #full-outcome-map{min-width:1350px!important}
+  html body #treemap{overflow:visible!important}html body #treemap>svg{min-width:0!important;max-width:100%!important}
+  html body #treemap svg text{display:none}html body #core-leg .s{flex-wrap:wrap}html body #core-leg .core-value{display:inline;font-variant-numeric:tabular-nums}
+  html body #taxonomy .definitions-index,html body #taxonomy .definitions-index tbody{display:block;min-width:0;max-width:100%}
+  html body #taxonomy .definitions-index colgroup{display:none}html body #taxonomy .definitions-index thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+  html body #taxonomy .definitions-index tr.definition-row{display:flex;flex-wrap:wrap;padding:var(--space-4) 0;border-bottom:1px solid var(--line);gap:var(--space-2) var(--space-3)}
+  html body #taxonomy .definitions-index tr[hidden]{display:none}html body #taxonomy .definitions-index tbody :is(th,td){display:block;padding:0!important;border:0!important;min-width:0;overflow-wrap:anywhere}
+  html body #taxonomy .definitions-index .definition-row th{flex-basis:100%;font-size:var(--text-body)!important}html body #taxonomy .definitions-index :is(.definition-sub,.definition-core){font-size:var(--text-caption)!important}
+  html body #taxonomy .definitions-index .definition-text{flex-basis:100%;font-size:15px!important;line-height:1.7!important;margin-top:var(--space-1)}
+  html body .tx-sort{margin-left:0}html body .tx-pop{left:0;right:auto}html.lcs body #table1 .view-switch{width:auto}
+}
+@media print{
+  html body section,html body #taxonomy{break-inside:auto!important}html body #taxonomy .tx-bar,html body #tx-empty,html body .noscript-notice{display:none!important}
+  html body #taxonomy .definitions-index[hidden]{display:table!important}html body #taxonomy .definition-row[hidden]{display:table-row!important}
+  html body #taxonomy .definitions-index thead{display:table-header-group!important}html body #taxonomy .definitions-index thead th{position:static!important}
+  html body #taxonomy .definitions-index tr{break-inside:avoid!important;page-break-inside:avoid!important}html body #taxonomy .definitions-index{table-layout:fixed!important}
+  html body #taxonomy .definitions-index :is(th,td){font-size:10pt!important;padding:8pt 6pt!important}html body #taxonomy .definition-link{color:#000!important;text-decoration:none!important}
+  html body #taxonomy .definition-row{background:#fff!important}html body :is(.chart-port,.cmx-wrap,.t1-wrap){overflow:visible!important}
+  html body .chart-port svg{min-width:0!important;width:100%!important;max-width:100%!important}html body #full-outcome-map{min-width:0!important}
+  html body #table1 .t1{min-width:0!important}html body #table1 .t1 td.sub{min-width:0!important}html body #compartment .cmx{min-width:0!important;width:100%!important;table-layout:fixed!important}
+  html.lcs body #table1 .view-switch{display:none!important}html body .chart-port{outline:none!important}
+}
+html body #compartment .cmx td.val[style*="background:#1A4A80"]{color:#FFFFFF!important}
+html body #compartment .cmx td.val[style*="background:#698AB0"]{color:#000000!important}
+html body #compartment .cmx td.val[style*="background:#7090B4"]{color:#000000!important}
+html body #compartment .cmx td.val[style*="background:#7796B8"]{color:#000000!important}
+html body #compartment .cmx td.val[style*="background:#7E9BBC"]{color:#000000!important}
+html body #compartment .cmx td.val[style*="background:#95AECA"]{color:#000000!important}
+html body #compartment .cmx td.val[style*="background:#9DB4CF"]{color:#000000!important}
+html body #compartment .cmx td.val[style*="background:#A5BBD4"]{color:#000000!important}
+html body #compartment .cmx td.val[style*="background:#AEC2D9"]{color:#000000!important}
+html body #compartment .cmx td.val[style*="background:#B7CADF"]{color:#000000!important}
+html body #compartment .cmx td.val[style*="background:#C1D2E5"]{color:#000000!important}
+html body #compartment .cmx td.val[style*="background:#CDDBEC"]{color:#000000!important}
+html body #compartment .cmx td.val[style*="background:#EEF0F3"]{color:#000000!important}
+</style>
 </head>
 <body>
+<noscript><style>.tx-bar,.view-switch,.map-actions{display:none!important}.reveal{opacity:1!important;transform:none!important}</style><p class="noscript-notice">JavaScript is turned off. The complete definitions index and outcome tables remain available. Charts and interactive filters require JavaScript.</p></noscript>
 <a class="skip" href="#main">Skip to main content</a>
 <header class="top"><div class="in">
   <a class="wm" href="/" aria-label="LeptoCOS home"><span class="a">Lepto</span><span class="b">COS</span></a>
@@ -637,8 +747,8 @@ html.lcs .hero .wrap>p{display:none}
             <div class="map-stat"><b id="hierarchy-stat-terms">13</b><span id="hierarchy-label-terms">terms</span></div>
           </div>
         </div>
-        <div class="map-stage"><div id="full-outcome-map"></div></div>
-        <div class="map-actions"><button type="button" class="map-expand" id="map-expand" aria-expanded="false"><span class="expand-icon" aria-hidden="true">&#8599;</span><span class="expand-label">Expand all</span></button></div>
+        <div class="map-stage chart-port" role="region" tabindex="0" aria-label="Outcome map. Scroll horizontally to see the full map."><div id="full-outcome-map"></div></div>
+        <div class="map-actions"><button type="button" class="map-expand" id="map-expand" aria-expanded="false" aria-controls="full-outcome-map"><span class="expand-icon" aria-hidden="true">&#8599;</span><span class="expand-label">Expand all</span></button></div>
         <div class="map-readout" id="full-map-readout"><span class="mark"></span><span><b>Focused view:</b> follow standardised outcomes through the Intra-CNS response sub-domain to its COMET core area.</span></div>
         <p class="map-note"><b>How LeptoCOS sub-domains relate to the COMET taxonomy.</b> The COMET taxonomy is a standardised, high-level framework that applies across all areas of health research. To capture distinctions that matter in leptomeningeal disease, such as leptomeningeal, intracranial and extracranial disease control, standardised outcomes were first grouped into more granular, disease-specific sub-domains, and each sub-domain was then mapped onto the COMET taxonomy and its five core areas. This sub-domain layer is an addition to the taxonomy rather than a substitute for it; it retains disease-specific detail while keeping the set comparable with the wider core outcome set literature.</p>
       </div>
@@ -651,15 +761,72 @@ html.lcs .hero .wrap>p{display:none}
     <p class="dek">The 56 candidate outcomes proposed for rating in the eDelphi, each with a plain-language definition, its sub-domain and its COMET core area. Filter, search or sort.</p>
     <p class="dek" style="margin-top:-8px;font-size:13.5px">How often an outcome was reported is not evidence of its importance; the eDelphi will ask how important each outcome is, not how common it is.</p>
     <div class="tx-bar">
-      <input id="tx-search" type="search" placeholder="Search outcomes, definitions, sub-domains…" aria-label="Search outcomes">
+      <input id="tx-search" type="search" placeholder="Search outcomes, definitions, sub-domains…" aria-label="Search outcomes, definitions and sub-domains">
       <div class="tx-row">
         <div class="tx-chips" id="tx-chips"></div>
-        <div class="tx-subwrap"><button class="tx-subbtn" id="tx-subbtn" type="button">Sub-domain ▾</button><div class="tx-pop" id="tx-pop"></div></div>
-        <select id="tx-sort" class="tx-sort" aria-label="Sort outcomes"><option value="dom">Sort: by core area</option><option value="az">Sort: A to Z</option></select>
+        <div class="tx-subwrap"><button class="tx-subbtn" id="tx-subbtn" type="button" aria-expanded="false" aria-controls="tx-pop">Sub-domain ▾</button><div class="tx-pop" id="tx-pop" role="group" aria-label="Filter by sub-domain"></div></div>
+        <select id="tx-sort" class="tx-sort" aria-label="Sort outcomes"><option value="dom">Sort: Table 1 order</option><option value="az">Sort: A to Z</option></select>
       </div>
-      <div class="tx-meta"><span role="status" aria-live="polite">Showing <b id="tx-count">56</b> of 56 outcomes</span><span class="tx-active" id="tx-active"></span></div>
+      <div class="tx-meta"><span role="status" aria-live="polite" aria-atomic="true">Showing <b id="tx-count">56</b> of 56 outcomes</span><span class="tx-active" id="tx-active"></span></div>
     </div>
-    <div id="taxo"></div>
+    <div class="definitions-wrap"><table class="definitions-index" id="definitions-index" aria-label="Definitions of all standardised outcomes"><caption class="visually-hidden">Standardised outcome definitions, grouped in Table 1 order</caption><colgroup><col class="def-outcome-col"><col class="def-sub-col"><col class="def-core-col"><col class="def-text-col"></colgroup><thead><tr><th scope="col">Standardised outcome</th><th scope="col">Sub-domain</th><th scope="col">COMET core area</th><th scope="col">Definition</th></tr></thead><tbody id="taxo">
+<tr class="definition-row" id="def-lm-response-rate" data-term="LM response rate"><th scope="row"><a class="definition-link" href="#/definitions/def-lm-response-rate">LM response rate</a></th><td class="definition-sub">Intra-CNS response</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3E6D9C"></span><span>Physiological/clinical</span></td><td class="definition-text">Proportion of patients achieving a complete or partial response of leptomeningeal disease according to the study&#x27;s definition. Studies may use a combined assessment, such as RANO-LM or EANO-ESMO, or criteria specific to each study based on cerebrospinal fluid (CSF) cytology and/or neurological signs and symptoms. Leptomeningeal disease is generally not measurable using target lesion criteria based on size.</td></tr>
+<tr class="definition-row" id="def-csf-cytological-response" data-term="CSF Cytological Response"><th scope="row"><a class="definition-link" href="#/definitions/def-csf-cytological-response">CSF Cytological Response</a></th><td class="definition-sub">Intra-CNS response</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3E6D9C"></span><span>Physiological/clinical</span></td><td class="definition-text">Conversion of CSF cytology positive to negative (clearance of malignant cells), judged on cytology alone.</td></tr>
+<tr class="definition-row" id="def-intracranial-orr" data-term="Intracranial ORR"><th scope="row"><a class="definition-link" href="#/definitions/def-intracranial-orr">Intracranial ORR</a></th><td class="definition-sub">Intra-CNS response</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3E6D9C"></span><span>Physiological/clinical</span></td><td class="definition-text">Proportion of patients achieving a complete or partial response (CR/PR) of intracranial (brain-parenchymal) disease.</td></tr>
+<tr class="definition-row" id="def-lm-dcr" data-term="LM DCR"><th scope="row"><a class="definition-link" href="#/definitions/def-lm-dcr">LM DCR</a></th><td class="definition-sub">Intra-CNS response</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3E6D9C"></span><span>Physiological/clinical</span></td><td class="definition-text">Proportion of patients achieving complete or partial response or stable disease (CR/PR/SD) of leptomeningeal disease.</td></tr>
+<tr class="definition-row" id="def-lm-dor" data-term="LM DoR"><th scope="row"><a class="definition-link" href="#/definitions/def-lm-dor">LM DoR</a></th><td class="definition-sub">Intra-CNS response</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3E6D9C"></span><span>Physiological/clinical</span></td><td class="definition-text">Time from first documented leptomeningeal response to progression or death.</td></tr>
+<tr class="definition-row" id="def-intracranial-dcr" data-term="Intracranial DCR"><th scope="row"><a class="definition-link" href="#/definitions/def-intracranial-dcr">Intracranial DCR</a></th><td class="definition-sub">Intra-CNS response</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3E6D9C"></span><span>Physiological/clinical</span></td><td class="definition-text">Proportion of patients achieving complete or partial response or stable disease (CR/PR/SD) of intracranial (brain-parenchymal) disease.</td></tr>
+<tr class="definition-row" id="def-intracranial-dor" data-term="Intracranial DoR"><th scope="row"><a class="definition-link" href="#/definitions/def-intracranial-dor">Intracranial DoR</a></th><td class="definition-sub">Intra-CNS response</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3E6D9C"></span><span>Physiological/clinical</span></td><td class="definition-text">Time from first documented intracranial (brain-parenchymal) response to progression or death.</td></tr>
+<tr class="definition-row" id="def-intracranial-ttr" data-term="Intracranial TTR"><th scope="row"><a class="definition-link" href="#/definitions/def-intracranial-ttr">Intracranial TTR</a></th><td class="definition-sub">Intra-CNS response</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3E6D9C"></span><span>Physiological/clinical</span></td><td class="definition-text">Time from treatment start to first documented intracranial (brain-parenchymal) response.</td></tr>
+<tr class="definition-row" id="def-lm-ttr" data-term="LM TTR"><th scope="row"><a class="definition-link" href="#/definitions/def-lm-ttr">LM TTR</a></th><td class="definition-sub">Intra-CNS response</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3E6D9C"></span><span>Physiological/clinical</span></td><td class="definition-text">Time from treatment start to first documented leptomeningeal response.</td></tr>
+<tr class="definition-row" id="def-csf-cytological-response-duration" data-term="CSF Cytological Response Duration"><th scope="row"><a class="definition-link" href="#/definitions/def-csf-cytological-response-duration">CSF Cytological Response Duration</a></th><td class="definition-sub">Intra-CNS response</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3E6D9C"></span><span>Physiological/clinical</span></td><td class="definition-text">Duration of CSF cytological response (cytology-only).</td></tr>
+<tr class="definition-row" id="def-intracranial-cbr" data-term="Intracranial CBR"><th scope="row"><a class="definition-link" href="#/definitions/def-intracranial-cbr">Intracranial CBR</a></th><td class="definition-sub">Intra-CNS response</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3E6D9C"></span><span>Physiological/clinical</span></td><td class="definition-text">Proportion of patients achieving clinical benefit (CR/PR/durable SD) of intracranial (brain-parenchymal) disease.</td></tr>
+<tr class="definition-row" id="def-neuroimaging-response" data-term="Neuroimaging Response"><th scope="row"><a class="definition-link" href="#/definitions/def-neuroimaging-response">Neuroimaging Response</a></th><td class="definition-sub">Intra-CNS response</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3E6D9C"></span><span>Physiological/clinical</span></td><td class="definition-text">Response of CNS disease on neuroimaging alone (no cytological or clinical component).</td></tr>
+<tr class="definition-row" id="def-csf-cytological-response-ttr" data-term="CSF Cytological Response TTR"><th scope="row"><a class="definition-link" href="#/definitions/def-csf-cytological-response-ttr">CSF Cytological Response TTR</a></th><td class="definition-sub">Intra-CNS response</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3E6D9C"></span><span>Physiological/clinical</span></td><td class="definition-text">Time from treatment start to first documented CSF cytological response (cytology-only).</td></tr>
+<tr class="definition-row" id="def-extracranial-orr" data-term="Extracranial ORR"><th scope="row"><a class="definition-link" href="#/definitions/def-extracranial-orr">Extracranial ORR</a></th><td class="definition-sub">Extra-CNS response</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3E6D9C"></span><span>Physiological/clinical</span></td><td class="definition-text">Proportion of patients achieving a complete or partial response (CR/PR) of extracranial (systemic) disease.</td></tr>
+<tr class="definition-row" id="def-extracranial-dcr" data-term="Extracranial DCR"><th scope="row"><a class="definition-link" href="#/definitions/def-extracranial-dcr">Extracranial DCR</a></th><td class="definition-sub">Extra-CNS response</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3E6D9C"></span><span>Physiological/clinical</span></td><td class="definition-text">Proportion of patients achieving complete or partial response or stable disease (CR/PR/SD) of extracranial (systemic) disease.</td></tr>
+<tr class="definition-row" id="def-extracranial-dor" data-term="Extracranial DoR"><th scope="row"><a class="definition-link" href="#/definitions/def-extracranial-dor">Extracranial DoR</a></th><td class="definition-sub">Extra-CNS response</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3E6D9C"></span><span>Physiological/clinical</span></td><td class="definition-text">Time from first documented extracranial (systemic) response to progression or death.</td></tr>
+<tr class="definition-row" id="def-extracranial-ttr" data-term="Extracranial TTR"><th scope="row"><a class="definition-link" href="#/definitions/def-extracranial-ttr">Extracranial TTR</a></th><td class="definition-sub">Extra-CNS response</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3E6D9C"></span><span>Physiological/clinical</span></td><td class="definition-text">Time from treatment start to first documented extracranial (systemic) response.</td></tr>
+<tr class="definition-row" id="def-extracranial-cbr" data-term="Extracranial CBR"><th scope="row"><a class="definition-link" href="#/definitions/def-extracranial-cbr">Extracranial CBR</a></th><td class="definition-sub">Extra-CNS response</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3E6D9C"></span><span>Physiological/clinical</span></td><td class="definition-text">Proportion of patients achieving clinical benefit (CR/PR/durable SD) of extracranial (systemic) disease.</td></tr>
+<tr class="definition-row" id="def-overall-orr" data-term="Overall ORR"><th scope="row"><a class="definition-link" href="#/definitions/def-overall-orr">Overall ORR</a></th><td class="definition-sub">Overall response</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3E6D9C"></span><span>Physiological/clinical</span></td><td class="definition-text">Proportion of patients achieving a complete or partial response (CR/PR) across all measurable disease (CNS and systemic).</td></tr>
+<tr class="definition-row" id="def-overall-dor" data-term="Overall DoR"><th scope="row"><a class="definition-link" href="#/definitions/def-overall-dor">Overall DoR</a></th><td class="definition-sub">Overall response</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3E6D9C"></span><span>Physiological/clinical</span></td><td class="definition-text">Time from first documented response to progression or death, across all disease (CNS + systemic).</td></tr>
+<tr class="definition-row" id="def-overall-dcr" data-term="Overall DCR"><th scope="row"><a class="definition-link" href="#/definitions/def-overall-dcr">Overall DCR</a></th><td class="definition-sub">Overall response</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3E6D9C"></span><span>Physiological/clinical</span></td><td class="definition-text">Proportion of patients achieving a complete response, partial response, or stable disease (CR/PR/SD) across all disease (CNS + systemic).</td></tr>
+<tr class="definition-row" id="def-overall-ttr" data-term="Overall TTR"><th scope="row"><a class="definition-link" href="#/definitions/def-overall-ttr">Overall TTR</a></th><td class="definition-sub">Overall response</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3E6D9C"></span><span>Physiological/clinical</span></td><td class="definition-text">Time from treatment start to first documented response, across all disease (CNS + systemic).</td></tr>
+<tr class="definition-row" id="def-overall-cbr" data-term="Overall CBR"><th scope="row"><a class="definition-link" href="#/definitions/def-overall-cbr">Overall CBR</a></th><td class="definition-sub">Overall response</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3E6D9C"></span><span>Physiological/clinical</span></td><td class="definition-text">Proportion of patients achieving clinical benefit (complete or partial response or durable stable disease; CR/PR/durable SD) across all disease (CNS + systemic).</td></tr>
+<tr class="definition-row" id="def-best-percentage-change-from-baseline" data-term="Best Percentage Change from Baseline"><th scope="row"><a class="definition-link" href="#/definitions/def-best-percentage-change-from-baseline">Best Percentage Change from Baseline</a></th><td class="definition-sub">Overall response</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3E6D9C"></span><span>Physiological/clinical</span></td><td class="definition-text">Best observed percentage change in total measurable tumour burden from baseline (waterfall metric).</td></tr>
+<tr class="definition-row" id="def-neurological-status-response" data-term="Neurological Status/Response"><th scope="row"><a class="definition-link" href="#/definitions/def-neurological-status-response">Neurological Status/Response</a></th><td class="definition-sub">Neurological Status/Response</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3E6D9C"></span><span>Physiological/clinical</span></td><td class="definition-text">Change in neurological signs and symptoms on structured clinical examination.</td></tr>
+<tr class="definition-row" id="def-csf-biochemical-parameters" data-term="CSF Biochemical Parameters"><th scope="row"><a class="definition-link" href="#/definitions/def-csf-biochemical-parameters">CSF Biochemical Parameters</a></th><td class="definition-sub">Biomarker</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3E6D9C"></span><span>Physiological/clinical</span></td><td class="definition-text">Measurements of cerebrospinal fluid (CSF) cell count, protein, glucose, tumour markers (such as CEA and beta-glucuronidase) or myelin basic protein during treatment, including whether they return to normal. Reported separately from a combined response assessment.</td></tr>
+<tr class="definition-row" id="def-genomic-biomarker" data-term="Genomic Biomarker"><th scope="row"><a class="definition-link" href="#/definitions/def-genomic-biomarker">Genomic Biomarker</a></th><td class="definition-sub">Biomarker</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3E6D9C"></span><span>Physiological/clinical</span></td><td class="definition-text">Measurement of a tumour genomic alteration (e.g., EGFR mutation in CSF/plasma/tissue).</td></tr>
+<tr class="definition-row" id="def-circulating-tumour-cells" data-term="Circulating Tumour Cells"><th scope="row"><a class="definition-link" href="#/definitions/def-circulating-tumour-cells">Circulating Tumour Cells</a></th><td class="definition-sub">Biomarker</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3E6D9C"></span><span>Physiological/clinical</span></td><td class="definition-text">Quantification of circulating tumour cells in CSF or blood.</td></tr>
+<tr class="definition-row" id="def-immune-biomarker" data-term="Immune Biomarker"><th scope="row"><a class="definition-link" href="#/definitions/def-immune-biomarker">Immune Biomarker</a></th><td class="definition-sub">Biomarker</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3E6D9C"></span><span>Physiological/clinical</span></td><td class="definition-text">Measurement of an immune / immune-checkpoint marker (e.g., PD-L1 expression).</td></tr>
+<tr class="definition-row" id="def-pharmacokinetics" data-term="Pharmacokinetics"><th scope="row"><a class="definition-link" href="#/definitions/def-pharmacokinetics">Pharmacokinetics</a></th><td class="definition-sub">Pharmacokinetics</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3E6D9C"></span><span>Physiological/clinical</span></td><td class="definition-text">Drug concentration / exposure measures (CSF, plasma) over time.</td></tr>
+<tr class="definition-row" id="def-icp-response-rate" data-term="ICP Response Rate"><th scope="row"><a class="definition-link" href="#/definitions/def-icp-response-rate">ICP Response Rate</a></th><td class="definition-sub">Intracranial pressure</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3E6D9C"></span><span>Physiological/clinical</span></td><td class="definition-text">Proportion of patients achieving normalisation of intracranial pressure.</td></tr>
+<tr class="definition-row" id="def-treatment-failure-pattern" data-term="Treatment Failure Pattern"><th scope="row"><a class="definition-link" href="#/definitions/def-treatment-failure-pattern">Treatment Failure Pattern</a></th><td class="definition-sub">Progression pattern / site of failure</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3E6D9C"></span><span>Physiological/clinical</span></td><td class="definition-text">Pattern and anatomical site(s) of disease progression (e.g., leptomeningeal, intracranial, or extracranial).</td></tr>
+<tr class="definition-row" id="def-overall-survival" data-term="Overall Survival"><th scope="row"><a class="definition-link" href="#/definitions/def-overall-survival">Overall Survival</a></th><td class="definition-sub">Mortality / Survival</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3A4150"></span><span>Death</span></td><td class="definition-text">Time from a study-specified index date (LM diagnosis, treatment start, randomization, or enrollment) to death from any cause.</td></tr>
+<tr class="definition-row" id="def-cause-of-death" data-term="Cause of Death"><th scope="row"><a class="definition-link" href="#/definitions/def-cause-of-death">Cause of Death</a></th><td class="definition-sub">Mortality / Survival</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3A4150"></span><span>Death</span></td><td class="definition-text">Classification of each death by underlying cause (LM/neurological vs systemic vs other).</td></tr>
+<tr class="definition-row" id="def-os3" data-term="OS3"><th scope="row"><a class="definition-link" href="#/definitions/def-os3">OS3</a></th><td class="definition-sub">Mortality / Survival</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3A4150"></span><span>Death</span></td><td class="definition-text">Proportion of patients alive at 3 months from the study-specified index date.</td></tr>
+<tr class="definition-row" id="def-lm-specific-survival" data-term="LM-specific Survival"><th scope="row"><a class="definition-link" href="#/definitions/def-lm-specific-survival">LM-specific Survival</a></th><td class="definition-sub">Mortality / Survival</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3A4150"></span><span>Death</span></td><td class="definition-text">Time from the study-specified index date to death attributable specifically to LM (cause-specific survival).</td></tr>
+<tr class="definition-row" id="def-os6" data-term="OS6"><th scope="row"><a class="definition-link" href="#/definitions/def-os6">OS6</a></th><td class="definition-sub">Mortality / Survival</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3A4150"></span><span>Death</span></td><td class="definition-text">Proportion of patients alive at 6 months from the study-specified index date.</td></tr>
+<tr class="definition-row" id="def-os9" data-term="OS9"><th scope="row"><a class="definition-link" href="#/definitions/def-os9">OS9</a></th><td class="definition-sub">Mortality / Survival</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3A4150"></span><span>Death</span></td><td class="definition-text">Proportion of patients alive at 9 months from the study-specified index date.</td></tr>
+<tr class="definition-row" id="def-overall-survival-from-primary-diagnosis" data-term="Overall Survival from Primary Diagnosis"><th scope="row"><a class="definition-link" href="#/definitions/def-overall-survival-from-primary-diagnosis">Overall Survival from Primary Diagnosis</a></th><td class="definition-sub">Mortality / Survival</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3A4150"></span><span>Death</span></td><td class="definition-text">Time from primary (systemic) cancer diagnosis to death from any cause; includes survival accrued before LM developed, so it is not comparable to LM-anchored overall survival.</td></tr>
+<tr class="definition-row" id="def-lm-pfs" data-term="LM PFS"><th scope="row"><a class="definition-link" href="#/definitions/def-lm-pfs">LM PFS</a></th><td class="definition-sub">Intra-CNS progression</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3A4150"></span><span>Death</span></td><td class="definition-text">Time to leptomeningeal progression or death from any cause.</td></tr>
+<tr class="definition-row" id="def-intracranial-pfs" data-term="Intracranial PFS"><th scope="row"><a class="definition-link" href="#/definitions/def-intracranial-pfs">Intracranial PFS</a></th><td class="definition-sub">Intra-CNS progression</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3A4150"></span><span>Death</span></td><td class="definition-text">Time to intracranial (brain-parenchymal) progression or death from any cause.</td></tr>
+<tr class="definition-row" id="def-lm-ttp" data-term="LM TTP"><th scope="row"><a class="definition-link" href="#/definitions/def-lm-ttp">LM TTP</a></th><td class="definition-sub">Intra-CNS progression</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3A4150"></span><span>Death</span></td><td class="definition-text">Time to leptomeningeal progression only (deaths censored).</td></tr>
+<tr class="definition-row" id="def-intracranial-ttp" data-term="Intracranial TTP"><th scope="row"><a class="definition-link" href="#/definitions/def-intracranial-ttp">Intracranial TTP</a></th><td class="definition-sub">Intra-CNS progression</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3A4150"></span><span>Death</span></td><td class="definition-text">Time to intracranial (brain-parenchymal) progression only (deaths censored).</td></tr>
+<tr class="definition-row" id="def-overall-pfs" data-term="Overall PFS"><th scope="row"><a class="definition-link" href="#/definitions/def-overall-pfs">Overall PFS</a></th><td class="definition-sub">Overall progression</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3A4150"></span><span>Death</span></td><td class="definition-text">Time to progression at any site (CNS + systemic) or death.</td></tr>
+<tr class="definition-row" id="def-overall-ttp" data-term="Overall TTP"><th scope="row"><a class="definition-link" href="#/definitions/def-overall-ttp">Overall TTP</a></th><td class="definition-sub">Overall progression</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3A4150"></span><span>Death</span></td><td class="definition-text">Time to progression at any site (death censored).</td></tr>
+<tr class="definition-row" id="def-extracranial-pfs" data-term="Extracranial PFS"><th scope="row"><a class="definition-link" href="#/definitions/def-extracranial-pfs">Extracranial PFS</a></th><td class="definition-sub">Extra-CNS progression</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3A4150"></span><span>Death</span></td><td class="definition-text">Time to extracranial (systemic) progression or death from any cause.</td></tr>
+<tr class="definition-row" id="def-extracranial-ttp" data-term="Extracranial TTP"><th scope="row"><a class="definition-link" href="#/definitions/def-extracranial-ttp">Extracranial TTP</a></th><td class="definition-sub">Extra-CNS progression</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3A4150"></span><span>Death</span></td><td class="definition-text">Time to extracranial progression only (death censored).</td></tr>
+<tr class="definition-row" id="def-clinical-neurological-ttp" data-term="Clinical Neurological TTP"><th scope="row"><a class="definition-link" href="#/definitions/def-clinical-neurological-ttp">Clinical Neurological TTP</a></th><td class="definition-sub">Clinical Neurological Progression</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3A4150"></span><span>Death</span></td><td class="definition-text">Time until neurological signs or symptoms worsen, assessed by a neurological examination or a clinician&#x27;s overall assessment. Some studies count death as an event; others censor deaths, according to the study definition.</td></tr>
+<tr class="definition-row" id="def-clinical-neurological-pfs" data-term="Clinical Neurological PFS"><th scope="row"><a class="definition-link" href="#/definitions/def-clinical-neurological-pfs">Clinical Neurological PFS</a></th><td class="definition-sub">Clinical Neurological Progression</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3A4150"></span><span>Death</span></td><td class="definition-text">Time to clinical neurological progression or death, by clinical examination only.</td></tr>
+<tr class="definition-row" id="def-safety-toxicity" data-term="Safety/Toxicity"><th scope="row"><a class="definition-link" href="#/definitions/def-safety-toxicity">Safety/Toxicity</a></th><td class="definition-sub">Adverse events</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#B4652C"></span><span>Adverse events</span></td><td class="definition-text">Incidence and severity of adverse events.</td></tr>
+<tr class="definition-row" id="def-functional-status" data-term="Functional Status"><th scope="row"><a class="definition-link" href="#/definitions/def-functional-status">Functional Status</a></th><td class="definition-sub">Functional status</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3F7A6B"></span><span>Life impact</span></td><td class="definition-text">Overall ability to carry out daily activities or move around, assessed using scales of performance status (such as KPS or ECOG) or walking ability, including whether assistance is needed.</td></tr>
+<tr class="definition-row" id="def-quality-of-life" data-term="Quality of Life"><th scope="row"><a class="definition-link" href="#/definitions/def-quality-of-life">Quality of Life</a></th><td class="definition-sub">Quality of life</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3F7A6B"></span><span>Life impact</span></td><td class="definition-text">Patient-reported global quality of life via a validated questionnaire.</td></tr>
+<tr class="definition-row" id="def-neurocognitive-function" data-term="Neurocognitive Function"><th scope="row"><a class="definition-link" href="#/definitions/def-neurocognitive-function">Neurocognitive Function</a></th><td class="definition-sub">Neurocognitive function</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3F7A6B"></span><span>Life impact</span></td><td class="definition-text">Formal neuropsychological testing of specific cognitive domains.</td></tr>
+<tr class="definition-row" id="def-time-to-treatment-discontinuation" data-term="Time to Treatment Discontinuation"><th scope="row"><a class="definition-link" href="#/definitions/def-time-to-treatment-discontinuation">Time to Treatment Discontinuation</a></th><td class="definition-sub">Delivery of care</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3F7A6B"></span><span>Life impact</span></td><td class="definition-text">Time from the first treatment dose until study treatment is permanently stopped for any reason, including progression, toxicity or other reasons.</td></tr>
+<tr class="definition-row" id="def-risk-benefit-ratio" data-term="Risk-Benefit Ratio"><th scope="row"><a class="definition-link" href="#/definitions/def-risk-benefit-ratio">Risk-Benefit Ratio</a></th><td class="definition-sub">Risk-benefit ratio</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#3F7A6B"></span><span>Life impact</span></td><td class="definition-text">Composite quality-adjusted survival measure (e.g., Q-TWiST) partitioning overall survival into time with toxicity (TOX), time without symptoms or toxicity (TWiST), and time after progression (REL).</td></tr>
+<tr class="definition-row" id="def-salvage-treatment-rate" data-term="Salvage Treatment Rate"><th scope="row"><a class="definition-link" href="#/definitions/def-salvage-treatment-rate">Salvage Treatment Rate</a></th><td class="definition-sub">Salvage intracranial treatment rate</td><td class="definition-core"><span class="core-dot" aria-hidden="true" style="background:#C9A34E"></span><span>Resource use</span></td><td class="definition-text">Proportion of patients requiring additional treatment for disease within the skull, such as radiation therapy or surgery.</td></tr>
+</tbody></table></div><p class="tx-empty" id="tx-empty" hidden>No outcomes match these filters. Clear the filters or try another search.</p>
   </section>
 </div>
 
@@ -695,7 +862,7 @@ html.lcs .hero .wrap>p{display:none}
     </div>
     <div class="card" style="margin-top:16px">
       <p class="ct">The LeptoCOS method</p><p class="cn">Phase I establishes what is reported; Phase II decides what should be reported.</p>
-      <div class="method-tl">
+      <div class="method-tl chart-port" role="region" tabindex="0" aria-label="LeptoCOS study phases. Scroll horizontally to see the full timeline.">
        <svg viewBox="0 0 800 122" width="100%" role="img" aria-label="LeptoCOS method timeline: systematic review and long list complete, Phase I complete, eDelphi in preparation, then consensus meeting and core outcome set.">
         <line x1="60" y1="46" x2="230" y2="46" stroke="#12897B" stroke-width="4"/>
         <line x1="230" y1="46" x2="740" y2="46" stroke="#CBD9EA" stroke-width="4"/>
@@ -734,12 +901,12 @@ html.lcs .hero .wrap>p{display:none}
     <p class="dek">Every outcome maps to one of five COMET core areas, and within them to 20 sub-domains. Reporting
       concentrates on tumour response and survival; life-impact and resource-use outcomes are least represented.</p>
     <div class="grid2">
-      <div class="card"><p class="ct">Outcomes by COMET core area</p><p class="cn">Area = share of 368 outcomes. The Death area covers survival and progression endpoints (PFS/TTP), so 42% of it is progression, not mortality.</p><div id="treemap"></div>
+      <div class="card"><p class="ct">Outcomes by COMET core area</p><p class="cn">Area = share of 368 outcomes. The Death area covers survival and progression endpoints (PFS/TTP), so 42% of it is progression, not mortality.</p><div id="treemap" class="chart-port" role="region" tabindex="0" aria-label="Outcome distribution by COMET core area. All five areas and their counts are shown."></div>
         <div class="legend" id="core-leg"></div></div>
-      <div class="card"><p class="ct">Trials reporting each core area (of 46)</p><p class="cn">How many of the 46 trials report at least one outcome in each core area.</p><div id="chart-gap"></div></div>
+      <div class="card"><p class="ct">Trials reporting each core area (of 46)</p><p class="cn">How many of the 46 trials report at least one outcome in each core area.</p><div id="chart-gap" class="chart-port" role="region" tabindex="0" aria-label="Trials reporting each COMET core area. Scroll horizontally to see the full chart."></div></div>
     </div>
-    <div class="card" style="margin-top:16px"><p class="ct">Outcomes by sub-domain</p><p class="cn">The 20 sub-domains beneath the five core areas (16 largest shown). <a class="jump" href="#table1">Full counts are in the long list (Table 1) &#8594;</a></p><div id="chart-sub"></div></div>
-    <div class="card" style="margin-top:16px"><p class="ct">All 56 standardised outcomes, ranked by frequency</p><p class="cn">Number of trials reporting each standardised outcome, high to low, coloured by core area. Safety, survival and leptomeningeal response dominate; reporting then drops sharply, and 15 of the 56 appear in only one trial.</p><div id="chart-allfreq"></div></div>
+    <div class="card" style="margin-top:16px"><p class="ct">Outcomes by sub-domain</p><p class="cn">The 20 sub-domains beneath the five core areas (16 largest shown). <a class="jump" href="#table1">Full counts are in the long list (Table 1) &#8594;</a></p><div id="chart-sub" class="chart-port" role="region" tabindex="0" aria-label="Outcomes by sub-domain. Scroll horizontally to see the full chart."></div></div>
+    <div class="card" style="margin-top:16px"><p class="ct">All 56 standardised outcomes, ranked by frequency</p><p class="cn">Number of trials reporting each standardised outcome, high to low, coloured by core area. Safety, survival and leptomeningeal response dominate; reporting then drops sharply, and 15 of the 56 appear in only one trial.</p><div id="chart-allfreq" class="chart-port" role="region" tabindex="0" aria-label="Trials reporting each standardised outcome. Scroll horizontally to see the full chart."></div></div>
   </section>
 
   <section id="coverage">
@@ -755,7 +922,7 @@ html.lcs .hero .wrap>p{display:none}
         </div>
       </div>
       <p class="cn" id="genome-cap">Rows are the 56 standardised outcomes, ordered most-reported at the top; columns are the 46 trials, left to right by year (1982 to 2025). A filled cell means reported, coloured by COMET core area; the number at right is how many trials reported it. Hover over or tap a cell for details.</p>
-      <div id="genome"></div>
+      <div id="genome" class="chart-port" role="region" tabindex="0" aria-label="Outcome reporting across trials. Scroll horizontally to see the full chart."></div>
     </div>
   </section>
 
@@ -766,7 +933,7 @@ html.lcs .hero .wrap>p{display:none}
     <h2>Leptomeningeal treatment response is defined inconsistently</h2>
     <p class="dek">Even the most-reported response outcome is defined in many different ways.</p>
     <div class="card"><p class="cn" style="font-size:14.5px;line-height:1.5">Reported by <b style="color:#B23A48">25 of 46 trials</b>; only <b style="color:#1F2A36">7 used a RANO-LM-based standard</b> (6 RANO-LM, 1 modified); the other <b style="color:#B23A48">18 did not</b>: 16 used study-specific criteria, 1 used EANO-ESMO response assessment criteria and 1 used RECIST v1.1 with the leptomeningeal lesion as a non-target lesion.</p>
-      <div id="sankey"></div>
+      <div id="sankey" class="chart-port" role="region" tabindex="0" aria-label="Leptomeningeal response criteria. Scroll horizontally to see the full chart."></div>
       <p class="hint">&middot; N = number of trials using that definition; definitions without a number were each used by one trial.</p></div>
   </section>
 
@@ -830,7 +997,7 @@ html.lcs .hero .wrap>p{display:none}
     <p class="lbl">Reporting rigour</p>
     <h2>Outcome priority as reported</h2>
     <p class="dek">Priority (primary, secondary or exploratory) was recorded as each trial stated it. Where a trial gave no explicit label, an outcome was assigned primary only if it informed the sample-size calculation or was specified as an outcome objective; a general statement of purpose was not enough, and secondary or exploratory status was never assigned. Priority was not used to include or exclude outcomes. More than a third of outcomes (39%) carry no recorded or assigned priority.</p>
-    <div class="card"><p class="ct">Outcomes by recorded or assigned priority</p><p class="cn">Share of 368 outcomes.</p><div id="chart-pri"></div></div>
+    <div class="card"><p class="ct">Outcomes by recorded or assigned priority</p><p class="cn">Share of 368 outcomes.</p><div id="chart-pri" class="chart-port" role="region" tabindex="0" aria-label="Outcome priority distribution. Scroll horizontally to see the full chart."></div></div>
   </section>
 
 
@@ -875,6 +1042,7 @@ document.getElementById('kpis').innerHTML=kpis.map(k=>`<div class="kpi ${k.f?'fl
 
 /* ---- matrix (Figure 2) ---- */
 
+const chartTextOn=colour=>({"#2F6FB8": "#FFFFFF", "#3D4453": "#FFFFFF", "#C65D2E": "#000000", "#12897B": "#000000", "#C79A2E": "#000000", "#1E4F86": "#FFFFFF", "#C7D4E2": "#000000"})[colour]||"#171B23";
 /* ---------- SVG helpers ---------- */
 function hbars(el,items,{max,fmt,onClick,ref,padL:padLo,aria}){
   const W=680,padL=padLo||190,padR=66,rowH=items.length>11?24:32,top=8,H=top*2+items.length*rowH,mx=max||Math.max(...items.map(i=>i.value),1),bw=W-padL-padR;
@@ -890,7 +1058,7 @@ function hbars(el,items,{max,fmt,onClick,ref,padL:padLo,aria}){
 function stacked(el,segs,total,onClick){
   const W=680,H=92,y=22,bh=34,bw=W-8;let x=4,s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc('Stacked bar of the share of outcomes by priority: '+segs.map(g=>g.label).join(', '))}">`;
   segs.forEach(sg=>{const w=sg.value/total*bw;s+=`<rect class="bar" x="${x}" y="${y}" width="${Math.max(0,w-1)}" height="${bh}" fill="${sg.color}" data-k="${esc(sg.key)}"><title>${esc(sg.label)}: ${sg.value} (${Math.round(sg.value/total*100)}%)</title></rect>`;
-    if(w>42){s+=`<text x="${x+w/2}" y="${y+bh/2-1}" text-anchor="middle" font-size="12" font-weight="700" fill="${sg.dark?'#171B23':'#fff'}">${sg.value}</text><text x="${x+w/2}" y="${y+bh/2+13}" text-anchor="middle" font-size="10" fill="${sg.dark?'#5C6675':'rgba(255,255,255,.9)'}">${Math.round(sg.value/total*100)}%</text>`;}x+=w;});
+    if(w>42){s+=`<text x="${x+w/2}" y="${y+bh/2-1}" text-anchor="middle" font-size="12" font-weight="700" fill="${chartTextOn(sg.color)}">${sg.value}</text><text x="${x+w/2}" y="${y+bh/2+13}" text-anchor="middle" font-size="10" fill="${chartTextOn(sg.color)}">${Math.round(sg.value/total*100)}%</text>`;}x+=w;});
   s+='</svg>';el.innerHTML=s;el.querySelectorAll('.bar').forEach(b=>b.addEventListener('click',()=>onClick(b.getAttribute('data-k'))));
 }
 /* squarified treemap (5 core areas) */
@@ -910,11 +1078,11 @@ function treemap(){
   let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc('Treemap of the share of outcomes in each COMET core area: '+data.map(d=>d.k).join(', ')+'. Counts are in Table 1 on the Long list page.')}">`;
   rects.forEach(r=>{const pct=(r.v/total*100).toFixed(1);const big=r.w>90&&r.h>44;
     s+=`<rect class="tm" x="${r.x+1}" y="${r.y+1}" width="${Math.max(0,r.w-2)}" height="${Math.max(0,r.h-2)}" rx="3" fill="${CORE_COL[r.k]}" data-k="${esc(r.k)}"><title>${esc(r.k)}: ${r.v} (${pct}%)</title></rect>`;
-    if(big){s+=`<text x="${r.x+10}" y="${r.y+22}" font-size="12.5" font-weight="700" fill="#fff">${esc(r.k)}</text><text x="${r.x+10}" y="${r.y+40}" font-size="13" fill="rgba(255,255,255,.9)">${r.v} · ${pct}%</text>`;}
-    else if(r.w>=16&&r.h>=18){s+=`<text x="${r.x+r.w/2}" y="${r.y+r.h/2+4}" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">${r.v}</text>`;}});
+    if(big){s+=`<text x="${r.x+10}" y="${r.y+22}" font-size="12.5" font-weight="700" fill="${chartTextOn(CORE_COL[r.k])}">${esc(r.k)}</text><text x="${r.x+10}" y="${r.y+40}" font-size="13" fill="${chartTextOn(CORE_COL[r.k])}">${r.v} · ${pct}%</text>`;}
+    else if(r.w>=16&&r.h>=18){s+=`<text x="${r.x+r.w/2}" y="${r.y+r.h/2+4}" text-anchor="middle" font-size="11" font-weight="700" fill="${chartTextOn(CORE_COL[r.k])}">${r.v}</text>`;}});
   s+='</svg>';el.innerHTML=s;
   el.querySelectorAll('.tm').forEach(t=>t.addEventListener('click',()=>{setCore(t.getAttribute('data-k'));gotoTable();}));
-  document.getElementById('core-leg').innerHTML=CORE_ORDER.map(c=>`<span class="s"><i style="background:${CORE_COL[c]}"></i>${esc(c)}</span>`).join('');
+  document.getElementById('core-leg').innerHTML=CORE_ORDER.map(c=>`<span class="s"><i style="background:${CORE_COL[c]}"></i>${esc(c)} <span class="core-value">${coreCounts[c]} (${(coreCounts[c]/total*100).toFixed(1)}%)</span></span>`).join('');
 }
 /* heatmap */
 /* LM-response definitions sankey: teal/rose gradient (25 of 46 trials) */
@@ -1030,7 +1198,7 @@ function legacyFullOutcomeMap(focusSubdomain){
   const trunc=(s,n)=>s.length>n?s.slice(0,n-1)+'…':s;
   ts.forEach((t,i)=>{const cy=t.y+t.h/2;nodes+=`<g class="fm-node" data-id="t${i}" role="img" aria-label="${esc(t.name)} maps through ${esc(t.sub)} to ${esc(t.core)}"><rect x="${cols[0].x}" y="${t.y}" width="${cols[0].w}" height="${t.h}" rx="3" fill="${tint[t.core]}" stroke="#E5EAF0"/><rect x="${cols[0].x}" y="${t.y}" width="3" height="${t.h}" rx="1.5" fill="${t.col}"/><text x="${cols[0].x+10}" y="${cy+3.4}" font-size="9.8" font-weight="620" fill="#293340">${esc(trunc(t.name,41))}</text></g>`;});
   ss.forEach((s,i)=>{const cy=s.y+s.h/2;nodes+=`<g class="fm-node" data-id="s${i}" role="img" aria-label="${esc(s.name)} maps to ${esc(s.core)}"><rect x="${cols[1].x}" y="${s.y}" width="${cols[1].w}" height="${s.h}" rx="4" fill="${tint[s.core]}" stroke="${s.col}" stroke-opacity=".72"/><rect x="${cols[1].x}" y="${s.y}" width="4" height="${s.h}" rx="2" fill="${s.col}"/><text x="${cols[1].x+12}" y="${cy+3.5}" font-size="10.3" font-weight="720" fill="#25303C">${esc(trunc(s.name,32))}</text></g>`;});
-  cs.forEach((c,i)=>{const cy=c.y+c.h/2;nodes+=`<g class="fm-node" data-id="c${i}" role="img" aria-label="${esc(c.name)} COMET core area"><rect x="${cols[2].x}" y="${c.y}" width="${cols[2].w}" height="${c.h}" rx="5" fill="${c.col}"/><text x="${cols[2].x+14}" y="${cy+4}" font-size="11.2" font-weight="800" fill="#fff">${esc(c.name)}</text></g>`;});
+  cs.forEach((c,i)=>{const cy=c.y+c.h/2;nodes+=`<g class="fm-node" data-id="c${i}" role="img" aria-label="${esc(c.name)} COMET core area"><rect x="${cols[2].x}" y="${c.y}" width="${cols[2].w}" height="${c.h}" rx="5" fill="${c.col}"/><text x="${cols[2].x+14}" y="${cy+4}" font-size="11.2" font-weight="800" fill="${chartTextOn(c.col)}">${esc(c.name)}</text></g>`;});
   const head=(x,title,sub)=>`<text x="${x}" y="24" font-size="10.5" font-weight="800" letter-spacing="1.3" fill="#2F6FB8">${title.toUpperCase()}</text><text x="${x}" y="44" font-size="11" fill="#727D8C">${sub}</text>`;
   heads+=head(cols[0].x,'Standardised outcome terms','Reported outcome language');heads+=head(cols[1].x,'LeptoCOS sub-domains','Disease-specific organisation');heads+=head(cols[2].x,'COMET core areas','Broad outcome framework');
   el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Alluvial map of standardised outcomes through disease-specific LeptoCOS sub-domains to COMET core areas">${heads}<g>${ribbons}</g><g>${nodes}</g></svg>`;
@@ -1119,6 +1287,7 @@ function syncTable1MapDeepLink(){
   try{hash=decodeURIComponent(hash);}catch(_){}
   if(hash!=='#full-outcome-map'&&hash!=='#/home/full-outcome-map')return;
   setTable1View('map');
+  setHierarchyDetail(true);
   [100,500,1200].forEach(delay=>setTimeout(()=>document.querySelector('#table1')?.scrollIntoView({block:'start'}),delay));
 }
 syncTable1MapDeepLink();
@@ -1128,58 +1297,58 @@ document.querySelectorAll('.cov-btn').forEach(b=>b.addEventListener('click',()=>
 stacked(document.getElementById('chart-pri'),PRI_ORDER.map(t=>({label:PRI_LABEL[t],key:t,value:priCounts[t]||0,color:PRI_COL[t],dark:t==='ns'})),N,t=>{document.getElementById('f-pri').value=t;state.tier=t;gotoTable();render();});
 document.getElementById('chart-pri').insertAdjacentHTML('afterend','<div class="legend">'+PRI_ORDER.map(t=>`<span class="s"><i style="background:${PRI_COL[t]}"></i>${PRI_LABEL[t]}: ${priCounts[t]||0}</span>`).join('')+'</div>');
 
-/* taxonomy browser: filter by core area / sub-domain / search */
+/* v8-taxonomy-index:start */
 (function(){
-  const PAL={'Physiological/clinical':{tint:'#EDF3FB',bd:'#CFE0F2',ac:'#2F6FB8',lab:'#1D5793'},'Death':{tint:'#F1F2F5',bd:'#DADDE4',ac:'#3D4453',lab:'#2E333F'},'Adverse events':{tint:'#FBF0EA',bd:'#EFCFBB',ac:'#C65D2E',lab:'#9A431B'},'Life impact':{tint:'#E9F5F2',bd:'#C4E2DB',ac:'#12897B',lab:'#0C6A5F'},'Resource use':{tint:'#FAF4E4',bd:'#E8D9AE',ac:'#C79A2E',lab:'#7E6410'}};
-  const rec=Object.keys(termFreq).map(t=>({t,core:(TERM_META[t]||{}).core,sub:(TERM_META[t]||{}).sub||'Not specified',def:(TERM_META[t]||{}).def||'',n:studyPerTerm[t]||0}));
+  const DEFINITION_ORDER = ["LM response rate", "CSF Cytological Response", "Intracranial ORR", "LM DCR", "LM DoR", "Intracranial DCR", "Intracranial DoR", "Intracranial TTR", "LM TTR", "CSF Cytological Response Duration", "Intracranial CBR", "Neuroimaging Response", "CSF Cytological Response TTR", "Extracranial ORR", "Extracranial DCR", "Extracranial DoR", "Extracranial TTR", "Extracranial CBR", "Overall ORR", "Overall DoR", "Overall DCR", "Overall TTR", "Overall CBR", "Best Percentage Change from Baseline", "Neurological Status/Response", "CSF Biochemical Parameters", "Genomic Biomarker", "Circulating Tumour Cells", "Immune Biomarker", "Pharmacokinetics", "ICP Response Rate", "Treatment Failure Pattern", "Overall Survival", "Cause of Death", "OS3", "LM-specific Survival", "OS6", "OS9", "Overall Survival from Primary Diagnosis", "LM PFS", "Intracranial PFS", "LM TTP", "Intracranial TTP", "Overall PFS", "Overall TTP", "Extracranial PFS", "Extracranial TTP", "Clinical Neurological TTP", "Clinical Neurological PFS", "Safety/Toxicity", "Functional Status", "Quality of Life", "Neurocognitive Function", "Time to Treatment Discontinuation", "Risk-Benefit Ratio", "Salvage Treatment Rate"];
+  const rank=new Map(DEFINITION_ORDER.map((t,i)=>[t,i]));
   const st={cores:new Set(),subs:new Set(),q:'',sort:'dom'};
   const chipsEl=document.getElementById('tx-chips'),popEl=document.getElementById('tx-pop'),subBtn=document.getElementById('tx-subbtn'),host=document.getElementById('taxo');
-  const coreCount={};CORE_ORDER.forEach(c=>coreCount[c]=rec.filter(r=>r.core===c).length);
-  chipsEl.innerHTML=CORE_ORDER.map(c=>`<button class="txchip" type="button" data-c="${esc(c)}" aria-pressed="false"><span class="dot" style="background:${PAL[c].ac}"></span>${esc(c)} <span class="cnt">${coreCount[c]}</span></button>`).join('');
+  const rows=new Map([...host.querySelectorAll('.definition-row')].map(row=>[row.dataset.term,row]));
+  const rec=DEFINITION_ORDER.map(t=>({t,...TERM_META[t]}));
   const subCount={};rec.forEach(r=>subCount[r.sub]=(subCount[r.sub]||0)+1);
-  const subs=Object.keys(subCount).sort();
+  const subs=Object.keys(subCount).sort((a,b)=>a.localeCompare(b));
+  let printing=false;
+  chipsEl.innerHTML=CORE_ORDER.map(c=>`<button class="txchip" type="button" data-c="${esc(c)}" aria-pressed="false" aria-label="Filter by ${esc(c)}"><span class="dot" aria-hidden="true" style="background:${CORE_COL[c]}"></span>${esc(c)} <span class="cnt">${rec.filter(r=>r.core===c).length}</span></button>`).join('');
   function subDisabled(s){return st.cores.size&&!rec.some(r=>r.sub===s&&st.cores.has(r.core));}
-  function buildPop(){popEl.innerHTML=subs.map(s=>{const d=subDisabled(s);return `<label${d?' style="opacity:.38"':''}><input type="checkbox" data-s="${esc(s)}"${st.subs.has(s)?' checked':''}${d?' disabled':''}><span>${esc(s)}</span><span class="c">${subCount[s]}</span></label>`;}).join('');}
-  function updBtn(){subBtn.textContent=(st.subs.size?`Sub-domain (${st.subs.size}) ▾`:'Sub-domain ▾');}
-  function filt(){return rec.filter(r=>{
-    if(st.cores.size&&!st.cores.has(r.core))return false;
-    if(st.subs.size&&!st.subs.has(r.sub))return false;
-    if(st.q){const q=st.q.toLowerCase();if(!(r.t.toLowerCase().includes(q)||r.def.toLowerCase().includes(q)||r.sub.toLowerCase().includes(q)))return false;}
-    return true;});}
-  function srt(a){if(st.sort==='az')return a.sort((x,y)=>x.t.localeCompare(y.t));
-    if(st.sort==='dom')return a.sort((x,y)=>CORE_ORDER.indexOf(x.core)-CORE_ORDER.indexOf(y.core)||x.sub.localeCompare(y.sub)||x.t.localeCompare(y.t));
-    return a.sort((x,y)=>y.n-x.n||x.t.localeCompare(y.t));}
-  function card(r){const p=PAL[r.core]||{tint:'#fff',bd:'#E4E8EF',ac:'#889',lab:'#333'};
-    return `<div class="tcard" tabindex="0" role="button" aria-expanded="false" style="background:${p.tint};border-color:${p.bd};border-left-color:${p.ac}">`+
-      `<div class="tcard-top"><span class="tcard-pill" style="color:${p.lab}"><span class="pd" style="background:${p.ac}"></span>${esc(r.core)}</span></div>`+
-      `<div class="tcard-name">${esc(r.t)}</div><div class="tcard-sub">${esc(r.sub)}</div><div class="tcard-def">${esc(r.def)}</div></div>`;}
+  function buildPop(){popEl.innerHTML=subs.map(s=>`<label><input type="checkbox" data-s="${esc(s)}"${st.subs.has(s)?' checked':''}${subDisabled(s)?' disabled':''}><span>${esc(s)}</span><span class="c">${subCount[s]}</span></label>`).join('');}
+  function updBtn(){subBtn.textContent=st.subs.size?`Sub-domain (${st.subs.size}) ▾`:'Sub-domain ▾';}
+  function setPop(open){popEl.classList.toggle('open',open);subBtn.setAttribute('aria-expanded',String(open));}
+  function matches(r){return (!st.cores.size||st.cores.has(r.core))&&(!st.subs.size||st.subs.has(r.sub))&&(!st.q||[r.t,r.def,r.sub,r.core].some(v=>v.toLowerCase().includes(st.q.toLowerCase())));}
   function render(){
-    const idle=!st.cores.size&&!st.subs.size&&!st.q;
-    const res=srt(filt());
-    document.getElementById('tx-count').textContent=res.length;
-    if(!res.length)host.innerHTML='<div class="tx-empty">No outcomes match these filters.</div>';
-    else if(idle)host.innerHTML=CORE_ORDER.map(c=>{const g=res.filter(r=>r.core===c);if(!g.length)return'';const p=PAL[c];
-      return `<div class="tx-grouphdr"><span class="gd" style="background:${p.ac}"></span>${esc(c)} <span class="gc">· ${g.length} outcome${g.length===1?'':'s'}</span></div><div class="tx-grid">${g.map(card).join('')}</div>`;}).join('');
-    else host.innerHTML=`<div class="tx-grid">${res.map(card).join('')}</div>`;
-    chipsEl.querySelectorAll('.txchip').forEach(ch=>{const c=ch.getAttribute('data-c'),on=st.cores.has(c),p=PAL[c];ch.classList.toggle('on',on);ch.setAttribute('aria-pressed',on);
-      ch.style.background=on?p.tint:'';ch.style.borderColor=on?p.ac:'';ch.style.color=on?p.lab:'';});
-    const pills=[];st.cores.forEach(c=>pills.push(['core',c,'Core: '+c]));st.subs.forEach(s=>pills.push(['sub',s,s]));if(st.q)pills.push(['q','','“'+st.q+'”']);
-    document.getElementById('tx-active').innerHTML=pills.map(([k,v,l])=>`<span class="tx-apill" data-k="${k}" data-v="${esc(v)}">${esc(l)}</span>`).join('')+(pills.length?'<button class="tx-clear" type="button" id="tx-clear">Clear all</button>':'');
-    document.querySelectorAll('#tx-active .tx-apill').forEach(el=>el.addEventListener('click',()=>{const k=el.getAttribute('data-k'),v=el.getAttribute('data-v');if(k==='core')st.cores.delete(v);else if(k==='sub')st.subs.delete(v);else{st.q='';document.getElementById('tx-search').value='';}buildPop();updBtn();render();}));
-    const clr=document.getElementById('tx-clear');if(clr)clr.addEventListener('click',()=>{st.cores.clear();st.subs.clear();st.q='';document.getElementById('tx-search').value='';buildPop();updBtn();render();});
-    host.querySelectorAll('.tcard').forEach(cd=>{const tog=()=>{const e=cd.classList.toggle('exp');cd.setAttribute('aria-expanded',e);};
-      cd.addEventListener('click',tog);cd.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();tog();}});});
+    const ordered=[...rec].sort(printing||st.sort==='dom'?(a,b)=>rank.get(a.t)-rank.get(b.t):(a,b)=>a.t.localeCompare(b.t));
+    let count=0;
+    ordered.forEach(r=>{const row=rows.get(r.t),show=printing||matches(r);row.hidden=!show;host.appendChild(row);if(show)count++;});
+    document.getElementById('tx-count').textContent=count;
+    document.getElementById('tx-empty').hidden=count!==0;
+    document.getElementById('definitions-index').hidden=count===0;
+    chipsEl.querySelectorAll('.txchip').forEach(ch=>{const on=st.cores.has(ch.getAttribute('data-c'));ch.classList.toggle('on',on);ch.setAttribute('aria-pressed',String(on));});
+    const active=[];st.cores.forEach(c=>active.push(['core',c,'Core area: '+c]));st.subs.forEach(s=>active.push(['sub',s,'Sub-domain: '+s]));if(st.q)active.push(['q','','Search: '+st.q]);
+    document.getElementById('tx-active').innerHTML=active.map(([k,v,label])=>`<button type="button" class="tx-apill" data-k="${k}" data-v="${esc(v)}" aria-label="Remove ${esc(label)} filter">${esc(label)}</button>`).join('')+(active.length?'<button class="tx-clear" type="button" id="tx-clear">Clear all</button>':'');
+    document.querySelectorAll('#tx-active .tx-apill').forEach(button=>button.addEventListener('click',()=>{const k=button.getAttribute('data-k'),v=button.getAttribute('data-v');if(k==='core')st.cores.delete(v);else if(k==='sub')st.subs.delete(v);else{st.q='';document.getElementById('tx-search').value='';}buildPop();updBtn();render();}));
+    const clear=document.getElementById('tx-clear');if(clear)clear.addEventListener('click',resetFilters);
   }
-  chipsEl.querySelectorAll('.txchip').forEach(ch=>ch.addEventListener('click',()=>{const c=ch.getAttribute('data-c');st.cores.has(c)?st.cores.delete(c):st.cores.add(c);
-    [...st.subs].forEach(s=>{if(subDisabled(s))st.subs.delete(s);});buildPop();updBtn();render();}));
+  function resetFilters(){st.cores.clear();st.subs.clear();st.q='';document.getElementById('tx-search').value='';buildPop();updBtn();render();}
+  chipsEl.querySelectorAll('.txchip').forEach(ch=>ch.addEventListener('click',()=>{const core=ch.getAttribute('data-c');st.cores.has(core)?st.cores.delete(core):st.cores.add(core);[...st.subs].forEach(s=>{if(subDisabled(s))st.subs.delete(s);});buildPop();updBtn();render();}));
   document.getElementById('tx-search').addEventListener('input',e=>{st.q=e.target.value.trim();render();});
   document.getElementById('tx-sort').addEventListener('change',e=>{st.sort=e.target.value;render();});
-  subBtn.addEventListener('click',e=>{e.stopPropagation();popEl.classList.toggle('open');});
-  document.addEventListener('click',e=>{if(!popEl.contains(e.target)&&e.target!==subBtn)popEl.classList.remove('open');});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape')popEl.classList.remove('open');});
+  subBtn.addEventListener('click',e=>{e.stopPropagation();setPop(!popEl.classList.contains('open'));});
+  document.addEventListener('click',e=>{if(!popEl.contains(e.target)&&e.target!==subBtn)setPop(false);});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&popEl.classList.contains('open')){setPop(false);subBtn.focus();}});
   popEl.addEventListener('change',e=>{const cb=e.target.closest('input[type=checkbox]');if(!cb)return;const s=cb.getAttribute('data-s');cb.checked?st.subs.add(s):st.subs.delete(s);updBtn();render();});
-  buildPop();render();
+  function syncDefinitionLink(){
+    let hash=location.hash;try{hash=decodeURIComponent(hash);}catch(_){}
+    const id=hash.startsWith('#/definitions/')?hash.slice('#/definitions/'.length):hash.slice(1);
+    const row=[...rows.values()].find(r=>r.id===id);if(!row)return;
+    if(row.hidden)resetFilters();
+    requestAnimationFrame(()=>{row.scrollIntoView({block:'start'});const link=row.querySelector('.definition-link');if(link)link.focus({preventScroll:true});});
+  }
+  buildPop();render();syncDefinitionLink();
+  window.addEventListener('hashchange',syncDefinitionLink);
+  window.addEventListener('load',syncDefinitionLink);
+  window.addEventListener('beforeprint',()=>{printing=true;render();});
+  window.addEventListener('afterprint',()=>{printing=false;render();});
 })();
+/* v8-taxonomy-index:end */
 
 /* dataset table removed (kept: charts, definitions, taxonomy). Safe stubs so chart click handlers do not error. */
 const state={core:null,tier:'',study:'',search:'',group:''};
@@ -1189,7 +1358,7 @@ function render(){}
 
 /* constellation + reveals */
 if('IntersectionObserver' in window && !RM){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.08});document.querySelectorAll('section,.card').forEach(s=>{s.classList.add('reveal');io.observe(s);});}
-(function(){const cv=document.getElementById('stars');if(!cv||RM)return;const ctx=cv.getContext&&cv.getContext('2d');if(!ctx)return;let w,h,pts,am;const cols=Object.values(CORE_COL),rgba=(hex,a)=>{const n=parseInt(hex.slice(1),16);return`rgba(${n>>16},${n>>8&255},${n&255},${a})`;};
+(function(){const cv=document.getElementById('stars');if(!cv||RM||getComputedStyle(cv).display==='none')return;const ctx=cv.getContext&&cv.getContext('2d');if(!ctx)return;let w,h,pts,am;const cols=Object.values(CORE_COL),rgba=(hex,a)=>{const n=parseInt(hex.slice(1),16);return`rgba(${n>>16},${n>>8&255},${n&255},${a})`;};
   function size(){am=innerWidth<760?0.27:0.50;w=cv.width=cv.offsetWidth*devicePixelRatio;h=cv.height=cv.offsetHeight*devicePixelRatio;pts=Array.from({length:64},()=>{const z=.35+Math.random()*.95,s=.35*z*devicePixelRatio;return{x:Math.random()*w,y:Math.random()*h,z,vx:(Math.random()-.5)*s,vy:(Math.random()-.5)*s,r:(Math.random()*1.35+0.85)*devicePixelRatio*z,c:cols[Math.floor(Math.random()*cols.length)],p:Math.random()*7};});}
   size();window.addEventListener('resize',size);let raf,t0=0;
   function draw(ts){t0=t0||ts;const t=(ts-t0)/1000;ctx.clearRect(0,0,w,h);ctx.save();ctx.globalCompositeOperation='multiply';
