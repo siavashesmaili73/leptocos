@@ -43,11 +43,12 @@
     const coreChartFn=`
 function renderCoreGapLarge(){
   const el=document.getElementById('chart-gap');if(!el)return;
+  journalChartArgs9.set(el,{fn:renderCoreGapLarge,args:[]});
   const items=CORE_ORDER.map(c=>({label:c,value:coreStudies[c]||0,color:CORE_COL[c]}));
-  const W=760,padL=214,padR=64,rowH=62,top=20,H=top*2+items.length*rowH,mx=studies.length,bw=W-padL-padR;
+  const W=chartWidth9(el,760),padL=190,padR=64,rowH=21,top=8,H=top*2+items.length*rowH,mx=studies.length,bw=W-padL-padR;
   let s='<svg viewBox="0 0 '+W+' '+H+'" width="100%" role="img" aria-label="Trials reporting each COMET core area">';
-  items.forEach((it,i)=>{const y=top+i*rowH,bh=31,w=Math.max(2,it.value/mx*bw);s+='<text x="'+(padL-13)+'" y="'+(y+21)+'" text-anchor="end" font-size="15" font-weight="600" fill="#333">'+esc(it.label)+'</text><rect x="'+padL+'" y="'+y+'" width="'+w+'" height="'+bh+'" rx="4" fill="'+it.color+'"><title>'+esc(it.label)+': '+it.value+' trial'+(it.value===1?'':'s')+'</title></rect><text x="'+(padL+w+10)+'" y="'+(y+21)+'" font-size="14" font-weight="600" fill="#555">'+it.value+'</text>';});
-  s+='</svg>';el.innerHTML=s;
+  items.forEach((it,i)=>{const y=top+i*rowH,bh=14,w=Math.max(2,it.value/mx*bw);s+='<text class="chart-axis" x="'+(padL-13)+'" y="'+(y+11)+'" text-anchor="end" font-size="12.5" fill="#5E6A78">'+esc(it.label)+'</text><rect x="'+padL+'" y="'+y+'" width="'+w+'" height="'+bh+'" fill="'+it.color+'"><title>'+esc(it.label)+': '+it.value+' trial'+(it.value===1?'':'s')+'</title></rect><text class="chart-value" x="'+(padL+w+10)+'" y="'+(y+11)+'" font-size="12.5" fill="#16202C">'+it.value+'</text>';});
+  s+='<line class="chart-baseline" x1="'+padL+'" x2="'+padL+'" y1="'+top+'" y2="'+(top+(items.length-1)*rowH+14)+'" stroke="#9AA5B1" stroke-width="1"/></svg>';el.innerHTML=s;
 }
 `;
     html=html.replace('/* ---- charts ---- */',coreChartFn+'/* ---- charts ---- */');
