@@ -2743,5 +2743,17 @@ html body footer p,html body footer .footer-copy{max-width:760px!important;margi
 <style id="v10l-thinbar">
 @media screen and (min-width:1024px){html.lcs body,html body{padding-top:56px!important}html body .lcs-side{height:56px!important}html body .lcs-side .lcs-nav{height:56px!important}html body .lcs-side .lcs-brand{height:40px!important;width:150px!important}html body .lcs-side .lcs-nav a{padding:6px 13px!important}html body .lcs-side .lcs-foot .lcs-fb{padding:6px 13px!important}}
 </style>
+<style id="v10m-register">
+html body .lcs-side .lcs-foot a.gs-reg{display:inline-block!important;margin:0 8px 0 0!important;padding:6px 13px!important;border:1px solid rgba(255,255,255,.7)!important;border-radius:4px!important;color:#fff!important;font-size:14px!important;font-weight:700!important;text-decoration:none!important;white-space:nowrap!important;background:transparent!important}
+html body .lcs-side .lcs-foot a.gs-reg:hover{background:rgba(255,255,255,.12)!important}
+@media screen and (max-width:1023.98px){html body .lcs-side .lcs-foot a.gs-reg{display:block!important;margin:0 0 8px!important;border-color:var(--gs-accent,#1F6B8E)!important;color:var(--gs-accent,#1F6B8E)!important;text-align:center}}
+</style>
+<script id="v10m-register-js">
+(function(){
+  var HREF='mailto:leptocos@gmail.com?subject=LeptoCOS%20eDelphi%3A%20register%20interest&body=Please%20notify%20me%20when%20eDelphi%20registration%20opens.%0AName%3A%0ARole%20or%20specialty%3A%0ACountry%3A';
+  function add(){var f=document.querySelector('.lcs-side .lcs-foot');if(!f||f.querySelector('a.gs-reg'))return !!f;var a=document.createElement('a');a.className='gs-reg';a.href=HREF;a.textContent='Register interest';a.title='Get the registration link when the eDelphi opens';var fb=f.querySelector('.lcs-fb');f.insertBefore(a,fb||null);return true;}
+  if(!add()){var n=0,t=setInterval(function(){if(add()||++n>40)clearInterval(t);},150);}
+})();
+</script>
 </body>
 </html>
