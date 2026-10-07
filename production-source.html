@@ -2759,5 +2759,14 @@ html body .lcs-side .lcs-foot a.gs-reg:hover{background:rgba(255,255,255,.12)!im
 @media screen and (min-width:1024px){html body .hero{min-height:0!important;padding-top:34px!important;padding-bottom:34px!important}html body .hero h1{font-size:36px!important;margin-bottom:8px!important;line-height:1.2!important}html body .hero .hsub{font-size:15px!important}}
 @media (max-width:1023.98px){html body .hero{padding-top:22px!important;padding-bottom:22px!important}html body .hero h1{font-size:26px!important}}
 </style>
+<style id="v10o-feedback">#lcFeedbackTab,#lcFeedbackPanel,.lc-feedback-backdrop{display:none!important}</style>
+<script id="v10o-feedback-js">
+(function(){
+  var MAIL='mailto:leptocos@gmail.com?subject=LeptoCOS%20website%20feedback';
+  document.addEventListener('click',function(e){var b=e.target&&e.target.closest&&e.target.closest('.lcs-fb,#lcFeedbackTab');if(!b)return;e.preventDefault();e.stopImmediatePropagation();window.location.href=MAIL;},true);
+  function strip(){['lcFeedbackTab','lcFeedbackPanel'].forEach(function(id){var x=document.getElementById(id);if(x&&x.parentNode)x.parentNode.removeChild(x);});}
+  if(document.readyState!=='loading')strip();else document.addEventListener('DOMContentLoaded',strip);window.addEventListener('load',strip);
+})();
+</script>
 </body>
 </html>
