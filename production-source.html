@@ -2638,5 +2638,52 @@ html body #table1 .t1-wrap table.t1 td.stud .lab,html body #table1 .t1-wrap tabl
 html body #table1 .t1-wrap table.t1 td.stud .lab .p,html body #table1 .t1-wrap table.t1 td.out .p{font-size:11.5px!important}
 html body svg rect.sk-label-plate{fill:transparent!important;stroke:none!important}
 </style>
+<style id="v10h-cmx">
+html body table.cmx{font-size:13px!important;line-height:1.3!important}
+html body table.cmx thead th{padding:7px 10px!important;font-size:12px!important;vertical-align:bottom!important}
+html body table.cmx thead th small{font-size:10.5px!important;margin-top:2px!important;letter-spacing:0!important;text-transform:none!important;font-weight:500!important}
+html body table.cmx td,html body table.cmx td.val,html body table.cmx td.ncol,html body table.cmx td.rl{padding:5px 10px!important;height:auto!important;font-size:13px!important}
+html body table.cmx td.rl{font-weight:600!important}
+html body table.cmx td.val{font-weight:600!important}
+html body table.cmx td.ncol,html body table.cmx thead th.ncol{background:transparent!important;font-weight:700!important;color:#16202C!important}
+html body table.cmx th.group-col,html body table.cmx td.groupcell{width:96px!important;min-width:96px!important;padding:5px 8px!important;text-align:left!important}
+html body table.cmx td.groupcell .group-name{font-size:12px!important;font-weight:600!important;color:#5E6A78!important}
+html body table.cmx td.groupcell .group-brace{display:none!important}
+html body table.cmx td.groupcell .group-marker{border:0!important;padding:0!important;justify-content:flex-start!important}
+html body table.cmx tr.group-spacer td{height:6px!important;padding:0!important;border:0!important;background:transparent!important}
+html body table.cmx tfoot td{border-top:1.5px solid #6B7787!important;font-weight:700!important;background:transparent!important;padding:6px 10px!important}
+html body table.cmx td.val.v10h-zero{color:#9AA5B3!important;font-weight:500!important}
+html body table.cmx td.groupcell{text-align:left!important}
+html body table.cmx td.groupcell .group-marker{align-items:center!important;text-align:left!important}
+@media (max-width:640px){html body table.cmx th.group-col,html body table.cmx td.groupcell{display:none!important}
+html body table.cmx td,html body table.cmx td.val,html body table.cmx td.ncol,html body table.cmx td.rl,html body table.cmx thead th{font-size:11.5px!important;padding:4px 4px!important}
+html body table.cmx thead th small{font-size:9.5px!important}
+html body table.cmx td.rl{white-space:normal!important}}
+@media (max-width:640px){html body .cmx-wrap{overflow-x:auto!important;-webkit-overflow-scrolling:touch}html body .cmx-card{overflow:visible!important}}
+</style>
+<script id="v10h-cmx-js">
+(function(){
+  function fix(){
+    document.querySelectorAll('table.cmx').forEach(function(t){
+      t.querySelectorAll('thead th').forEach(function(th){
+        var s=th.querySelector('small'); if(s&&s.textContent.trim()==='IC + EC') s.textContent='all sites';
+        if(th.classList.contains('ncol')&&th.textContent.trim()==='n') th.textContent='Total';
+      });
+      t.querySelectorAll('td.rl').forEach(function(td){ if(td.textContent.trim()==='Other') td.textContent='Cytology or imaging only'; });
+      var cells=t.querySelectorAll('tbody td.val'), max=0;
+      cells.forEach(function(c){var v=parseFloat(c.textContent);if(v>max)max=v;});
+      cells.forEach(function(c){
+        var v=parseFloat(c.textContent)||0, f=max?v/max:0, a=v?0.10+0.55*f:0;
+        c.style.background=v?('rgba(62,109,156,'+a.toFixed(3)+')'):'#FFFFFF';
+        c.style.color='#16202C'; c.classList.toggle('v10h-zero',v===0);
+      });
+    });
+  }
+  function run(){try{fix();}catch(e){}}
+  if(document.readyState!=='loading') run(); else document.addEventListener('DOMContentLoaded',run);
+  window.addEventListener('load',run); window.addEventListener('hashchange',function(){setTimeout(run,60);});
+  try{new MutationObserver(function(m){if(document.querySelector('table.cmx td.val')&&!document.querySelector('table.cmx').dataset.v10h){document.querySelector('table.cmx').dataset.v10h=1;run();}}).observe(document.documentElement,{childList:true,subtree:true});}catch(e){}
+})();
+</script>
 </body>
 </html>
