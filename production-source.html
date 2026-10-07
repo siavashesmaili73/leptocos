@@ -2768,5 +2768,73 @@ html body .lcs-side .lcs-foot a.gs-reg:hover{background:rgba(255,255,255,.12)!im
   if(document.readyState!=='loading')strip();else document.addEventListener('DOMContentLoaded',strip);window.addEventListener('load',strip);
 })();
 </script>
+<style id="v10p-map">
+html body #map-expand{display:none!important}
+html body #full-outcome-map .fm-ribbon{opacity:.55}
+html body #full-outcome-map.is-dim .fm-ribbon{opacity:.08}
+html body #full-outcome-map.is-dim .fm-ribbon.is-hot{opacity:.85}
+@media(max-width:759.98px){html body #full-outcome-map{min-width:900px!important;width:900px!important}}
+html body #full-outcome-map .fm-count{font-size:11px;fill:#5E6A78}
+</style>
+<script id="v10p-map-js">
+(function(){
+function v10pFullOutcomeMap(){
+  const el=document.getElementById('full-outcome-map');if(!el)return;
+  const tint={'Physiological/clinical':'#F2F6FB','Death':'#F3F4F6','Adverse events':'#FCF3EE','Life impact':'#EEF8F6','Resource use':'#FBF7EB'};
+  const cnt={};DATA.forEach(r=>{cnt[r.std]=(cnt[r.std]||0)+1;});
+  const terms=Object.keys(TERM_META).map(name=>{const m=TERM_META[name];return{name,n:cnt[name]||0,sub:m.sub,core:m.core,col:CORE_COL[m.core]};});
+  const coreRank=Object.fromEntries(CORE_ORDER.map((c,i)=>[c,i]));
+  const subTot={};terms.forEach(t=>{const k=t.core+'||'+t.sub;subTot[k]=(subTot[k]||0)+t.n;});
+  terms.sort((a,b)=>coreRank[a.core]-coreRank[b.core]||subTot[b.core+'||'+b.sub]-subTot[a.core+'||'+a.sub]||a.sub.localeCompare(b.sub)||b.n-a.n||a.name.localeCompare(b.name));
+  const W=matchMedia('(max-width:759.98px)').matches?900:Math.max(900,el.getBoundingClientRect().width||1350),k=.9,rowMin=20,gT=3,gSub=8,gCore=18,top=70,bottom=16;
+  const cols=[{x:6,w:Math.max(200,W*.29)},{x:Math.round(W*.40),w:Math.max(190,W*.26)},{x:Math.round(W*.80),w:W*.20-6}];
+  let y=top,prevSub=null,prevCore=null;const subs=[],cores=[];
+  terms.forEach(t=>{
+    const key=t.core+'||'+t.sub;
+    if(prevCore!==null&&t.core!==prevCore)y+=gCore;else if(prevSub!==null&&key!==prevSub)y+=gSub;
+    const nInSub=terms.filter(u=>u.core===t.core&&u.sub===t.sub).length;const h=Math.max(rowMin,t.n*k,journalWrap9(t.name,cols[0].w-56).length*14+4,nInSub===1?journalWrap9(t.sub,cols[1].w-30).length*14+8:0);t.y=y;t.h=h;t.f=t.n*k;t.fy=y+(h-t.f)/2;y+=h+gT;
+    if(key!==prevSub){subs.push({key,name:t.sub,core:t.core,col:t.col,terms:[],y0:t.y});}
+    const s=subs[subs.length-1];s.terms.push(t);s.y1=t.y+t.h;
+    if(t.core!==prevCore){cores.push({name:t.core,col:t.col,subs:[],y0:t.y});}
+    const c=cores[cores.length-1];if(!c.subs.includes(s))c.subs.push(s);c.y1=t.y+t.h;
+    prevSub=key;prevCore=t.core;t.si=subs.length-1;t.ci=cores.length-1;
+  });
+  const H=Math.ceil(y+bottom);
+  subs.forEach(s=>{s.f=s.terms.reduce((a,t)=>a+t.f,0);const span=s.y1-s.y0,lab=journalWrap9(s.name,cols[1].w-30).length*14+8;s.h=Math.min(span,Math.max(s.f,lab,24));s.y=s.y0+(span-s.h)/2;s.fy=s.y+(s.h-s.f)/2;});
+  cores.forEach(c=>{c.f=c.subs.reduce((a,s)=>a+s.f,0);const span=c.y1-c.y0;c.h=Math.min(span,Math.max(c.f,44));c.y=c.y0+(span-c.h)/2;c.fy=c.y+(c.h-c.f)/2;});
+  let ribbons='',nodes='',heads='';
+  const ribbon=(x1,y1,x2,y2,h,col,ids,label)=>{if(h<=0)return;const mx=x1+(x2-x1)*.5;ribbons+=`<path class="fm-ribbon" data-node="${ids}" fill="${col}" d="M${x1} ${y1} C${mx} ${y1} ${mx} ${y2} ${x2} ${y2} L${x2} ${y2+h} C${mx} ${y2+h} ${mx} ${y1+h} ${x1} ${y1+h} Z"><title>${esc(label)}</title></path>`;};
+  const sIn=subs.map(s=>s.fy),sOut=subs.map(s=>s.fy),cIn=cores.map(c=>c.fy);
+  terms.forEach((t,i)=>{const ids=`t${i} s${t.si} c${t.ci}`,lab=`${t.name} (${t.n}) → ${t.sub} → ${t.core}`;ribbon(cols[0].x+cols[0].w,t.fy,cols[1].x,sIn[t.si],t.f,t.col,ids,lab);sIn[t.si]+=t.f;ribbon(cols[1].x+cols[1].w,sOut[t.si],cols[2].x,cIn[t.ci],t.f,t.col,ids,lab);sOut[t.si]+=t.f;cIn[t.ci]+=t.f;});
+  terms.forEach((t,i)=>{const cy=t.y+t.h/2;nodes+=`<g class="fm-node" data-id="t${i}" role="img" aria-label="${esc(t.name)}, ${t.n} reported outcomes, maps through ${esc(t.sub)} to ${esc(t.core)}"><rect x="${cols[0].x}" y="${t.y}" width="${cols[0].w}" height="${t.h}" fill="${tint[t.core]}" stroke="#E5EAF0"/><rect x="${cols[0].x}" y="${t.y}" width="3" height="${t.h}" fill="${t.col}"/>${journalText9(cols[0].x+10,cy,t.name,cols[0].w-56,'chart-label','#16202C',12)}<text class="fm-count" x="${cols[0].x+cols[0].w-8}" y="${cy+4}" text-anchor="end">${t.n}</text></g>`;});
+  subs.forEach((s,i)=>{const cy=s.y+s.h/2;nodes+=`<g class="fm-node" data-id="s${i}" role="img" aria-label="${esc(s.name)} maps to ${esc(s.core)}"><rect x="${cols[1].x}" y="${s.y}" width="${cols[1].w}" height="${s.h}" fill="${tint[s.core]}" stroke="${s.col}" stroke-opacity=".6"/><rect x="${cols[1].x}" y="${s.y}" width="4" height="${s.h}" fill="${s.col}"/>${journalText9(cols[1].x+12,cy,s.name,cols[1].w-24,'chart-label','#16202C',12)}</g>`;});
+  cores.forEach((c,i)=>{const cy=c.y+c.h/2;nodes+=`<g class="fm-node" data-id="c${i}" role="img" aria-label="${esc(c.name)} COMET core area"><rect x="${cols[2].x}" y="${c.y}" width="${cols[2].w}" height="${c.h}" fill="${c.col}"/>${journalText9(cols[2].x+12,cy,c.name,cols[2].w-24,'chart-core-label',chartTextOn(c.col))}</g>`;});
+  const head=(x,w,a,b)=>journalText9(x,22,a,w,'chart-axis','#5E6A78')+journalText9(x,46,b,w,'chart-axis','#5E6A78');
+  heads+=head(cols[0].x,cols[0].w,'56 standardised outcomes','number = reported outcomes');heads+=head(cols[1].x,cols[1].w,'20 LeptoCOS sub-domains','disease-specific grouping');heads+=head(cols[2].x,cols[2].w,'5 COMET core areas','broad outcome framework');
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Alluvial map of the 56 standardised outcomes through 20 LeptoCOS sub-domains to the five COMET core areas; band width is proportional to the number of reported outcomes">${heads}<g>${ribbons}</g><g>${nodes}</g></svg>`;
+  const read=document.getElementById('full-map-readout'),base='<span class="mark"></span><span><b>Complete map:</b> band width is proportional to the number of reported outcomes (368). Hover over an outcome, sub-domain or core area to isolate its pathway.</span>';
+  if(read)read.innerHTML=base;
+  const reset=()=>{el.classList.remove('is-dim');el.querySelectorAll('.is-hot').forEach(x=>x.classList.remove('is-hot'));if(read)read.innerHTML=base;};
+  const hotNode=(id,msg)=>{reset();el.classList.add('is-dim');const con=new Set([id]);el.querySelectorAll('.fm-ribbon').forEach(p=>{const own=p.dataset.node.split(' ');if(own.includes(id)){p.classList.add('is-hot');own.forEach(n=>con.add(n));}});con.forEach(n=>{const g=el.querySelector(`.fm-node[data-id="${n}"]`);if(g)g.classList.add('is-hot');});if(read)read.innerHTML=`<span class="mark"></span><span><b>${esc(msg)}</b></span>`;};
+  el.querySelectorAll('.fm-ribbon').forEach(p=>{const ids=p.dataset.node.split(' ');p.addEventListener('mouseenter',()=>hotNode(ids[0],p.querySelector('title').textContent));p.addEventListener('mouseleave',reset);});
+  el.querySelectorAll('.fm-node').forEach(n=>{n.addEventListener('mouseenter',()=>hotNode(n.dataset.id,n.getAttribute('aria-label')));n.addEventListener('mouseleave',reset);});
+}
+function apply(){
+  try{
+    window.fullOutcomeMap=v10pFullOutcomeMap;window.compactOutcomeMap=v10pFullOutcomeMap;
+    var d=document.getElementById('hierarchy-description');
+    var setAll=function(){try{hierarchyExpanded=true;}catch(e){}v10pFullOutcomeMap();
+      var t=document.getElementById('hierarchy-stat-terms');if(t)t.textContent='56';var s=document.getElementById('hierarchy-stat-subdomains');if(s)s.textContent='20';var c=document.getElementById('hierarchy-stat-cores');if(c)c.textContent='5';
+      var ls=document.getElementById('hierarchy-label-subdomains');if(ls)ls.textContent='sub-domains';var lc=document.getElementById('hierarchy-label-cores');if(lc)lc.textContent='core areas';
+      if(d)d.textContent='All 56 standardised outcomes, grouped into 20 disease-specific LeptoCOS sub-domains and mapped to the five COMET core areas. Band width shows how many of the 368 reported outcomes each carries.';};
+    window.setHierarchyDetail=function(){setAll();};
+    setAll();
+  }catch(e){}
+}
+if(document.readyState!=='loading')apply();else document.addEventListener('DOMContentLoaded',apply);
+window.addEventListener('load',apply);
+var rt;window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){try{v10pFullOutcomeMap();}catch(e){}},200);});
+})();
+</script>
 </body>
 </html>
