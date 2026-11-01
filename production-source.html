@@ -1382,8 +1382,8 @@ html body #methods .v10c-prisma-viewport{border:0;outline:none!important;mask-im
         <div class="legend" id="core-leg"></div></div>
       <div class="card"><p class="ct">Trials reporting each core area (of 46)</p><p class="cn">How many of the 46 trials report at least one outcome in each core area.</p><div id="chart-gap" class="chart-port" role="region" tabindex="0" aria-label="Trials reporting each COMET core area. Scroll horizontally to see the full chart."></div></div>
     </div>
-    <div class="card" style="margin-top:16px"><p class="ct">Outcomes by sub-domain</p><p class="cn">The 20 sub-domains beneath the five core areas (16 largest shown). <a class="jump" href="#table1">Full counts are in the long list (Table 1) &#8594;</a></p><div id="chart-sub" class="chart-port" role="region" tabindex="0" aria-label="Outcomes by sub-domain. Scroll horizontally to see the full chart."></div></div>
-    <div class="card" style="margin-top:16px"><p class="ct">All 56 standardised outcomes, ranked by frequency</p><p class="cn">Number of trials reporting each standardised outcome, high to low, coloured by core area. Safety, survival and leptomeningeal response dominate; reporting then drops sharply, and 15 of the 56 appear in only one trial.</p><div id="chart-allfreq" class="chart-port" role="region" tabindex="0" aria-label="Trials reporting each standardised outcome. Scroll horizontally to see the full chart."></div></div>
+    <div class="card" style="margin-top:16px"><p class="ct">Outcomes by sub-domain</p><p class="cn">All 20 sub-domains beneath the five core areas, by number of outcomes. <a class="jump" href="#table1">Full counts are in the long list (Table 1) &#8594;</a></p><div id="chart-sub" class="chart-port" role="region" tabindex="0" aria-label="Outcomes by sub-domain. Scroll horizontally to see the full chart."></div></div>
+    <div class="card" style="margin-top:16px"><p class="ct">All 56 standardised outcomes, ranked by number of trials reporting each</p><p class="cn">Number of trials reporting each standardised outcome, high to low, coloured by core area. Safety, survival and leptomeningeal response dominate; reporting then drops sharply, and 15 of the 56 appear in only one trial.</p><div id="chart-allfreq" class="chart-port" role="region" tabindex="0" aria-label="Trials reporting each standardised outcome. Scroll horizontally to see the full chart."></div></div>
   </section>
 
   <section id="coverage">
@@ -1964,7 +1964,7 @@ const journalChartArgs9=new Map();
 function chartWidth9(el,fallback){
   const cap=Infinity;
   const width=Math.min(cap,el.getBoundingClientRect().width||fallback);
-  return el.id==='treemap'||!matchMedia('(max-width:759.98px)').matches?width:Math.max(fallback,width);
+  return el.id==='treemap'||V15_FIT.includes(el.id)||!matchMedia('(max-width:759.98px)').matches?width:Math.max(fallback,width);
 }
 function journalWrap9(text,width,font=12.5){
   const size=Math.max(1,Math.floor(width/(font*.60))),lines=[];let rest=String(text);
@@ -2045,9 +2045,22 @@ function journalResize9(){
 window.addEventListener('resize',journalResize9);window.addEventListener('hashchange',journalResize9);
 window.addEventListener('DOMContentLoaded',journalResize9);requestAnimationFrame(journalResize9);
 
+/* v15 phone helpers: charts listed here use the container width on phones. */
+const V15_FIT=['chart-gap','chart-sub','chart-allfreq','chart-pri','genome'];
+function v15Phone(el){return matchMedia('(max-width:759.98px)').matches&&(el.getBoundingClientRect().width||999)<600;}
+function v15PhoneBars(el,items,max,aria){
+  const W=Math.round(el.getBoundingClientRect().width)||358,rowH=36,top=4,padR=44,bw=W-padR,mx=max||Math.max(...items.map(i=>i.value),1),H=top*2+items.length*rowH;
+  let s='<svg viewBox="0 0 '+W+' '+H+'" width="100%" role="img" aria-label="'+esc(aria)+'">';
+  items.forEach((it,i)=>{const y=top+i*rowH,w=Math.max(1,it.value/mx*bw);
+    s+='<text x="0" y="'+(y+12)+'" class="chart-axis" font-size="12.5" fill="#5E6A78">'+esc(it.label)+'</text>';
+    s+='<rect class="bar" x="0" y="'+(y+17)+'" width="'+w+'" height="12" fill="'+it.color+'"><title>'+esc(it.title)+'</title></rect>';
+    s+='<text x="'+(w+6)+'" y="'+(y+27)+'" class="chart-value" font-size="12.5" fill="#16202C">'+esc(String(it.shown))+'</text>';});
+  el.innerHTML=s+'</svg>';
+}
 /* ---------- SVG helpers ---------- */
 function hbars(el,items,{max,fmt,onClick,ref,padL:padLo,aria}){
   journalChartArgs9.set(el,{fn:hbars,args:[el,items,{max,fmt,onClick,ref,padL:padLo,aria}]});
+  if(v15Phone(el)){v15PhoneBars(el,items.map(it=>({label:it.label,value:it.value,color:it.color,title:it.label+': '+(fmt?fmt(it):it.value),shown:fmt?fmt(it):it.value})),max,aria||('Horizontal bar chart: '+items.map(i=>i.label).join(', ')));return;}
   const W=chartWidth9(el,el.id==='chart-gap'?760:680),padL=el.id==='chart-sub'?220:(padLo||190),padR=66,rowH=21,top=8,H=top*2+items.length*rowH,mx=max||Math.max(...items.map(i=>i.value),1),bw=W-padL-padR;
   let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc(aria||('Horizontal bar chart: '+items.map(i=>i.label).join(', ')))}">`;
   items.forEach((it,i)=>{const y=top+i*rowH,bh=14,w=Math.max(1,it.value/mx*bw);
@@ -2063,7 +2076,7 @@ function stacked(el,segs,total,onClick){
   journalChartArgs9.set(el,{fn:stacked,args:[el,segs,total,onClick]});
   const W=chartWidth9(el,750),H=44,y=8,bh=28,bw=W-8;let x=4,s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc('Stacked bar of the share of outcomes by priority: '+segs.map(g=>g.label).join(', '))}">`;
   segs.forEach(sg=>{const w=sg.value/total*bw;s+=`<rect class="bar" x="${x}" y="${y}" width="${Math.max(0,w-1)}" height="${bh}" fill="${sg.color}" data-k="${esc(sg.key)}"><title>${esc(sg.label)}: ${sg.value} (${Math.round(sg.value/total*100)}%)</title></rect>`;
-    if(sg.value/total>.10){s+=`<text x="${x+w/2}" y="${y+bh/2+4}" text-anchor="middle" class="priority-label" font-size="12.5" font-weight="600" fill="${chartTextOn(sg.color)}">${sg.value} · ${Math.round(sg.value/total*100)}%</text>`;}x+=w;});
+    if(sg.value/total>.10&&w>=64){s+=`<text x="${x+w/2}" y="${y+bh/2+4}" text-anchor="middle" class="priority-label" font-size="12.5" font-weight="600" fill="${chartTextOn(sg.color)}">${sg.value} · ${Math.round(sg.value/total*100)}%</text>`;}x+=w;});
   s+='</svg>';el.innerHTML=s;el.querySelectorAll('.bar').forEach(b=>b.addEventListener('click',()=>onClick(b.getAttribute('data-k'))));
 }
 /* squarified treemap (5 core areas) */
@@ -2084,7 +2097,7 @@ function treemap(){
   let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc('Treemap of the share of outcomes in each COMET core area: '+data.map(d=>d.k).join(', ')+'. Counts are in Table 1 on the Long list page.')}">`;
   rects.forEach(r=>{const pct=(r.v/total*100).toFixed(1);const big=labelKeys.has(r.k);
     s+=`<rect class="tm" x="${r.x+.5}" y="${r.y+.5}" width="${Math.max(0,r.w-1)}" height="${Math.max(0,r.h-1)}" fill="${CORE_COL[r.k]}" data-k="${esc(r.k)}"><title>${esc(r.k)}: ${r.v} (${pct}%)</title></rect>`;
-    if(big){const lines=journalWrap9(r.k,r.w-20);s+=journalText9(r.x+10,r.y+12+lines.length*7.25,r.k,r.w-20,'treemap-label','#FFFFFF');s+=journalText9(r.x+10,r.y+24+lines.length*14.5,r.v+' · '+pct+'%',r.w-20,'treemap-label','#FFFFFF');}
+    if(big){const lab=journalWrap9(r.k,r.w-20).length>1&&r.k.includes('/')?r.k.replace('/','/ '):r.k,lines=journalWrap9(lab,r.w-20);s+=journalText9(r.x+10,r.y+12+lines.length*7.25,lab,r.w-20,'treemap-label','#FFFFFF');s+=journalText9(r.x+10,r.y+24+lines.length*14.5,r.v+' · '+pct+'%',r.w-20,'treemap-label','#FFFFFF');}
 });
   s+='</svg>';el.innerHTML=s;
   el.querySelectorAll('.tm').forEach(t=>t.addEventListener('click',()=>{setCore(t.getAttribute('data-k'));gotoTable();}));
@@ -2104,7 +2117,7 @@ function sankeyText10d(x,cy,text,width,cls='chart-label',colour='#16202C',font=1
   return '<text class="'+cls+'" font-size="'+font+'" fill="'+colour+'" text-anchor="'+anchor+'">'+body+'</text>';
 }
   const rano={label:'RANO-LM based',n:7,node:'#336699',leaves:[["RANO-LM",6,"2020 to 2025"],["Modified RANO-LM radiological criteria",1,"2021"]]};
-  const besp={label:'Not RANO-LM based',n:18,node:'#8A8F98',leaves:[["CSF cytology conversion + neurologic stability",6,"1999 to 2015"],["CSF cytology + neurologic status",1,"2006"],["CSF cytology + neurologic symptoms",1,"2002"],["CSF cytology + biochemistry + neurologic",1,"2000"],["Cytologic + biochemical + neurologic + radiographic composite",1,"1993"],["Clinical + MRI + CSF composite",1,"2020"],["CSF + radiographic + clinical composite",1,"2023"],["Cytologic + neurologic + radiographic",1,"2021"],["RECIST v1.1 (LM non-target lesion)",1,"2020"],["Neurologic exam + CSF cytology + imaging composite",1,"1998"],["Cytologic + clinical + neuroimaging composite",1,"1998"],["EANO-ESMO response assessment criteria",1,"2025"],["CSF findings + neurologic deficits + walking",1,"1996"]]};
+  const besp={label:'Not RANO-LM based',n:18,node:'#8A8F98',leaves:[["CSF cytology conversion + neurologic stability",6,"1999 to 2015"],["CSF cytology + neurologic status",1,"2006"],["CSF cytology + neurologic symptoms",1,"2002"],["CSF cytology + biochemistry + neurologic",1,"2000"],["Cytologic + biochemical + neurologic + radiographic composite",1,"1993"],["Clinical + MRI composite",1,"2020"],["CSF + radiographic + clinical composite",1,"2023"],["Cytologic + neurologic + radiographic",1,"2021"],["RECIST v1.1 (LM non-target lesion)",1,"2020"],["Neurologic exam + CSF cytology + imaging composite",1,"1998"],["Cytologic + clinical + neuroimaging composite",1,"1998"],["EANO-ESMO response assessment criteria",1,"2025"],["CSF findings + neurologic deficits + walking",1,"1996"]]};
 
   const el=document.getElementById('sankey');if(!el)return;
   const total=rano.n+besp.n,W=chartWidth9(el,1500),top=36,scale=18,aX=110,aW=11,bX=Math.max(230,Math.min(300,W*.32)),bW=8,cX=Math.max(425,W*.52),cW=8,leafGap=10,groupGap=24;
@@ -2131,6 +2144,7 @@ function sankeyText10d(x,cy,text,width,cls='chart-label',colour='#16202C',font=1
 function allFreqChart(){
   const el=document.getElementById('chart-allfreq');if(!el)return;
   const items=Object.entries(studyPerTerm).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]));
+  if(v15Phone(el)){v15PhoneBars(el,items.map(([t,v])=>({label:t,value:v,color:CORE_COL[(TERM_META[t]||{}).core]||'#8894A2',title:t+': '+v+' trial'+(v===1?'':'s'),shown:v})),0,'Bar chart of the number of trials reporting each standardised outcome, from most to least reported, coloured by COMET core area. Counts are in Table 1 on the Long list page.');return;}
   const W=chartWidth9(el,1100),padL=320,padR=46,rowH=21,top=10,H=top*2+items.length*rowH,mx=Math.max(...items.map(i=>i[1]),1),bw=W-padL-padR;
   let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Bar chart of the number of trials reporting each standardised outcome, from most to least reported, coloured by COMET core area. Counts are in Table 1 on the Long list page.">`;
   items.forEach(([t,v],i)=>{const y=top+i*rowH,bh=14,w=Math.max(1,v/mx*bw),col=CORE_COL[(TERM_META[t]||{}).core]||'#8894A2';
@@ -2155,6 +2169,22 @@ function coverageMatrix(mode){
   const stTerms={};DATA.forEach(d=>{(stTerms[d.study]=stTerms[d.study]||new Set()).add(d.std);});
   const cols=Object.keys(stTerms).sort((a,b)=>yr(a)-yr(b)||a.localeCompare(b));
   const has=new Set();DATA.forEach(d=>has.add(d.study+'||'+d.std));
+  if(v15Phone(el)){
+    const W=Math.round(el.getBoundingClientRect().width)||358,padR=30,gap=1,cw=(W-padR)/cols.length,cellW=cw-gap,rowH=30,padT=4,gridB=padT+rows.length*rowH;
+    const H=gridB+64;
+    let s='<svg viewBox="0 0 '+W+' '+H+'" width="100%" role="img" aria-label="Coverage grid: standardised outcomes in rows, trials in columns ordered by year; a filled cell means the trial reported that outcome.">';
+    rows.forEach((t,i)=>{const y=padT+i*rowH,col=CORE_COL[(TERM_META[t]||{}).core]||'#8894A2';
+      s+='<text x="0" y="'+(y+11)+'" class="chart-axis" font-size="12" fill="#5E6A78">'+esc(t)+'</text>';
+      cols.forEach((st,j)=>{const on=has.has(st+'||'+t);s+='<rect x="'+(j*cw)+'" y="'+(y+15)+'" width="'+cellW+'" height="11" fill="'+(on?col:'#F2F4F7')+'"><title>'+esc(st)+' · '+esc(t)+(on?'':' (not reported)')+'</title></rect>';});
+      s+='<text x="'+W+'" y="'+(y+24.5)+'" text-anchor="end" class="chart-value" font-size="12" fill="#16202C">'+studyPerTerm[t]+'</text>';});
+    const y0=yr(cols[0]),y1=yr(cols[cols.length-1]);
+    s+='<text x="0" y="'+(gridB+12)+'" class="chart-year" font-size="11" fill="#5E6A78">'+(y0===9999?'n/a':y0)+'</text><text x="'+(W-padR)+'" y="'+(gridB+12)+'" text-anchor="end" class="chart-year" font-size="11" fill="#5E6A78">'+(y1===9999?'n/a':y1)+'</text>';
+    s+=journalText9(0,gridB+36,"Each column is one of 46 trials, ordered by year: earliest (left) to latest (right)",W,"chart-axis","#5E6A78");
+    s+='</svg>';el.innerHTML=s;
+    const old=el.nextElementSibling;if(old&&old.classList&&old.classList.contains('genome-legend'))old.remove();
+    el.insertAdjacentHTML('afterend','<div class="legend genome-legend" style="margin-top:12px">'+CORE_ORDER.map(c=>`<span class="s"><i style="background:${CORE_COL[c]}"></i>${esc(c)}</span>`).join('')+'</div>');
+    return;
+  }
   const W=chartWidth9(el,1250),cell=14,gap=1,padL=320,padR=40,padT=10,cellW=(W-padL-padR)/cols.length-gap,cw=cellW+gap,rowH=15,gridB=padT+rows.length*rowH;
   const H=gridB+66;
   let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Coverage grid: standardised outcomes in rows, trials in columns ordered by year; a filled cell means the trial reported that outcome.">`;
@@ -2270,7 +2300,7 @@ function setHierarchyDetail(expanded){
 /* ---- charts ---- */
 treemap();
 hbars(document.getElementById('chart-gap'),CORE_ORDER.map(c=>({label:c,key:c,value:coreStudies[c]||0,color:CORE_COL[c]})),{max:studies.length,onClick:c=>{setCore(c);gotoTable();}});
-const subTop=Object.entries(subCounts).sort((a,b)=>b[1]-a[1]).slice(0,16);
+const subTop=Object.entries(subCounts).sort((a,b)=>b[1]-a[1]).slice(0,20);
 hbars(document.getElementById('chart-sub'),subTop.map(([s,v])=>({label:s,key:s,value:v,color:CORE_COL[coreOfSub[s]]||'#889'})),
   {onClick:s=>{state.search=s;document.getElementById('search').value=s;gotoTable();render();}});
 sankey();setHierarchyDetail(false);allFreqChart();coverageMatrix();
@@ -3604,9 +3634,18 @@ function sankeyText10d(x,cy,text,width,cls='chart-label',colour='#16202C',font=1
   return '<text class="'+cls+'" font-size="'+font+'" fill="'+colour+'" text-anchor="'+anchor+'">'+body+'</text>';
 }
   const rano={label:'RANO-LM based',n:7,node:'#336699',leaves:[["RANO-LM",6,"2020 to 2025"],["Modified RANO-LM radiological criteria",1,"2021"]]};
-  const besp={label:'Not RANO-LM based',n:18,node:'#8A8F98',leaves:[["CSF cytology conversion + neurologic stability",6,"1999 to 2015"],["CSF cytology + neurologic status",1,"2006"],["CSF cytology + neurologic symptoms",1,"2002"],["CSF cytology + biochemistry + neurologic",1,"2000"],["Cytologic + biochemical + neurologic + radiographic composite",1,"1993"],["Clinical + MRI + CSF composite",1,"2020"],["CSF + radiographic + clinical composite",1,"2023"],["Cytologic + neurologic + radiographic",1,"2021"],["RECIST v1.1 (LM non-target lesion)",1,"2020"],["Neurologic exam + CSF cytology + imaging composite",1,"1998"],["Cytologic + clinical + neuroimaging composite",1,"1998"],["EANO-ESMO response assessment criteria",1,"2025"],["CSF findings + neurologic deficits + walking",1,"1996"]]};
+  const besp={label:'Not RANO-LM based',n:18,node:'#8A8F98',leaves:[["CSF cytology conversion + neurologic stability",6,"1999 to 2015"],["CSF cytology + neurologic status",1,"2006"],["CSF cytology + neurologic symptoms",1,"2002"],["CSF cytology + biochemistry + neurologic",1,"2000"],["Cytologic + biochemical + neurologic + radiographic composite",1,"1993"],["Clinical + MRI composite",1,"2020"],["CSF + radiographic + clinical composite",1,"2023"],["Cytologic + neurologic + radiographic",1,"2021"],["RECIST v1.1 (LM non-target lesion)",1,"2020"],["Neurologic exam + CSF cytology + imaging composite",1,"1998"],["Cytologic + clinical + neuroimaging composite",1,"1998"],["EANO-ESMO response assessment criteria",1,"2025"],["CSF findings + neurologic deficits + walking",1,"1996"]]};
 
   const el=document.getElementById('v10s-sankey');if(!el||!el.getClientRects().length)return;
+  const v15Note=document.getElementById('v10s-sankey-note'),v15List=matchMedia('(max-width:619.98px)').matches;
+  if(v15Note)v15Note.textContent=v15List?'Each number is the count of study records using that definition.':'N = number of study records using that definition; definitions without a number were each used by one study record.';
+  if(v15List){
+    const tot=rano.n+besp.n,row=(lf,col)=>'<div class="rs-phone-row v15-leaf" style="--rs-node:'+col+'"><div class="v15-leaf-in"><span>'+esc(lf[0])+'<small>'+esc(lf[2])+'</small></span><b>'+lf[1]+'</b></div></div>';
+    el.classList.remove('dim');el.setAttribute('aria-label','Leptomeningeal response definitions across '+tot+' study records, listed with the number of records using each');
+    el.innerHTML='<div class="rs-phone-head"><span>RANO-LM based <b>'+rano.n+'</b></span><span>Not RANO-LM based <b>'+besp.n+'</b></span></div><div class="rs-phone-bar" role="img" aria-label="'+rano.n+' of '+tot+' study records RANO-LM based; '+besp.n+' not RANO-LM based"><span style="width:'+(100*rano.n/tot).toFixed(1)+'%"></span></div>'
+      +'<p class="v15-leaf-group">RANO-LM based</p>'+rano.leaves.map(lf=>row(lf,rano.node)).join('')+'<p class="v15-leaf-group">Not RANO-LM based</p>'+besp.leaves.map(lf=>row(lf,besp.node)).join('');
+    return;
+  }
   const total=rano.n+besp.n,W=chartWidth9(el,1500),top=36,scale=18,aX=110,aW=11,bX=Math.max(230,Math.min(300,W*.32)),bW=8,cX=Math.max(425,W*.52),cW=8,leafGap=10,groupGap=24;
   const TEAL='#336699',ROSE='#8A8F98',leafX=cX+cW+8,leafWidth=W-leafX-12;
   let cy=top;const cpos=[];
@@ -3708,7 +3747,7 @@ html body :is(#hetero,#explore,#compartment).v10s-section .v10t-content .full-en
   'use strict';
   if (window.__v10tResponse) return;
   window.__v10tResponse = true;
-  const data = {"counts":{"rano":{"Clinical assessment":"3 of 6 (6 of 6 assessed)","CSF cytology":"3 of 6 (4 of 6 assessed)","Imaging":"6 of 6 (6 of 6 assessed)","CSF biochemistry":"0 of 6 (0 of 6 identified in available sources; 1 planned only)","Other measures":"0 of 6 (4 of 6 assessed or reported)"},"modified":{"Clinical assessment":"1 of 1 (1 of 1 assessed)","CSF cytology":"0 of 1 (0 of 1 assessed; follow-up explicitly not done)","Imaging":"1 of 1 (1 of 1 assessed)","CSF biochemistry":"0 of 1 (0 of 1 follow-up assessments identified; baseline only)","Other measures":"0 of 1 (0 of 1 identified in available sources)"},"no-imaging":{"Clinical assessment":"10 of 10 (10 of 10 assessed)","CSF cytology":"10 of 10 (10 of 10 assessed)","Imaging":"0 of 10 (1 of 10 assessed)","CSF biochemistry":"2 of 10 (3 of 10 assessed; includes safety monitoring)","Other measures":"1 of 10 (2 of 10 assessed or reported)"},"composite":{"Clinical assessment":"6 of 6 (6 of 6 assessed)","CSF cytology":"5 of 6 (6 of 6 assessed)","Imaging":"6 of 6 (6 of 6 assessed)","CSF biochemistry":"1 of 6 (3 of 6 documented; includes 1 scheduled assessment)","Other measures":"1 of 6 (5 of 6 assessed or reported)"},"eano":{"Clinical assessment":"1 of 1 (1 of 1 assessed)","CSF cytology":"1 of 1 (1 of 1 assessed)","Imaging":"1 of 1 (1 of 1 assessed)","CSF biochemistry":"0 of 1 (1 of 1 assessed)","Other measures":"0 of 1 (0 of 1 identified in available sources)"},"recist":{"Clinical assessment":"0 of 1 (1 of 1 assessed)","CSF cytology":"0 of 1 (1 of 1 assessed)","Imaging":"1 of 1 (1 of 1 assessed)","CSF biochemistry":"0 of 1 (0 of 1 identified in available sources)","Other measures":"0 of 1 (1 of 1 assessed)"},"all":{"Clinical assessment":"21 of 25 (25 of 25 assessed)","CSF cytology":"19 of 25 (22 of 25 assessed)","Imaging":"15 of 25 (16 of 25 assessed)","CSF biochemistry":"3 of 25 (7 of 25 documented; includes 1 scheduled assessment)","Other measures":"2 of 25 (12 of 25 assessed or reported)"}},"replacements":[["Main components in the selected response definitions","Main components in the selected response definitions, with components assessed"],["Values count records with a role for each component in the selected definition. Zero means no role identified; it does not mean the test was never performed. Not stated means unspecified.","First number: in the selected response definition. Parentheses: assessed or reported during response follow-up, including separate endpoints; planned-only findings, scheduled assessments and source limits are identified explicitly."],["Three of the six RANO-LM records assessed imaging response alone.","Three of the six RANO-LM records used imaging alone to define the response rate. All six also assessed clinical status, and four assessed CSF cytology."],["Clinical assessment and CSF cytology, without imaging","Clinical assessment and CSF cytology; imaging not in the definition"],["Definitions without imaging","Clinical assessment and CSF cytology; imaging not in the definition"],["Counts describe roles in selected response rules. Conditional roles are included. Components need not all improve together.","The primary count records an explicit role in the selected response definition, including conditional roles. The bracketed count also includes separate response endpoints and documented follow-up assessments. A zero does not mean a test was never mentioned or performed. Baseline-only tests, planned-only assays, author exclusions and source limits are described in the study notes."],["All components in the selected definitions","All components in the selected response definitions, with components assessed or reported"],["Records with each component","All records"],["The clinical total contains 20 explicit components plus one qualified record with clinical input. The totals overlap and should not be added.","Clinical input is included in 21 selected definitions, including Lu 2021, where the integration rule is not specified. Component totals overlap and should not be added."],["The full framework combines neurological examination, CSF tumour cell assessment and brain and spine MRI. Some records used its imaging assessment alone.","The full framework combines neurological examination, CSF tumour cell assessment and brain and spine MRI. Some records used imaging alone in their selected response definition and also assessed other components."],["Lu 2021 named modified imaging criteria without specifying the exact change. Clinical symptoms also informed assessment, but their formal role is unclear.","Lu 2021 named modified imaging criteria without specifying the exact change. Clinical symptom improvement informed the MRI response judgment; the exact integration rule is not specified."],["Code a component when it has an explicit role in at least one response rule or category, including a conditional role. Diagnosis, eligibility, safety monitoring and separate outcomes do not establish a role in that response definition.","For the primary count, code a component when it has an explicit role in the selected response rule or category, including a conditional role. Diagnosis, eligibility, safety monitoring and separate outcomes do not establish a role in that selected definition. The parenthetical count separately includes documented follow-up assessments and reporting, with their purposes identified in the study notes."],["Zero means no role identified. Not stated means unspecified. Components need not all improve together. Component totals overlap and should not be added.","A primary zero means no role identified in the selected definition. A parenthetical zero means no qualifying follow-up assessment was identified in the available sources, subject to the stated source limits. Baseline-only use and planned-only measures are disclosed separately. Components need not all improve together. Component totals overlap and should not be added."],["Clinical input is reported, but its formal integration is unspecified. This is the qualified clinical entry.","Clinical assessment performed and reported. The authors state it informed the MRI response judgment; the exact integration rule is not specified."],["Clinical status and MRI determine global LM response. CSF response is assessed separately.","Clinical status and MRI determine global LM response. CSF cytological response was formally defined and reported separately."],["The inventory uses the prespecified LM protocol definition. Published CNS response results used iRANO, a different assessment.","The inventory uses the prespecified LM protocol definition. Published CNS response results used iRANO, a different assessment. The separate protocol intracranial criteria require stable or decreasing corticosteroids."],["Methods names a revised LANO imaging grid. Discussion leaves uncertainty about the precise scorecard applied.","Methods names the revised Leptomeningeal Assessment in Neuro-Oncology (LANO) grid and cites Le Rhun 2019. Discussion leaves uncertainty about its precise implementation; it does not establish use of the later 2022 scorecard."],["Walking independence is coded for Nakagawa 1996 and corticosteroid dose for Chamberlain 1998.","Walking independence is coded in the selected definition for Nakagawa 1996 and corticosteroid dose for Chamberlain 1998. The broader assessment count also includes the named molecular, pressure-related, quality-of-life and steroid measures described in the study notes."],["Modified RANO-LM radiological response; exact modification not specified.","Modified RANO-LM radiological response informed by clinical symptom improvement; the exact integration rule is not specified."],["RANO-LM neurological, cytological and imaging response; imaging scorecard version requires qualification.","RANO-LM clinical, CSF cytological and imaging assessment; Methods names the revised Leptomeningeal Assessment in Neuro-Oncology (LANO) grid, but the Discussion leaves the implemented scorecard version unclear."],["Disease sites follow the standardised outcome categories in the review workbook. Park 2024 row 107 remains in the LM column, although the original outcome is labelled intracranial ORR.","The investigator RECIST assessment in Park 2024 is grouped under LM response because Table 2 footnote b specifies response of LM only, although the outcome is labelled intracranial ORR."]],"evidence":[["Pina 2025","Pina 2025: \"Two patients remained alive and clinically well\" documents post-treatment clinical status, not a clinical response criterion; paired CSF immunocellular profiling was a separate secondary endpoint. A CSF cytokine profile was registered as planned, while the publication reports RNA profiling rather than a completed chemical result (p6; p11; registered secondary outcomes)."],["Chen H 2025","Chen H 2025: \"the clinical response rate was 75%\" refers to a separately defined clinical endpoint outside the selected radiological LM ORR; CSF cfDNA methylation and copy-number burden were also analysed against response (pp67, 69 to 71)."],["Park 2024","Park 2024: \"Quality-of-life assessment during the treatment\" is reported in Figure 3; neurological examinations and follow-up CSF cytology were also assessed outside the selected BICR imaging definition. The SAP defines a separate CSF response rate and plans post-treatment ctDNA analysis, whose completion is not established here (pp2749, 2751 and 2753; SAP sections 9.2.5 and 11.2)."],["Pan 2023","Pan 2023: \"intracranial hypertension and neurological symptoms and deficits that indicated CSF flow obstruction\" improved in 72% of patients; this is additional pressure/indirect flow reporting outside the formal triad, and no CSF flow scan was performed (pp6, 7)."],["Esteva 2000","Esteva 2000: \"CT or MRI of the brain was repeated every 6 weeks.\" Imaging was monitored but was not a criterion in the stated response definition (p383, Monitoring and response determination)."],["Glantz 1999 ID 692","Glantz 1999 (ID 692): \"CSF examinations for WBCs and RBCs, glucose, protein, and malignant cells\" identifies serial examinations performed before each cycle of therapy in the toxicity-monitoring paragraph, outside response criteria; FACT-CNS was measured at entry and end of induction and compared by responder status (pp3396, 3398)."],["Rhun 2020","Rhun 2020: global LM response requires \"clinical and MRI response\"; a separate formal CSF response was defined and reported as cytological complete responses in 5 (14%) versus 10 (28%) patients. CSF biochemical analysis was scheduled and steroid dose was recorded on the neurological grid; neither entered the global response definition, and no steroid analysis was performed (Table S8; p531; Tables S4 and S2; p534)."],["Kumthekar 2023","Kumthekar 2023: \"A subset of patients within this clinical trial underwent these evaluations\" refers to the separately reported CSF circulating tumour-cell substudy; it is outside the clinical, cytological and MRI response definition. Biochemical response assessment was not found in available sources, and the cited supplementary response table was unavailable (p563)."],["Brastianos 2021","Brastianos 2021: \"We evaluated cell counts, glucose, and protein from CSF samples\" before and during treatment; these measurements and corticosteroid trajectories were reported outside the selected protocol LM triad (p3; Supplementary Tables 2 and 3; protocol section 11.4)."],["Bokstein 1998","Bokstein 1998: \"The quality of life of the responders who were treated without intra-CSF chemotherapy was better\" is qualitative reporting outside the integrated neurological, cytological and imaging response criteria; no instrument or schedule is given (p1762)."],["Xu Q 2025","Xu Q 2025: \"CSF tumor marker responses were classified as response, stable, or progression\" defines a separate longitudinal biochemical response endpoint outside the selected EANO-ESMO clinical, imaging and cytology definition (Results, concordance analysis; Table 2 and Supplementary Table S7)."],["Park 2020","Park 2020: \"CSF cytology in the LM cohort was performed along with radiologic response evaluation\" in patients with an Ommaya reservoir; neurological examinations were scheduled in the protocol, and serial CSF EGFR T790M disappearance was reported. These additional assessments are outside the RECIST LM non-target response definition (Extended materials; protocol section 6.2)."],["Lu 2021","Lu 2021: \"the response criteria of MRI were judged according to the improvement of clinical symptoms\" establishes clinical input, with no specified integration rule; follow-up CSF assessment is explicitly \"Not done\" for all 14 patients (p178; Table 2)."],["Orlando 2002","Orlando 2002: \"we did not consider these values as parameters for assessement of response\" explicitly excludes CSF biochemistry, and the authors also exclude CT/MRI response evaluation; these components were excluded by the authors, not merely unspecified (p3059)."],["Chamberlain 1998","Chamberlain 1998: \"No biochemical markers (eg, lactate dehydrogenase) were used in evaluating CSF responses.\" They were excluded by the authors; baseline protein/glucose abnormalities were reported, and stable or decreasing steroid dosage is a formal cytological response condition (pp507, 508)."],["Pan 2020","Pan 2020: \"The following parameters were determined before treatment\" includes CSF biochemistry; it is baseline-only reporting, not a serial biochemical response result or a formal response criterion (p3; Table 1)."],["Grossman 1993","Grossman 1993: \"normal CSF protein and glucose levels\" is part of the four-component complete-response rule in the available transcript. The original PDF was not found in available sources; no additional Other response component was found in that transcript (transcript, p563)."]],"notes":[["Lu clinical","Clinical assessment performed and reported. The authors state it informed the MRI response judgment; the exact integration rule is not specified."],["Lu cytology","Follow-up CSF assessment explicitly not done (Table 2, all 14 patients). Baseline diagnostic cytopathology was performed."],["Lu biochemistry","Baseline CSF protein was reported. No biochemical criterion or follow-up biochemical response assessment was found in the available sources."],["Lu Other","No additional response component was identified in the available sources."],["Orlando biochemistry and imaging","CSF biochemical markers and imaging were excluded by the authors from response evaluation. Diagnostic or baseline use does not change those exclusions."],["Chamberlain 1998 biochemistry","Biochemical markers were excluded by the authors from CSF response evaluation. Baseline CSF protein and glucose abnormalities were reported."],["Kumthekar biochemistry","CSF biochemical response assessment: not found in available sources. The cited per-patient supplementary response table was not available for this review."],["Grossman record provenance and Other","Coding is supported by the available full-text transcript; the original article PDF was not found in available sources. No additional Other response component was found in that transcript."],["Pan 2020 biochemistry","CSF biochemistry was reported before treatment, including abnormalities in 28 of 34 patients. It was not a response criterion, and no serial biochemical response result was identified."]],"steroid":"The protocol intracranial complete-response criteria require \"stable or decreasing corticosteroids\". This condition is separate from the dedicated LM table; the published CNS response used iRANO, and corticosteroid-dose changes were reported alongside response outcomes.","qualification":"Rhun 2020 contributes a scheduled CSF biochemical assessment, not a separately established serial biochemical result. Glantz 1999 (ID 692) contributes safety monitoring. Kumthekar 2023 has a missing supplementary response table and is not counted as a biochemical positive. Pina 2025 has a planned-only cytokine assessment. Grossman 1993 is supported by the available transcript. Baseline-only measurements are described in the study notes.","composite":"Includes the Brastianos 2021 protocol LM definition. Published CNS results used iRANO. The separate protocol intracranial criteria require stable or decreasing corticosteroids."};
+  const data = {"counts":{"rano":{"Clinical assessment":"3 of 6 (6 of 6 assessed)","CSF cytology":"3 of 6 (4 of 6 assessed)","Imaging":"6 of 6 (6 of 6 assessed)","CSF biochemistry":"0 of 6 (0 of 6 identified in available sources; 1 planned only)","Other measures":"0 of 6 (4 of 6 assessed or reported)"},"modified":{"Clinical assessment":"1 of 1 (1 of 1 assessed)","CSF cytology":"0 of 1 (0 of 1 assessed; follow-up explicitly not done)","Imaging":"1 of 1 (1 of 1 assessed)","CSF biochemistry":"0 of 1 (0 of 1 follow-up assessments identified; baseline only)","Other measures":"0 of 1 (0 of 1 identified in available sources)"},"no-imaging":{"Clinical assessment":"10 of 10 (10 of 10 assessed)","CSF cytology":"10 of 10 (10 of 10 assessed)","Imaging":"0 of 10 (1 of 10 assessed)","CSF biochemistry":"2 of 10 (3 of 10 assessed; includes safety monitoring)","Other measures":"1 of 10 (2 of 10 assessed or reported)"},"composite":{"Clinical assessment":"6 of 6 (6 of 6 assessed)","CSF cytology":"5 of 6 (6 of 6 assessed)","Imaging":"6 of 6 (6 of 6 assessed)","CSF biochemistry":"1 of 6 (3 of 6 documented; includes 1 scheduled assessment)","Other measures":"1 of 6 (5 of 6 assessed or reported)"},"eano":{"Clinical assessment":"1 of 1 (1 of 1 assessed)","CSF cytology":"1 of 1 (1 of 1 assessed)","Imaging":"1 of 1 (1 of 1 assessed)","CSF biochemistry":"0 of 1 (1 of 1 assessed)","Other measures":"0 of 1 (0 of 1 identified in available sources)"},"recist":{"Clinical assessment":"0 of 1 (1 of 1 assessed)","CSF cytology":"0 of 1 (1 of 1 assessed)","Imaging":"1 of 1 (1 of 1 assessed)","CSF biochemistry":"0 of 1 (0 of 1 identified in available sources)","Other measures":"0 of 1 (1 of 1 assessed)"},"all":{"Clinical assessment":"21 of 25 (25 of 25 assessed)","CSF cytology":"19 of 25 (22 of 25 assessed)","Imaging":"15 of 25 (16 of 25 assessed)","CSF biochemistry":"3 of 25 (7 of 25 documented; includes 1 scheduled assessment)","Other measures":"2 of 25 (12 of 25 assessed or reported)"}},"replacements":[["Values count records with a role for each component in the selected definition. Zero means no role identified; it does not mean the test was never performed. Not stated means unspecified.","Each number counts the study records whose response rule includes that component. Outside the rule, clinical status was also assessed in 4 records, CSF cytology in 3 and imaging in 1 (see Study definitions and sources)."],["Three of the six RANO-LM records assessed imaging response alone.","Three of the six RANO-LM records used imaging alone to define the response rate. All six also assessed clinical status, and four assessed CSF cytology."],["Clinical assessment and CSF cytology, without imaging","Clinical assessment and CSF cytology; imaging not in the definition"],["Definitions without imaging","Clinical assessment and CSF cytology; imaging not in the definition"],["Counts describe roles in selected response rules. Conditional roles are included. Components need not all improve together.","The primary count records an explicit role in the selected response definition, including conditional roles. The bracketed count also includes separate response endpoints and documented follow-up assessments. A zero does not mean a test was never mentioned or performed. Baseline-only tests, planned-only assays, author exclusions and source limits are described in the study notes."],["All components in the selected definitions","All components in the selected response definitions, with components assessed or reported"],["Records with each component","All records"],["The clinical total contains 20 explicit components plus one qualified record with clinical input. The totals overlap and should not be added.","Clinical input is included in 21 selected definitions, including Lu 2021, where the integration rule is not specified. Component totals overlap and should not be added."],["The full framework combines neurological examination, CSF tumour cell assessment and brain and spine MRI. Some records used its imaging assessment alone.","The full framework combines neurological examination, CSF tumour cell assessment and brain and spine MRI. Some records used imaging alone in their selected response definition and also assessed other components."],["Lu 2021 named modified imaging criteria without specifying the exact change. Clinical symptoms also informed assessment, but their formal role is unclear.","Lu 2021 named modified imaging criteria without specifying the exact change. Clinical symptom improvement informed the MRI response judgment; the exact integration rule is not specified."],["Code a component when it has an explicit role in at least one response rule or category, including a conditional role. Diagnosis, eligibility, safety monitoring and separate outcomes do not establish a role in that response definition.","For the primary count, code a component when it has an explicit role in the selected response rule or category, including a conditional role. Diagnosis, eligibility, safety monitoring and separate outcomes do not establish a role in that selected definition. The parenthetical count separately includes documented follow-up assessments and reporting, with their purposes identified in the study notes."],["Zero means no role identified. Not stated means unspecified. Components need not all improve together. Component totals overlap and should not be added.","A primary zero means no role identified in the selected definition. A parenthetical zero means no qualifying follow-up assessment was identified in the available sources, subject to the stated source limits. Baseline-only use and planned-only measures are disclosed separately. Components need not all improve together. Component totals overlap and should not be added."],["Clinical input is reported, but its formal integration is unspecified. This is the qualified clinical entry.","Clinical assessment performed and reported. The authors state it informed the MRI response judgment; the exact integration rule is not specified."],["Clinical status and MRI determine global LM response. CSF response is assessed separately.","Clinical status and MRI determine global LM response. CSF cytological response was formally defined and reported separately."],["The inventory uses the prespecified LM protocol definition. Published CNS response results used iRANO, a different assessment.","The inventory uses the prespecified LM protocol definition. Published CNS response results used iRANO, a different assessment. The separate protocol intracranial criteria require stable or decreasing corticosteroids."],["Methods names a revised LANO imaging grid. Discussion leaves uncertainty about the precise scorecard applied.","Methods names the revised Leptomeningeal Assessment in Neuro-Oncology (LANO) grid and cites Le Rhun 2019. Discussion leaves uncertainty about its precise implementation; it does not establish use of the later 2022 scorecard."],["Walking independence is coded for Nakagawa 1996 and corticosteroid dose for Chamberlain 1998.","Walking independence is coded in the selected definition for Nakagawa 1996 and corticosteroid dose for Chamberlain 1998. The broader assessment count also includes the named molecular, pressure-related, quality-of-life and steroid measures described in the study notes."],["Modified RANO-LM radiological response; exact modification not specified.","Modified RANO-LM radiological response informed by clinical symptom improvement; the exact integration rule is not specified."],["RANO-LM neurological, cytological and imaging response; imaging scorecard version requires qualification.","RANO-LM clinical, CSF cytological and imaging assessment; Methods names the revised Leptomeningeal Assessment in Neuro-Oncology (LANO) grid, but the Discussion leaves the implemented scorecard version unclear."],["Disease sites follow the standardised outcome categories in the review workbook. Park 2024 row 107 remains in the LM column, although the original outcome is labelled intracranial ORR.","The investigator RECIST assessment in Park 2024 is grouped under LM response because Table 2 footnote b specifies response of LM only, although the outcome is labelled intracranial ORR."]],"evidence":[["Pina 2025","Pina 2025: \"Two patients remained alive and clinically well\" documents post-treatment clinical status, not a clinical response criterion; paired CSF immunocellular profiling was a separate secondary endpoint. A CSF cytokine profile was registered as planned, while the publication reports RNA profiling rather than a completed chemical result (p6; p11; registered secondary outcomes)."],["Chen H 2025","Chen H 2025: \"the clinical response rate was 75%\" refers to a separately defined clinical endpoint outside the selected radiological LM ORR; CSF cfDNA methylation and copy-number burden were also analysed against response (pp67, 69 to 71)."],["Park 2024","Park 2024: \"Quality-of-life assessment during the treatment\" is reported in Figure 3; neurological examinations and follow-up CSF cytology were also assessed outside the selected BICR imaging definition. The SAP defines a separate CSF response rate and plans post-treatment ctDNA analysis, whose completion is not established here (pp2749, 2751 and 2753; SAP sections 9.2.5 and 11.2)."],["Pan 2023","Pan 2023: \"intracranial hypertension and neurological symptoms and deficits that indicated CSF flow obstruction\" improved in 72% of patients; this is additional pressure/indirect flow reporting outside the formal triad, and no CSF flow scan was performed (pp6, 7)."],["Esteva 2000","Esteva 2000: \"CT or MRI of the brain was repeated every 6 weeks.\" Imaging was monitored but was not a criterion in the stated response definition (p383, Monitoring and response determination)."],["Glantz 1999 ID 692","Glantz 1999 (ID 692): \"CSF examinations for WBCs and RBCs, glucose, protein, and malignant cells\" identifies serial examinations performed before each cycle of therapy in the toxicity-monitoring paragraph, outside response criteria; FACT-CNS was measured at entry and end of induction and compared by responder status (pp3396, 3398)."],["Rhun 2020","Rhun 2020: global LM response requires \"clinical and MRI response\"; a separate formal CSF response was defined and reported as cytological complete responses in 5 (14%) versus 10 (28%) patients. CSF biochemical analysis was scheduled and steroid dose was recorded on the neurological grid; neither entered the global response definition, and no steroid analysis was performed (Table S8; p531; Tables S4 and S2; p534)."],["Kumthekar 2023","Kumthekar 2023: \"A subset of patients within this clinical trial underwent these evaluations\" refers to the separately reported CSF circulating tumour-cell substudy; it is outside the clinical, cytological and MRI response definition. Biochemical response assessment was not found in available sources, and the cited supplementary response table was unavailable (p563)."],["Brastianos 2021","Brastianos 2021: \"We evaluated cell counts, glucose, and protein from CSF samples\" before and during treatment; these measurements and corticosteroid trajectories were reported outside the selected protocol LM triad (p3; Supplementary Tables 2 and 3; protocol section 11.4)."],["Bokstein 1998","Bokstein 1998: \"The quality of life of the responders who were treated without intra-CSF chemotherapy was better\" is qualitative reporting outside the integrated neurological, cytological and imaging response criteria; no instrument or schedule is given (p1762)."],["Xu Q 2025","Xu Q 2025: \"CSF tumor marker responses were classified as response, stable, or progression\" defines a separate longitudinal biochemical response endpoint outside the selected EANO-ESMO clinical, imaging and cytology definition (Results, concordance analysis; Table 2 and Supplementary Table S7)."],["Park 2020","Park 2020: \"CSF cytology in the LM cohort was performed along with radiologic response evaluation\" in patients with an Ommaya reservoir; neurological examinations were scheduled in the protocol, and serial CSF EGFR T790M disappearance was reported. These additional assessments are outside the RECIST LM non-target response definition (Extended materials; protocol section 6.2)."],["Lu 2021","Lu 2021: \"the response criteria of MRI were judged according to the improvement of clinical symptoms\" establishes clinical input, with no specified integration rule; follow-up CSF assessment is explicitly \"Not done\" for all 14 patients (p178; Table 2)."],["Orlando 2002","Orlando 2002: \"we did not consider these values as parameters for assessement of response\" explicitly excludes CSF biochemistry, and the authors also exclude CT/MRI response evaluation; these components were excluded by the authors, not merely unspecified (p3059)."],["Chamberlain 1998","Chamberlain 1998: \"No biochemical markers (eg, lactate dehydrogenase) were used in evaluating CSF responses.\" They were excluded by the authors; baseline protein/glucose abnormalities were reported, and stable or decreasing steroid dosage is a formal cytological response condition (pp507, 508)."],["Pan 2020","Pan 2020: \"The following parameters were determined before treatment\" includes CSF biochemistry; it is baseline-only reporting, not a serial biochemical response result or a formal response criterion (p3; Table 1)."],["Grossman 1993","Grossman 1993: \"normal CSF protein and glucose levels\" is part of the four-component complete-response rule in the available transcript. The original PDF was not found in available sources; no additional Other response component was found in that transcript (transcript, p563)."]],"notes":[["Lu clinical","Clinical assessment performed and reported. The authors state it informed the MRI response judgment; the exact integration rule is not specified."],["Lu cytology","Follow-up CSF assessment explicitly not done (Table 2, all 14 patients). Baseline diagnostic cytopathology was performed."],["Lu biochemistry","Baseline CSF protein was reported. No biochemical criterion or follow-up biochemical response assessment was found in the available sources."],["Lu Other","No additional response component was identified in the available sources."],["Orlando biochemistry and imaging","CSF biochemical markers and imaging were excluded by the authors from response evaluation. Diagnostic or baseline use does not change those exclusions."],["Chamberlain 1998 biochemistry","Biochemical markers were excluded by the authors from CSF response evaluation. Baseline CSF protein and glucose abnormalities were reported."],["Kumthekar biochemistry","CSF biochemical response assessment: not found in available sources. The cited per-patient supplementary response table was not available for this review."],["Grossman record provenance and Other","Coding is supported by the available full-text transcript; the original article PDF was not found in available sources. No additional Other response component was found in that transcript."],["Pan 2020 biochemistry","CSF biochemistry was reported before treatment, including abnormalities in 28 of 34 patients. It was not a response criterion, and no serial biochemical response result was identified."]],"steroid":"The protocol intracranial complete-response criteria require \"stable or decreasing corticosteroids\". This condition is separate from the dedicated LM table; the published CNS response used iRANO, and corticosteroid-dose changes were reported alongside response outcomes.","qualification":"Rhun 2020 contributes a scheduled CSF biochemical assessment, not a separately established serial biochemical result. Glantz 1999 (ID 692) contributes safety monitoring. Kumthekar 2023 has a missing supplementary response table and is not counted as a biochemical positive. Pina 2025 has a planned-only cytokine assessment. Grossman 1993 is supported by the available transcript. Baseline-only measurements are described in the study notes.","composite":"Includes the Brastianos 2021 protocol LM definition. Published CNS results used iRANO. The separate protocol intracranial criteria require stable or decreasing corticosteroids."};
   const ids = ['hetero', 'explore', 'compartment'];
   const isResponse = () => /^#\/response(?:\/|$)/.test(location.hash);
   const label = (component, value) => component + ': ' + value + '. First number is the selected definition; parentheses describe documented assessment or reporting.';
@@ -3779,7 +3818,7 @@ html body :is(#hetero,#explore,#compartment).v10s-section .v10t-content .full-en
   }
 
   function patchCounts(root) {
-    root.querySelectorAll('table.main-table, table.full-table').forEach(table => {
+    root.querySelectorAll('table.full-table').forEach(table => {
       const headers = Array.from(table.querySelectorAll('thead th')).map(el => el.textContent.trim());
       table.querySelectorAll('tbody tr[data-definition]').forEach(row => {
         const values = data.counts[row.dataset.definition];
@@ -3788,9 +3827,9 @@ html body :is(#hetero,#explore,#compartment).v10s-section .v10t-content .full-en
       });
       const total = table.querySelector('tfoot tr');
       if (total) Array.from(total.cells).slice(2).forEach((cell, index) => setValue(cell, headers[index + 2], data.counts.all[headers[index + 2]], false));
-      table.setAttribute('aria-describedby', table.classList.contains('full-table') ? 'v10t-level-key v10t-count-qualification' : 'v10t-level-key');
+      table.setAttribute('aria-describedby', 'v10t-count-qualification');
     });
-    root.querySelectorAll('.main-entries .entry[data-definition], .full-entries .entry[data-definition]').forEach(entry => {
+    root.querySelectorAll('.full-entries .entry[data-definition]').forEach(entry => {
       const values = data.counts[entry.dataset.definition];
       if (!values) return;
       entry.querySelectorAll('.values > .component').forEach(cell => {
@@ -3802,6 +3841,80 @@ html body :is(#hetero,#explore,#compartment).v10s-section .v10t-content .full-en
       const component = cell.previousElementSibling.textContent.trim();
       setValue(cell, component, data.counts.all[component], false);
     });
+  }
+
+  /* v15: main table shows one number per cell (records whose response rule includes the component) and a total row. */
+  function v15Count(value) { const m = /^(\d+) of (\d+)/.exec(value || ''); return m ? [Number(m[1]), Number(m[2])] : null; }
+  function v15Cell(container, component, value, shaded) {
+    const c = v15Count(value);
+    if (!c) return;
+    container.replaceChildren();
+    if (shaded) {
+      const ns = 'http://www.w3.org/2000/svg';
+      const heat = document.createElementNS(ns, 'svg');
+      heat.classList.add('heat');
+      heat.setAttribute('viewBox', '0 0 100 100');
+      heat.setAttribute('preserveAspectRatio', 'none');
+      heat.setAttribute('aria-hidden', 'true');
+      heat.setAttribute('focusable', 'false');
+      const rect = document.createElementNS(ns, 'rect');
+      rect.setAttribute('width', '100');
+      rect.setAttribute('height', '100');
+      rect.setAttribute('fill', '#336699');
+      rect.setAttribute('fill-opacity', (0.18 * c[0] / c[1]).toFixed(3));
+      heat.appendChild(rect);
+      container.appendChild(heat);
+    }
+    const span = document.createElement('span');
+    span.className = 'value v15-value';
+    span.textContent = String(c[0]);
+    span.setAttribute('aria-label', component + ': ' + c[0] + ' of ' + c[1] + ' study records include it in the response rule');
+    container.appendChild(span);
+  }
+  function patchMain(root) {
+    const comps = ['Clinical assessment', 'CSF cytology', 'Imaging'];
+    const totalRecords = Object.keys(data.counts).filter(k => k !== 'all').reduce((n, k) => n + v15Count(data.counts[k]['Imaging'])[1], 0);
+    const table = root.querySelector('table.main-table');
+    if (table) {
+      const headers = Array.from(table.querySelectorAll('thead th')).map(el => el.textContent.trim());
+      table.querySelectorAll('tbody tr[data-definition]').forEach(row => {
+        const values = data.counts[row.dataset.definition];
+        if (!values) return;
+        Array.from(row.cells).slice(2).forEach((cell, index) => v15Cell(cell, headers[index + 2], values[headers[index + 2]], true));
+      });
+      if (!table.tFoot) {
+        const foot = table.createTFoot();
+        const tr = foot.insertRow();
+        tr.className = 'v15-total';
+        const th = document.createElement('th');
+        th.scope = 'row';
+        th.textContent = 'Total';
+        tr.appendChild(th);
+        const n = tr.insertCell();
+        n.className = 'count';
+        n.textContent = String(totalRecords);
+        headers.slice(2).forEach(h => { const td = tr.insertCell(); td.className = 'component'; v15Cell(td, h, data.counts.all[h], false); });
+      }
+      table.setAttribute('aria-describedby', 'v10t-level-key');
+    }
+    const cards = root.querySelector('.main-entries');
+    if (cards) {
+      cards.querySelectorAll('.entry[data-definition]').forEach(entry => {
+        const values = data.counts[entry.dataset.definition];
+        if (!values) return;
+        entry.querySelectorAll('.values > .component').forEach(cell => {
+          const component = cell.querySelector('dt').textContent.trim();
+          v15Cell(cell.querySelector('dd'), component, values[component], true);
+        });
+      });
+      if (!cards.querySelector('.v15-total-entry')) {
+        const sec = document.createElement('section');
+        sec.className = 'entry total-entry v15-total-entry';
+        sec.innerHTML = '<div class="entry-head"><h3>Total</h3><span class="entry-count">' + totalRecords + ' records</span></div><dl class="values">' + comps.map(c => '<div class="component"><dt>' + c + '</dt><dd></dd></div>').join('') + '</dl>';
+        sec.querySelectorAll('.values > .component').forEach(cell => v15Cell(cell.querySelector('dd'), cell.querySelector('dt').textContent, data.counts.all[cell.querySelector('dt').textContent], false));
+        cards.appendChild(sec);
+      }
+    }
   }
 
   function studyEntry(root, name) {
@@ -3833,7 +3946,7 @@ html body :is(#hetero,#explore,#compartment).v10s-section .v10t-content .full-en
       p.className = 'component-key v10t-count-qualification';
       p.textContent = data.qualification;
       cards.after(p);
-      cards.setAttribute('aria-describedby', 'v10t-level-key v10t-count-qualification');
+      cards.setAttribute('aria-describedby', 'v10t-count-qualification');
     }
   }
 
@@ -3845,9 +3958,10 @@ html body :is(#hetero,#explore,#compartment).v10s-section .v10t-content .full-en
       if (!root || root.dataset.v10tApplied === '1') return;
       replaceCopy(root);
       patchCounts(root);
+      if (id === 'hetero') patchMain(root);
       if (id === 'hetero') {
         const keys = root.querySelectorAll('.component-key');
-        const key = Array.from(keys).find(el => el.textContent.startsWith('First number:'));
+        const key = Array.from(keys).find(el => el.textContent.startsWith('Each number counts'));
         if (key) {
           key.id = 'v10t-level-key';
           key.classList.add('v10t-level-key');
@@ -3875,6 +3989,55 @@ html body :is(#hetero,#explore,#compartment).v10s-section .v10t-content .full-en
   window.addEventListener('load', schedule, {once: true});
   window.addEventListener('hashchange', schedule);
   window.addEventListener('resize', schedule, {passive: true});
+})();
+</script>
+<style id="v15-fixes">
+/* Response page, main components table */
+html body #hetero.v10s-section .v10s-content #main-comparison tr.family th{background:#EEF2F7!important;color:#2D3542!important;font-size:12px!important;font-weight:750!important;padding:12px 14px 8px!important;border-top:2px solid #C9D6E4!important;border-bottom:1px solid #DDE5EE!important}
+html body #hetero.v10s-section .v10s-content #main-comparison .v15-value{font-weight:700;font-size:15px;font-variant-numeric:tabular-nums}
+html body #hetero.v10s-section .v10s-content #main-comparison tfoot tr.v15-total :is(th,td){background:#F7F9FC!important;border-top:2px solid #16202C!important;font-weight:750!important;font-variant-numeric:tabular-nums}
+html body #hetero.v10s-section .v10s-content #main-comparison tfoot tr.v15-total td.count{font-weight:750!important}
+html body #hetero.v10s-section .v10s-content .main-entries .values{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+html body #hetero.v10s-section .v10s-content .main-entries .values>.component{display:block!important;padding:8px 7px!important}
+html body #hetero.v10s-section .v10s-content .main-entries .values dt{min-height:36px!important;margin:0 0 7px!important}
+html body #hetero.v10s-section .v10s-content .main-entries .v15-value{font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
+html body #hetero.v10s-section .v10s-content .main-entries .family-label{background:#EEF2F7;color:#2D3542!important;font-weight:750;font-size:13px!important;padding:9px 10px!important;margin-top:14px!important;border-top:2px solid #C9D6E4}
+html body #hetero.v10s-section .v10s-content .main-entries .v15-total-entry{border-top:2px solid #16202C;margin-top:8px!important;padding:14px 0!important;background:none!important}
+/* Response Sankey as a list on phones */
+html body #hetero .v15-leaf-group{margin:14px 0 6px;font-size:13px;font-weight:750;color:#2D3542}
+html body #hetero .v15-leaf-in{display:flex;gap:14px;align-items:flex-start;padding:8px 0;font-size:13.5px;line-height:1.4;color:var(--ink)}
+html body #hetero .v15-leaf-in span{flex:1;min-width:0}
+html body #hetero .v15-leaf-in small{display:block;color:var(--muted);font-size:11.5px;margin-top:3px}
+html body #hetero .v15-leaf-in b{font-size:15px;font-variant-numeric:tabular-nums}
+@media (max-width:619.98px){html body #hetero.v10s-section #v10s-sankey{overflow:visible!important}}
+/* Charts fit the phone width */
+@media (max-width:759.98px){
+html body :is(#chart-gap,#chart-sub,#chart-allfreq,#chart-pri,#genome)>svg,html body #landscape #chart-gap svg{min-width:0!important;width:100%!important;max-width:100%!important;min-height:0!important}
+html body :is(#chart-gap,#chart-sub,#chart-allfreq,#chart-pri,#genome){overflow:visible!important;background:none!important}
+}
+/* Table 1 fits the phone width, words never break inside */
+@media (max-width:600px){
+html body #table1 .t1-wrap{overflow-x:visible!important;background:none!important}
+html body #table1 .t1{min-width:0!important;width:100%!important;table-layout:fixed!important;font-size:12px!important}
+html body #table1 .t1 :is(th,td){overflow-wrap:normal!important;word-break:normal!important;hyphens:manual!important}
+html body #table1 .t1 thead th{font-size:10px!important;line-height:1.3!important;white-space:normal!important;padding:8px 3px!important;letter-spacing:0!important}
+html body #table1 .t1 thead th:first-child,html body #table1 .t1 td.sub{width:33%!important;min-width:0!important;max-width:none!important;font-size:11px!important;padding-left:2px!important;padding-right:4px!important}
+html body #table1 .t1 thead th:nth-child(3),html body #table1 .t1 td.out{width:15%!important;min-width:0!important;padding-left:2px!important;padding-right:2px!important;text-align:right!important}
+html body #table1 .t1-wrap table.t1 thead th:nth-child(4),html body #table1 .t1-wrap table.t1 td.stud{width:13%!important;min-width:0!important;padding-left:4px!important;padding-right:2px!important}
+html body #table1 .t1 td.term{font-size:12px!important;padding-left:4px!important;padding-right:4px!important;white-space:normal!important}
+html body #table1 .t1 :is(td.out,td.stud) .p{display:block!important;font-size:11px!important}
+html body #table1 .t1 td.stud .lab{font-size:12px!important}
+}
+</style>
+<script id="v15-table1-wbr">
+/* v15: allow Table 1 names to wrap after a slash (no visible text change). */
+(function(){
+  function run(){document.querySelectorAll('#table1 .t1 :is(td.sub,td.term)').forEach(function(td){
+    if(td.dataset.v15Wbr)return;td.dataset.v15Wbr='1';
+    var w=document.createTreeWalker(td,NodeFilter.SHOW_TEXT),nodes=[],n;while((n=w.nextNode()))if(n.nodeValue.indexOf('/')>=0)nodes.push(n);
+    nodes.forEach(function(t){var parts=t.nodeValue.split('/'),f=document.createDocumentFragment();parts.forEach(function(p,i){if(i){f.appendChild(document.createTextNode('/'));f.appendChild(document.createElement('wbr'));}if(p)f.appendChild(document.createTextNode(p));});t.parentNode.replaceChild(f,t);});
+  });}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
 })();
 </script>
 </body>
