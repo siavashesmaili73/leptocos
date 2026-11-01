@@ -1084,7 +1084,7 @@ html body #methods .v10c-prisma-viewport{border:0;outline:none!important;mask-im
     <p style="font-size:12px;color:var(--muted);margin:12px 0 0;line-height:1.5">Registered as <b style="color:var(--ink)">COMET Initiative Study 3224</b> · informed by the COMET Handbook and the COS-STAD standards; the systematic review follows PRISMA reporting guidance.</p>
     <div class="prov">
       <span><b id="p-stud">46</b> included trials</span><span><b>1982 to 2025</b></span>
-      <span><b id="p-out">369</b> reported outcomes</span><span><b id="p-term">56</b> standardised outcomes</span>
+      <span><b id="p-out">369</b> reported outcomes</span><span><b id="p-term">57</b> standardised outcomes</span>
       <span><b>20</b> sub-domains</span><span><b>5</b> COMET core areas</span>
     </div>
   </div>
@@ -2841,7 +2841,7 @@ function v10pFullOutcomeMap(){
   subs.forEach((s,i)=>{const cy=s.y+s.h/2;nodes+=`<g class="fm-node" data-id="s${i}" role="img" aria-label="${esc(s.name)} maps to ${esc(s.core)}"><rect x="${cols[1].x}" y="${s.y}" width="${cols[1].w}" height="${s.h}" fill="${tint[s.core]}" stroke="${s.col}" stroke-opacity=".6"/><rect x="${cols[1].x}" y="${s.y}" width="4" height="${s.h}" fill="${s.col}"/>${journalText9(cols[1].x+12,cy,s.name,cols[1].w-24,'chart-label','#16202C',12)}</g>`;});
   cores.forEach((c,i)=>{const cy=c.y+c.h/2;nodes+=`<g class="fm-node" data-id="c${i}" role="img" aria-label="${esc(c.name)} COMET core area"><rect x="${cols[2].x}" y="${c.y}" width="${cols[2].w}" height="${c.h}" fill="${c.col}"/>${journalText9(cols[2].x+12,cy,c.name,cols[2].w-24,'chart-core-label',chartTextOn(c.col))}</g>`;});
   const head=(x,w,a,b)=>journalText9(x,22,a,w,'chart-axis','#5E6A78')+journalText9(x,46,b,w,'chart-axis','#5E6A78');
-  heads+=head(cols[0].x,cols[0].w,'56 standardised outcomes','number = reported outcomes');heads+=head(cols[1].x,cols[1].w,'20 LeptoCOS sub-domains','disease-specific grouping');heads+=head(cols[2].x,cols[2].w,'5 COMET core areas','broad outcome framework');
+  heads+=head(cols[0].x,cols[0].w,'57 standardised outcomes','number = reported outcomes');heads+=head(cols[1].x,cols[1].w,'20 LeptoCOS sub-domains','disease-specific grouping');heads+=head(cols[2].x,cols[2].w,'5 COMET core areas','broad outcome framework');
   el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Alluvial map of the 57 standardised outcomes through 20 LeptoCOS sub-domains to the five COMET core areas; band width is proportional to the number of reported outcomes">${heads}<g>${ribbons}</g><g>${nodes}</g></svg>`;
   const read=document.getElementById('full-map-readout'),base='<span class="mark"></span><span><b>Complete map:</b> band width is proportional to the number of reported outcomes (369). Hover over an outcome, sub-domain or core area to isolate its pathway.</span>';
   if(read)read.innerHTML=base;
@@ -2857,7 +2857,7 @@ function apply(){
     var setAll=function(){try{hierarchyExpanded=true;}catch(e){}v10pFullOutcomeMap();
       var t=document.getElementById('hierarchy-stat-terms');if(t)t.textContent='57';var s=document.getElementById('hierarchy-stat-subdomains');if(s)s.textContent='20';var c=document.getElementById('hierarchy-stat-cores');if(c)c.textContent='5';
       var ls=document.getElementById('hierarchy-label-subdomains');if(ls)ls.textContent='sub-domains';var lc=document.getElementById('hierarchy-label-cores');if(lc)lc.textContent='core areas';
-      if(d)d.textContent='All 56 standardised outcomes, grouped into 20 disease-specific LeptoCOS sub-domains and mapped to the five COMET core areas. Band width shows how many of the 369 reported outcomes each carries.';};
+      if(d)d.textContent='All 57 standardised outcomes, grouped into 20 disease-specific LeptoCOS sub-domains and mapped to the five COMET core areas. Band width shows how many of the 369 reported outcomes each carries.';};
     window.setHierarchyDetail=function(){setAll();};
     setAll();
   }catch(e){}
